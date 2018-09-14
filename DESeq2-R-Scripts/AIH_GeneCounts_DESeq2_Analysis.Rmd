@@ -8,14 +8,15 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
 
 ```{r}
-library( "DESeq2" )
-library( "Rsamtools" )
-library( "biomaRt" )
-library( "GenomicAlignments" )
-library( "gplots")
+library(DESeq2)
+library(Rsamtools)
+library(biomaRt)
+library(GenomicAlignments)
+library( gplots)
 library(dplyr)
-library("gplots")
-library("RColorBrewer")
+library(gplots)
+library(RColorBrewer)
+library(stringr)
 ```
 
 
@@ -58,8 +59,12 @@ genecountsfilt <- genecounts [colnames(genecounts) %in% rownames(metadatafilt)]
 Confirm that dataframes are compatible with DESeq2
 
 ```{r}
+#extract only the aasld id from the long filename
+rownames(metadatafilt)<-str_extract(rownames(metadatafilt), pattern = "aasld_\\d+")
+colnames(genecountsfilt) <- str_extract(colnames(genecountsfilt), pattern = "aasld_\\d+")
 #check that column names of gene counts equals rownames of gene counts
 all(rownames(metadatafilt)==colnames(genecountsfilt))
+
 ```
 
 Use biomart to pull gene attributes that can be linked to the ENSEMBL ID and create a new data frame that includes these attributes
@@ -114,7 +119,6 @@ write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_no
 We can now answer the question, how many of our gene counts are considered protein coding?
 
 ```{r}
-
 #find the total number of gene counts to HG38 for each sample
 genecountstotal<-cbind(total = colSums(genecountsfilt), row.names(colnames(genecountsfilt)))
 #find the number of protein coding genes for each sample
@@ -123,6 +127,25 @@ genecountstotal <- as.data.frame(cbind(genecountstotal, pc=colSums(genecountspc)
 genecountstotal <- mutate(genecountstotal, percentpc = pc/total)
 #View the results
 head(genecountstotal)
+```
+
+```{r}
+log_genecountspc <- log(genecountspc)
+head(vstassay)
+?prcomp
+genecountspc_pca <- prcomp(vstassay, center = TRUE,
+                 scale. = TRUE) 
+
+plot (genecountspc_pca)
+
+install.packages("devtools")
+library(devtools)
+install_github("vqv/ggbiplot")
+library(ggbiplot)
+
+ggbiplot(genecountspc_pca)
+
+
 ```
 
 Before running through DESeq2, we may want to do some filtering of low count genes, which contribute to noise in our data. Here is an example pre-filter step from Stephanie:
@@ -187,7 +210,9 @@ write.csv( as.data.frame(normcounts), file="NormCounts_sexinc_nofilter_AIH-v-hea
 We can now variance stablize the data for plotting. Another option would be rlog, which is much slower but more accurate.
 
 ```{r}
-vst <- getVarianceStabilizedData(dds)
+?vst
+vst <- vst(dds, blind=TRUE)
+vstassay <- assay(vst)
 
 #rld <- rlog( dds )
 #rldassay<-assay(rld)
@@ -198,9 +223,26 @@ vst <- getVarianceStabilizedData(dds)
 
 Clear the plotting area
 ```{r}
-#prepare plotting area
-dev.off() #may give you an error, ignore if it says cannot shut down device 1
+
+
+install.packages("devtools")
+library(devtools)
+install_github("vqv/ggbiplot")
+library(ggbiplot)
+??ggbioplot
+ggbiplot(genecountspc_pca)
+#any variable you would like to examine must be included in intgroup
+?plotPCA
+data <- plotPCA(vst, intgroup=c("case_hl_du","sex", "race", "ethn"), returnData=TRUE)
+percentVar <- round(100 * attr(data, "percentVar"))
+#can change color, shape, fill, etc to see multiple labels at a time
+ggplot(data, aes(as.numeric(PC1), as.numeric(PC2), color=case_hl_du, shape = sex)) +
+  geom_point(size=3) +
+  geom_text(aes(label=""),hjust=.5, vjust=0)+
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance"))
 ```
+
 
 Create a heat map of the top 30 genes based on mean, using variance stabalized data
 
@@ -243,7 +285,8 @@ PCA plot
 ```{r}
 library(ggplot2)
 #any variable you would like to examine must be included in intgroup
-data <- plotPCA(vst(dds), intgroup=c("case_hl_du","sex", "race", "ethn"), returnData=TRUE)
+data <- plotPCA(vst(dds), intgroup=c("case_hl_du","sex", "race", "ethn"), returnData=TRUE, blind=TRUE)
+?plotPCA
 percentVar <- round(100 * attr(data, "percentVar"))
 #can change color, shape, fill, etc to see multiple labels at a time
 ggplot(data, aes(as.numeric(PC1), as.numeric(PC2), color=case_hl_du, shape = sex)) +
