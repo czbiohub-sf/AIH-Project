@@ -129,25 +129,6 @@ genecountstotal <- mutate(genecountstotal, percentpc = pc/total)
 head(genecountstotal)
 ```
 
-```{r}
-log_genecountspc <- log(genecountspc)
-head(vstassay)
-?prcomp
-genecountspc_pca <- prcomp(vstassay, center = TRUE,
-                 scale. = TRUE) 
-
-plot (genecountspc_pca)
-
-install.packages("devtools")
-library(devtools)
-install_github("vqv/ggbiplot")
-library(ggbiplot)
-
-ggbiplot(genecountspc_pca)
-
-
-```
-
 Before running through DESeq2, we may want to do some filtering of low count genes, which contribute to noise in our data. Here is an example pre-filter step from Stephanie:
 ```{r eval=FALSE, include=FALSE}
 #PREFILTERING: keep genes with at least 10 counts in 20% of samples
