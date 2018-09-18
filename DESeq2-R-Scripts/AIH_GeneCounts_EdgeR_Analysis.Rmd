@@ -94,12 +94,10 @@ cpm <- cpm(dge)
 log2_cpm <- cpm(dge, log=TRUE)
 
 #filter out samples that have cpm > 1 in more than 3 samples
-dge_sub <- dge[rowSums(cpm>1)>=10, ]
+dge_sub <- dge[rowSums(cpm>2)>=15, ]
 head(rowSums(cpm>1))
 dim(dge)
 dim(dge_sub)
-
-
 
 nsamples <- ncol(dge)
 col <- brewer.pal(nsamples, "Paired")
@@ -163,7 +161,6 @@ Plot the raw and normalized data
 #from the EdgeR package, many types of normalization methods [TMM is only one]
 #takes raw gene counts or DGE object
 #normalizes based on library size, anything that went wrong with experiment
-?calcNormFactors
 dge_sub_norm <- calcNormFactors(dge_sub, method = "TMM")
 dge_sub_norm$samples
 
@@ -214,5 +211,11 @@ plotMDS(log2cpm_norm,
         ylab="Log2(Fold-Change)")
 title(main="Sample groups")
 
+```
+
+```{r}
+?ggbiplot
+pca <- log2cpm_norm
+ggbiplot(prcomp(t(pca)))
 ```
 
