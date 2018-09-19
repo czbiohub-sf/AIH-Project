@@ -16,7 +16,7 @@ library( gplots)
 library(dplyr)
 library(gplots)
 library(RColorBrewer)
-library(stringr)
+library(stringr)s
 ```
 
 
@@ -24,19 +24,18 @@ library(stringr)
 First we take the gene counts file and remove ERCC genes and select only 1XPCR DAShed samples
 ```{r}
 #take gene_counts_final from STAR tab file, after running Caitriona's script
-genecounts<-read.delim(as.matrix("gene_counts_final_AIH_NovaSeq_1xPCR-DASHed_noDASH.tsv"), row.names = 1, stringsAsFactors = TRUE) 
+genecounts<-read.delim(as.matrix("../AIH NovaSeq Gene Counts/aih_full_unfiltered_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE)
+genecounts<-genecounts[5:nrow(genecounts),]
 
 #make an ERCC gene counts dataframe and then remove those gene counts
 ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
 genecounts <- genecounts[ !rownames(genecounts) %in% rownames(ERCCgenecounts), ]
 
 
-#select only 1XPCR DASHed samples, which are the first 56 samples
-genecounts <- genecounts[,1:55]
-
 #take genenames from gene counts file and split them across the period, only taking the first column. this strips the version number of the ENSEMBL ID.
 genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
 rownames(genecounts) <- genenames
+
 ```
 
 Then we load in the metadata and filter out the duplicates, because their information is not complete and will weight the gene expression.
@@ -44,7 +43,7 @@ Then we load in the metadata and filter out the duplicates, because their inform
 ```{r}
 
 #take a metadata spreadsheet with samples as first column and metadata headers as first row
-metadata <- read.csv("18_0820_AIH_metadata_plate01.csv", header=TRUE, nrows = 55, stringsAsFactors = TRUE)
+metadata <- read.csv("18_0914_AASLD_AutoimmunePilot_metadata.csv", header=TRUE, stringsAsFactors = TRUE)
 
 #filter out duplicates so we are only looking at cases and controls
 metadata$case_hl_du <- as.numeric(metadata$case_hl_du)
@@ -53,15 +52,22 @@ rownames(metadatafilt) <- metadatafilt[,1]
 metadatafilt <- metadatafilt[,-1]
 metadatafilt[colnames(metadatafilt)]<-lapply(metadatafilt[colnames(metadatafilt)], factor)
 
+#extract only the aasld id from the long filename
+rownames(metadatafilt)
+rownames(metadatafilt)<-str_extract(rownames(metadatafilt), pattern = "aasld[.|_]\\d+")
+colnames(genecounts) <- str_extract(colnames(genecounts), pattern = "aasld[.|_]\\d+")
+
+#make genecounts table that has only samples in rownames table
 genecountsfilt <- genecounts [colnames(genecounts) %in% rownames(metadatafilt)]
+colnames(genecountsfilt)
+rownames(metadatafilt)
+metadatafilt <- metadatafilt [rownames(metadatafilt) %in% colnames(genecountsfilt),]
 ```
 
 Confirm that dataframes are compatible with DESeq2
 
 ```{r}
-#extract only the aasld id from the long filename
-rownames(metadatafilt)<-str_extract(rownames(metadatafilt), pattern = "aasld_\\d+")
-colnames(genecountsfilt) <- str_extract(colnames(genecountsfilt), pattern = "aasld_\\d+")
+
 #check that column names of gene counts equals rownames of gene counts
 all(rownames(metadatafilt)==colnames(genecountsfilt))
 
@@ -113,7 +119,7 @@ idxpc<- match(pc$ensembl,rownames(genecountsfilt))
 genecountspc<-genecountsfilt[idxpc,]
 rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
 
-write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_nofilter_genecounts-protein-coding.csv")
+write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_full_cutfilt_genecounts-protein-coding.csv")
 ```
 
 We can now answer the question, how many of our gene counts are considered protein coding?
@@ -157,7 +163,7 @@ Select a variable you would like to contrast, and generate statistics on it usin
 #generate results based on diagnosis of patients
 resDiag<-results(dds, contrast=c("case_hl_du", "2", "1"), alpha=0.2)
 #write a table with the results
-write.table(resDiag, "AIH_Diagnosis_nofilter_DESeq2_Results.tsv", sep="\t")
+write.table(resDiag, "AIH_Diagnosis_full_cutfilt_DESeq2_Results.tsv", sep="\t")
 ```
 
 You can now query the results dataframe for some statistics
@@ -178,14 +184,14 @@ resDiag<- resDiag[ order( resDiag$log2FoldChange ), ]
 
 #pull out just FDR<0.2
 resDiag_subset <- resDiag[ which(resDiag$padj < 0.2), ]
-write.csv(resDiag_subset, file="AIHvControl_sexinc_nofilter_FDR0.2_Genes.csv")
+write.csv(resDiag_subset, file="AIHvControl_full_sexinc_cutfilt_FDR0.2_Genes.csv")
 
 #returns the normalized DE gene counts
 #corrected for size factors
 normcounts<-counts(dds, normalized = TRUE)
 rownames(normcounts)<-rownames(genecountspc)
 colnames(normcounts)<-colnames(genecountspc)
-write.csv( as.data.frame(normcounts), file="NormCounts_sexinc_nofilter_AIH-v-healthy.csv" )
+write.csv( as.data.frame(normcounts), file="NormCounts_full_sexinc_cutfilt_AIH-v-healthy.csv" )
 ```
 
 We can now variance stablize the data for plotting. Another option would be rlog, which is much slower but more accurate.
@@ -204,17 +210,15 @@ vstassay <- assay(vst)
 
 Clear the plotting area
 ```{r}
-
-
 install.packages("devtools")
 library(devtools)
 install_github("vqv/ggbiplot")
 library(ggbiplot)
-??ggbioplot
-ggbiplot(genecountspc_pca)
+genecountspc
+
 #any variable you would like to examine must be included in intgroup
 ?plotPCA
-data <- plotPCA(vst, intgroup=c("case_hl_du","sex", "race", "ethn"), returnData=TRUE)
+data <- plotPCA(vst, intgroup=c("case_hl_du","sex"), returnData=TRUE)
 percentVar <- round(100 * attr(data, "percentVar"))
 #can change color, shape, fill, etc to see multiple labels at a time
 ggplot(data, aes(as.numeric(PC1), as.numeric(PC2), color=case_hl_du, shape = sex)) +
