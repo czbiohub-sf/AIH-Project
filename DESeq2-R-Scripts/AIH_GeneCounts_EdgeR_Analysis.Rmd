@@ -77,6 +77,8 @@ Make a DGE object
 
 ```{r}
 #make a DGE object from original data table
+
+
 dge <- DGEList(counts = genecountspc, lib.size = colSums(genecountspc), genes = pc)
 metadata$case_hl_du[is.na(metadata$case_hl_du)] <- 4
 dge$samples$group <- metadata["case_hl_du"]
