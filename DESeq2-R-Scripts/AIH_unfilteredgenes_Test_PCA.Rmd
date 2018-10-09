@@ -1,0 +1,250 @@
+---
+title: "AIH_unfilteredgenes_Test_PCA"
+author: "Arielle Klepper"
+date: "9/21/2018"
+output: html_document
+---
+
+#Set WD and read in libraries
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+setwd("~/AIH-Project/DESeq2-R-Scripts")
+
+library("DESeq2")
+library("Rsamtools")
+library("biomaRt")
+library("GenomicAlignments")
+library("gplots")
+library("ggplot2")
+library("dplyr")
+library("gplots")
+library("RColorBrewer")
+library ("ggfortify")
+library ("car")
+
+```
+
+
+#Reformatting data for PCA analysis 
+For PCA analysis, the data expects the samples to be rows and the genes to be columns -- we can read in our unfiltered data, select rows of interest, assign gene names using biomaRt, and filter down onto just the protein coding genes for analysis as below (code, taken from AIH DESeq code); then we need to transpose the row names and column names if we want to look by sample (non-transposed genes yield analysis by column)
+
+```{r}
+
+setwd("~/AIH-Project/AIH NovaSeq Gene Counts")
+
+#take gene_counts_final from STAR tab file, after running Caitriona's script
+genecounts<-read.delim(as.matrix("aih_full_cutfilt_dashed_gene_counts_final.tsv"), row.names = 1) 
+
+#make an ERCC gene counts dataframe and then remove those gene counts
+ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
+genecounts <- genecounts[ !rownames(genecounts) %in% rownames(ERCCgenecounts), ]
+genecounts <- genecounts[ ,-(111)]
+
+#take genenames from gene counts file and split them across the period, only taking the first column. this strips the version number of the ENSEMBL ID.
+genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
+rownames(genecounts) <- genenames
+
+#rename column names for AASLD samples 1-55, included in plate 1
+names(genecounts)[1:110]<-paste0("AASLD", "_", sprintf("%03.0f", 1:110))
+
+
+#The following chunk of code uses the ENSEMBL mart, 
+#querying with the ENSEMBL gene id and requesting the Entrez gene id 
+#and HGNC gene symbol. 
+
+#ensemble use HG38 as a reference
+listMarts(host="www.ensembl.org")
+mart = useMart(biomart="ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host="www.ensembl.org")
+genemap <- getBM( attributes = c("ensembl_gene_id", "entrezgene", "hgnc_symbol", "gene_biotype", "description"),
+                  filters = "ensembl_gene_id",
+                  values = genenames,
+                  mart)
+
+#create an index in which you are rearranging ensmbl gene ids from genemap into same order as they are in genenames
+idx <- match(genenames, genemap$ensembl_gene_id )
+
+#create new dataset which binds gene attributes
+entrez <- genemap$entrezgene[ idx ]
+hgnc_symbol <- genemap$hgnc_symbol[ idx ]
+description <- genemap$description[ idx ]
+gene_biotype <- genemap$gene_biotype[ idx ]
+ensembl <- genemap$ensembl_gene_id[ idx ]
+
+ga<-cbind(hgnc_symbol,description,gene_biotype,ensembl,entrez)
+
+#make ga into a data frame from a matrix
+ga<-as.data.frame(ga)
+ga$gene_biotype<-as.character(ga$gene_biotype)
+
+#Create a new dataframe that includes only the protein coding genes and gene counts
+
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+
+#make an index for protein coding genes
+idxpc<- match(pc$ensembl,rownames(genecounts))
+genecountspc<-genecounts[idxpc,]
+rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
+
+write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_nofilter_genecounts-protein-coding.csv")
+
+```
+
+
+##Plotting PCA
+PCA by genes
+
+```{r}
+
+#PCA by gene (unfiltered data)
+##plotting data frame
+###unfiltered
+
+pca_by_gene <- prcomp(genecountspc)
+
+#Assessing variability by multiple mehtods (by each prinical component and by genes in each princple component)
+
+#calculate how much variation in the original data each principal component in the data accounts for (square of the standard devation)
+pca_var_gene <- pca_by_gene$sdev^2
+
+#calculate the *percentage* of variation each principal component accounts for
+pca_var_perc_gene <- round (pca_var_gene/sum(pca_var_gene)*100, 1)
+
+#plot the percentage of variation for princial components using base bar plot function (Scree Plot looks at each comonent and how much that contributes to overall variability)
+barplot (pca_var_perc_gene, main = "Scree Plot", xlab = "principal comonent", ylab = "% variation")
+
+
+#QQ plot to assess outliers of each principal component (can also use qqnorm for a smiplified plot however, outliers are not labeled here)
+
+#Below plot identifies outliers HBB and HBA2 in PCA1
+qqPlot (pca_by_gene$x[,1])
+
+#Below outliers HBB and HBA2 in PCA2
+qqPlot (pca_by_gene$x[,2])
+
+#Below outliers are HLA-C, ACTB (more that aren't captured) in PCA3
+qqPlot (pca_by_gene$x[,3])
+
+#Below outliers are EEF1A1, HBA1 (more that aren't captured) in PCA4
+qqPlot (pca_by_gene$x[,4])
+
+
+##Formatting PCA data into data frames for entry into ggplot 2
+pca_df_by_gene <- data.frame (sample = rownames (pca_by_gene$x), x = pca_by_gene$x[,1], y = pca_by_gene$x[,2])
+
+
+##Call to ggplot the new dataframes generated above
+ggplot(data = pca_df_by_gene, aes(x=x, y=y, label = sample)) +
+  geom_text() +
+  theme_bw() +
+  ggtitle ("PCA by Gene")
+
+##Used above code to identify outliers, removed as per the list below and re-plotted
+#removing outliers (HBB == 10121,HBA2 == 12826, HBA1 == 13827, ACTB == 6999)
+pca_by_gene <- prcomp(genecountspc [-c(6999, 10121, 13826, 13827, 6186, 6552),])
+
+
+##Formatting PCA data into data frames for entry into ggplot 2
+pca_df_by_gene <- data.frame (sample = rownames (pca_by_gene$x), x = pca_by_gene$x[,1], y = pca_by_gene$x[,2])
+
+
+##Call to ggplot the new dataframes generated above
+ggplot(data = pca_df_by_gene, aes(x=x, y=y, label = sample)) +
+  geom_text() +
+  theme_bw() +
+  ggtitle ("PCA by Gene")
+```
+
+##Plotting PCA
+PCA by sample
+
+```{r}
+
+#Transpose the data.frame for use in PCA analysis to compare samples (vs comparing genes)
+transp_genecountspc_forpca <- t(genecountspc)
+
+#run pr comp analysis by sample
+pca_by_sample <- prcomp(transp_genecountspc_forpca)
+
+#Assessing variability by multiple mehtods (by each prinical component and by genes in each princple component)
+
+#calculate how much variation in the original data each principal component in the data accounts for (square of the standard devation)
+pca_var_sample <- pca_by_sample$sdev^2
+
+#calculate the *percentage* of variation each principal component accounts for
+pca_var_perc_sample <- round (pca_var_sample/sum(pca_var_sample)*100, 1)
+
+#plot the percentage of variation for princial components using base bar plot function (Scree Plot looks at each comonent and how much that contributes to overall variability)
+barplot (pca_var_perc_sample, main = "Scree Plot", xlab = "principal comonent", ylab = "% variation")
+
+
+#QQ plot to assess outliers of each principal component (can also use qqnorm for a smiplified plot however, outliers are not labeled here)
+
+#Below plot identifies outliers HBB and HBA2 in PCA1
+qqPlot (pca_by_sample$x[,1])
+
+#Below outliers HBB and HBA2 in PCA2
+qqPlot (pca_by_sample$x[,2])
+
+#Below outliers are HLA-C, ACTB (more that aren't captured) in PCA3
+qqPlot (pca_by_sample$x[,3])
+
+#Below outliers are EEF1A1, HBA1 (more that aren't captured) in PCA4
+qqPlot (pca_by_sample$x[,4])
+
+
+
+##Formatting PCA data into data frames for entry into ggplot 2
+pca_df_by_sample <- data.frame (sample = rownames (pca_by_sample$x), x=pca_by_sample$x[,1], y=pca_by_sample$x[,2])
+
+##adding in metadata - read in from another file of AIH_metadata to identify duplicates
+pca_df_by_sample$duplicate <- metadata$dup
+pca_df_by_sample$case_control <- metadata$case_hl_du
+pca_df_by_sample$F03_F4 <- metadata$F03_F4
+pca_df_by_sample$on_tx <- metadata$on_tx
+pca_df_by_sample$sex <- metadata$sex
+pca_df_by_sample$ethn <- metadata$ethn
+pca_df_by_sample$age <- metadata$age
+pca_df_by_sample$alt <- metadata$alt
+pca_df_by_sample$ast <- metadata$ast
+pca_df_by_sample$tbili <- metadata$bili
+pca_df_by_sample$alkp <- metadata$alkp
+pca_df_by_sample$igg <- metadata$igg
+
+
+
+##Call to ggplot the new dataframes generated above
+#Note list of duplicate pairs (9/72, 19/11, 29/74, 39/96, 49/27)
+
+
+##Plotting gene expression data by sample
+ggplot(data = pca_df_by_sample, aes(x=x, y=y, label = sample)) +
+  geom_text (size = 2, aes (col = case_control)) +
+  theme_bw() +
+  ggtitle ("PCA by Sample")
+
+
+
+
+#using ggplot2 formatting and plotting to visualize the data
+##data frame where one column as the gene ID, two columns are for the x and y coordinates for each sample
+pca_by_gene_data <- data.frame (gene = rownames (pca_by_gene$x), x=pca$x[,1], y=pca$x[,2])
+
+
+prcomp(transp_genecountspc_forpca)
+
+```
+
+
+
+```
+
+
+
+```{r}
+
+```
+
