@@ -16,7 +16,7 @@ library( gplots)
 library(dplyr)
 library(gplots)
 library(RColorBrewer)
-library(stringr)s
+library(stringr)
 ```
 
 
@@ -24,8 +24,8 @@ library(stringr)s
 First we take the gene counts file and remove ERCC genes and select only 1XPCR DAShed samples
 ```{r}
 #take gene_counts_final from STAR tab file, after running Caitriona's script
-genecounts<-read.delim(as.matrix("../AIH NovaSeq Gene Counts/aih_full_unfiltered_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE)
-genecounts<-genecounts[5:nrow(genecounts),]
+genecounts<-read.delim(as.matrix("../../../AIH_NovaSeq_Data/AIH_100218_genecounts/project-aih_novaseq_host-gene-counts (1)/concat_gene_count_tables/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE)
+genecounts<-genecounts[5:nrow(genecounts), 1:55]
 
 #make an ERCC gene counts dataframe and then remove those gene counts
 ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
@@ -53,14 +53,14 @@ metadatafilt <- metadatafilt[,-1]
 metadatafilt[colnames(metadatafilt)]<-lapply(metadatafilt[colnames(metadatafilt)], factor)
 
 #extract only the aasld id from the long filename
-rownames(metadatafilt)
+#rownames(metadatafilt)
 rownames(metadatafilt)<-str_extract(rownames(metadatafilt), pattern = "aasld[.|_]\\d+")
 colnames(genecounts) <- str_extract(colnames(genecounts), pattern = "aasld[.|_]\\d+")
 
 #make genecounts table that has only samples in rownames table
 genecountsfilt <- genecounts [colnames(genecounts) %in% rownames(metadatafilt)]
-colnames(genecountsfilt)
-rownames(metadatafilt)
+#colnames(genecountsfilt)
+#rownames(metadatafilt)
 metadatafilt <- metadatafilt [rownames(metadatafilt) %in% colnames(genecountsfilt),]
 ```
 
@@ -89,6 +89,12 @@ genemap <- getBM( attributes = c("ensembl_gene_id", "entrezgene", "hgnc_symbol",
                   values = genenames,
                   mart)
 
+
+```
+
+Create gene attributes table
+```{r}
+
 #create an index in which you are rearranging ensmbl gene ids from genemap into same order as they are in genenames
 idx <- match(genenames, genemap$ensembl_gene_id )
 
@@ -105,6 +111,7 @@ ga<-cbind(hgnc_symbol,description,gene_biotype,ensembl,entrez)
 ga<-as.data.frame(ga)
 ga$gene_biotype<-as.character(ga$gene_biotype)
 
+unique(ga$gene_biotype)
 ```
 
 Create a new dataframe that encludes only the protein coding genes and gene counts
@@ -119,7 +126,7 @@ idxpc<- match(pc$ensembl,rownames(genecountsfilt))
 genecountspc<-genecountsfilt[idxpc,]
 rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
 
-write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_full_cutfilt_genecounts-protein-coding.csv")
+#write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_full_unfiltered_genecounts-protein-coding.csv")
 ```
 
 We can now answer the question, how many of our gene counts are considered protein coding?
@@ -153,7 +160,7 @@ We can now run DESeq2 analysis. Make sure you have selected the gene counts tabl
 #view potential options for the design
 colnames(metadatafilt)
 #create DESeq object
-dds<-DESeqDataSetFromMatrix(countData= genecountspc, colData= metadatafilt, design=~sex+case_hl_du )
+dds<-DESeqDataSetFromMatrix(countData= genecountspc, colData= metadatafilt, design=~case_hl_du )
 #perform standard DESeq2 analysis
 dds<-DESeq(dds)
 ```
@@ -161,19 +168,19 @@ dds<-DESeq(dds)
 Select a variable you would like to contrast, and generate statistics on it using DESeq2's results function
 ```{r}
 #generate results based on diagnosis of patients
-resDiag<-results(dds, contrast=c("case_hl_du", "2", "1"), alpha=0.2)
+resDiag<-results(dds, contrast=c("case_hl_du", "1", "2"), alpha=0.1)
 #write a table with the results
-write.table(resDiag, "AIH_Diagnosis_full_cutfilt_DESeq2_Results.tsv", sep="\t")
+#write.table(resDiag, "../../../AIH_NovaSeq_Data/AIH_Diagnosis_plate01_unfiltered_DESeq2_Results.tsv", sep="\t")
 ```
 
 You can now query the results dataframe for some statistics
 
 ```{r}
-#how many of the results have a P-value of less than 0.05?
-sum( resDiag  $pvalue < 0.05, na.rm=TRUE ) 
+#how many of the results have a P-value of less than 0.1?
+sum( resDiag  $pvalue < 0.1, na.rm=TRUE ) 
 
-#how many genes at fdr<0.2 ?
-sum( resDiag$padj < 0.2, na.rm=TRUE ) 
+#how many genes at fdr<0.1?
+sum( resDiag$padj < 0.1, na.rm=TRUE ) 
 ```
 Create tables with all genes below a certain FDR, and write a CSV with this. Also, can write a csv with the normalized counts.
 
@@ -182,16 +189,16 @@ Create tables with all genes below a certain FDR, and write a CSV with this. Als
 resDiag<- resDiag[ order( resDiag$log2FoldChange ), ] 
 
 
-#pull out just FDR<0.2
-resDiag_subset <- resDiag[ which(resDiag$padj < 0.2), ]
-write.csv(resDiag_subset, file="AIHvControl_full_sexinc_cutfilt_FDR0.2_Genes.csv")
+#pull out just FDR<0.05
+resDiag_subset <- resDiag[ which(resDiag$padj < 0.1), ]
+write.csv(resDiag_subset, file="../../../AIH_NovaSeq_Data/Filtering_Comparison_DGE/AIHvControl_plate01_unfiltered_caseonly_FDR0.1_Genes.csv")
 
 #returns the normalized DE gene counts
 #corrected for size factors
-normcounts<-counts(dds, normalized = TRUE)
-rownames(normcounts)<-rownames(genecountspc)
-colnames(normcounts)<-colnames(genecountspc)
-write.csv( as.data.frame(normcounts), file="NormCounts_full_sexinc_cutfilt_AIH-v-healthy.csv" )
+#normcounts<-counts(dds, normalized = TRUE)
+#rownames(normcounts)<-rownames(genecountspc)
+#colnames(normcounts)<-colnames(genecountspc)
+#write.csv( as.data.frame(normcounts), file="NormCounts_full_caseonly_cutfilt_AIH-v-healthy.csv" )
 ```
 
 We can now variance stablize the data for plotting. Another option would be rlog, which is much slower but more accurate.
