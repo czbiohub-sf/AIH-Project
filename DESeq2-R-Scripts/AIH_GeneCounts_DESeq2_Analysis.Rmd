@@ -205,8 +205,11 @@ We can now variance stablize the data for plotting. Another option would be rlog
 
 ```{r}
 ?vst
+?DESeq
 vst <- vst(dds, blind=TRUE)
 vstassay <- assay(vst)
+
+?vst
 
 #rld <- rlog( dds )
 #rldassay<-assay(rld)
