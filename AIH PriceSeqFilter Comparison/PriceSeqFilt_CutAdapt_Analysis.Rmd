@@ -1,0 +1,247 @@
+---
+title: "Gene Counts DASH vs noDASH"
+output: html_notebook
+---
+```{r}
+library(dplyr)
+library(ggplot2)
+library(stringr)
+```
+
+Load in gene counts for Plate 01 and format the names
+
+```{r}
+AIH_filtered_genecounts <- read.delim("~/Documents/Informatics/AIH/AIH_NovaSeq_Data/AIH_100218_genecounts/project-aih_novaseq_host-gene-counts (1)/concat_gene_count_tables/aih_plate01_filt-85-99-9-90_dashed_gene_counts_final.tsv", row.names = 1, stringsAsFactors = TRUE)
+AIH_unfiltered_genecounts <- read.delim("~/Documents/Informatics/AIH/AIH_NovaSeq_Data/AIH_100218_genecounts/project-aih_novaseq_host-gene-counts (1)/concat_gene_count_tables/aih_full_unfiltered_dashed_gene_counts_final.tsv", row.names = 1, stringsAsFactors = TRUE)
+totalreads <- data.frame( DASHedtotalreads = colSums(AIH_filtered_genecounts[,1:55]), noDASHtotalreads = colSums(AIH_unfiltered_genecounts[,1:55]), row.names = colnames(AIH_filtered_genecounts[,1:55]))
+rownames(totalreads) <- str_extract(rownames(totalreads), pattern = "aasld[.|_]\\d+")
+
+
+AIH_filtered_genecounts <- AIH_filtered_genecounts[5:nrow(AIH_filtered_genecounts),1:55]
+AIH_unfiltered_genecounts <- AIH_unfiltered_genecounts[5:nrow(AIH_unfiltered_genecounts),1:55]
+
+
+genenames<- sapply( strsplit( rownames(AIH_filtered_genecounts), split="\\." ), "[", 1 )
+rownames(AIH_filtered_genecounts) <- genenames
+genenames<- sapply( strsplit( rownames(AIH_unfiltered_genecounts), split="\\." ), "[", 1 )
+rownames(AIH_unfiltered_genecounts) <- genenames
+
+
+colnames(AIH_filtered_genecounts) <- str_extract(colnames(AIH_filtered_genecounts), pattern = "aasld[.|_]\\d+")
+colnames(AIH_unfiltered_genecounts) <- str_extract(colnames(AIH_unfiltered_genecounts), pattern = "aasld[.|_]\\d+")
+
+
+
+```
+
+Translate gene names and pull the biotype and the transcript length
+
+```{r}
+library(biomaRt)
+#ensemble use HG38 as a reference
+listMarts(host="www.ensembl.org")
+mart = useMart(biomart="ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host="www.ensembl.org", ensemblRedirect = FALSE)
+genemap <- getBM( attributes = c("ensembl_gene_id", "entrezgene", "hgnc_symbol", "gene_biotype", "description", "transcript_length"),
+                  filters = "ensembl_gene_id",
+                  values = genenames,
+                  mart)
+
+#View(listAttributes(mart))
+
+
+```
+
+Create a gene attributes table 
+```{r}
+
+
+#create an index in which you are rearranging ensmbl gene ids from genemap into same order as they are in genenames
+idx <- match(genenames, genemap$ensembl_gene_id )
+
+#create new dataset which binds gene attributes
+entrez <- genemap$entrezgene[ idx ]
+hgnc_symbol <- genemap$hgnc_symbol[ idx ]
+description <- genemap$description[ idx ]
+gene_biotype <- genemap$gene_biotype[ idx ]
+ensembl <- genemap$ensembl_gene_id[ idx ]
+transcript_length <- genemap$transcript_length[ idx ]
+
+ga<-cbind(hgnc_symbol,description,gene_biotype,ensembl,entrez, transcript_length)
+
+#make ga into a data frame from a matrix
+ga<-as.data.frame(ga)
+ga$gene_biotype<-as.character(ga$gene_biotype)
+unique(ga$gene_biotype)
+
+#View(ga %>% filter(gene_biotype=="miRNA"))
+#View(ga %>% filter(gene_biotype=="Mt_rRNA"))
+#View(ga %>% filter(gene_biotype=="rRNA"))
+#View(ga %>% filter(gene_biotype=="Mt_rRNA"))
+#View(ga %>% filter(ensembl=="ENSG00000266658"))
+#View(ga %>% filter(hgnc_symbol=="RNA45S5"))
+
+```
+
+Calculate the RPKM using EdgeR
+
+```{r}
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+head(pc)
+
+#make an index for protein coding genes and create new gene count tables
+idxpc<- match(pc$ensembl,rownames(AIH_filtered_genecounts))
+genecountspc_DASHed<-AIH_filtered_genecounts[idxpc,]
+rownames(genecountspc_DASHed)<-make.unique(as.character(pc$hgnc_symbol))
+
+idxpc<- match(pc$ensembl,rownames(AIH_unfiltered_genecounts))
+genecountspc_noDASH<-AIH_unfiltered_genecounts[idxpc,]
+rownames(genecountspc_noDASH)<-make.unique(as.character(pc$hgnc_symbol))
+
+#take a subset only
+genecountspc_DASHed_subset <- genecountspc_DASHed[,1:9]
+genecountspc_noDASH_subset <- genecountspc_noDASH[,1:9]
+#genecountspc_DASHed_subset$gene <- rownames(genecountspc_DASHed_subset)
+#genecountspc_noDASH_subset$gene <- rownames(genecountspc_noDASH_subset)
+
+library(edgeR)
+dgeDASHed <- DGEList(counts = genecountspc_DASHed_subset, lib.size = colSums(genecountspc_DASHed_subset), genes = pc)
+dgeDASHedRPKM <- rpkm(dgeDASHed,  gene.length = as.numeric(dgeDASHed$genes$transcript_length), log = FALSE, normalized.lib.sizes = TRUE)
+
+
+
+dgenoDASH <- DGEList(counts = genecountspc_noDASH_subset, lib.size = colSums(genecountspc_noDASH_subset), genes = pc)
+dgenoDASHRPKM <- rpkm(dgenoDASH,  gene.length = as.numeric(dgenoDASH$genes$transcript_length), log = FALSE, normalized.lib.sizes = TRUE)
+
+#merge dataframes
+library(reshape2)
+dgeDASHedRPKM_melt <- as.data.frame(melt(dgeDASHedRPKM, varnames = c("gene", "sample_id"), value.name = "DASHed_gene_count" ))
+dgenoDASHRPKM_melt <- as.data.frame(melt(dgenoDASHRPKM, varnames = c("gene","sample_id"), value.name = "noDASH_gene_count" ))
+genecounts_full_RPKM <- dplyr::left_join(dgenoDASHRPKM_melt, dgeDASHedRPKM_melt, by = c("gene", "sample_id"))
+head(genecounts_full_RPKM)
+```
+
+Calculate the RPKM by hand
+```{r}
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+head(pc)
+
+#make an index for protein coding genes and create new gene count tables
+idxpc<- match(pc$ensembl,rownames(AIH_filtered_genecounts))
+genecountspc_DASHed<-AIH_filtered_genecounts[idxpc,]
+rownames(genecountspc_DASHed)<-make.unique(as.character(pc$hgnc_symbol))
+
+idxpc<- match(pc$ensembl,rownames(AIH_unfiltered_genecounts))
+genecountspc_noDASH<-AIH_unfiltered_genecounts[idxpc,]
+rownames(genecountspc_noDASH)<-make.unique(as.character(pc$hgnc_symbol))
+
+#take a subset only
+genecountspc_DASHed_subset <- genecountspc_DASHed[,1:9]
+genecountspc_noDASH_subset <- genecountspc_noDASH[,1:9]
+genecountspc_DASHed_subset$gene <- rownames(genecountspc_DASHed_subset)
+genecountspc_noDASH_subset$gene <- rownames(genecountspc_noDASH_subset)
+genecountspc_DASHed_subset$transcript_length <- pc$transcript_length
+genecountspc_noDASH_subset$transcript_length <- pc$transcript_length
+genecountspc_DASHed_subset_melt <- melt(genecountspc_DASHed_subset, variable.name = "sample_id", value.name = "DASHed_gene_count" )
+genecountspc_noDASH_subset_melt <- melt(genecountspc_noDASH_subset, variable.name = "sample_id", value.name = "noDASH_gene_count" )
+
+#join the two dataframes together
+genecounts_full <- dplyr::left_join(genecountspc_DASHed_subset_melt, genecountspc_noDASH_subset_melt, by = c("gene", "sample_id", "transcript_length"))
+
+#calculate the RPKM for each DASHed and unDASHed genecount
+genecounts_full_RPKM <- genecounts_full %>% dplyr::group_by(sample_id) %>% dplyr::mutate(DASHedRPKM = DASHed_gene_count*1000000*1000/(sum(DASHed_gene_count)*as.numeric(transcript_length)))  %>% dplyr::mutate(noDASHRPKM = noDASH_gene_count*1000000*1000/(sum(noDASH_gene_count)*as.numeric(transcript_length)))
+
+```
+
+Calculating RPKM using the full total reads value (from the ReadsPerGene.tab file)
+```{r}
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+head(pc)
+
+#make an index for protein coding genes and create new gene count tables
+idxpc<- match(pc$ensembl,rownames(AIH_filtered_genecounts))
+genecountspc_DASHed<-AIH_filtered_genecounts[idxpc,]
+rownames(genecountspc_DASHed)<-make.unique(as.character(pc$hgnc_symbol))
+
+idxpc<- match(pc$ensembl,rownames(AIH_unfiltered_genecounts))
+genecountspc_noDASH<-AIH_unfiltered_genecounts[idxpc,]
+rownames(genecountspc_noDASH)<-make.unique(as.character(pc$hgnc_symbol))
+
+#take a subset only
+genecountspc_DASHed_subset <- genecountspc_DASHed[,1:9]
+genecountspc_noDASH_subset <- genecountspc_noDASH[,1:9]
+genecountspc_DASHed_subset$gene <- rownames(genecountspc_DASHed_subset)
+genecountspc_noDASH_subset$gene <- rownames(genecountspc_noDASH_subset)
+genecountspc_DASHed_subset$transcript_length <- pc$transcript_length
+genecountspc_noDASH_subset$transcript_length <- pc$transcript_length
+genecountspc_DASHed_subset_melt <- melt(genecountspc_DASHed_subset, variable.name = "sample_id", value.name = "DASHed_gene_count" )
+genecountspc_noDASH_subset_melt <- melt(genecountspc_noDASH_subset, variable.name = "sample_id", value.name = "noDASH_gene_count" )
+
+#join the two dataframes together
+genecounts_full <- dplyr::left_join(genecountspc_DASHed_subset_melt, genecountspc_noDASH_subset_melt, by = c("gene", "sample_id", "transcript_length"))
+
+#add the total reads (before filtering protein coding) and calculate the RPKM
+genecounts_full_RPKM <- genecounts_full %>% dplyr::group_by(sample_id) %>% dplyr::mutate(DASHedtotalreads = totalreads[sample_id,"DASHedtotalreads"]) %>% dplyr::mutate(noDASHtotalreads = totalreads[sample_id,"noDASHtotalreads"]) %>% dplyr::mutate(DASHedRPKM = DASHed_gene_count*1000000*1000/(DASHedtotalreads*as.numeric(transcript_length)))  %>% dplyr::mutate(noDASHRPKM = noDASH_gene_count*1000000*1000/(noDASHtotalreads*as.numeric(transcript_length)))
+
+
+```
+
+
+```{r}
+
+#create a summary table
+genecounts_full_RPKM_summary <- genecounts_full_RPKM %>% dplyr::group_by(sample_id) %>% dplyr::summarise(r2 = signif(summary(lm(DASHedRPKM ~ noDASHRPKM))$adj.r.squared, digits = 5), slope = signif(lm(DASHedRPKM ~ noDASHRPKM)$coef[[2]], digits = 3), intercept = signif(lm(DASHedRPKM ~ noDASHRPKM)$coef[[1]], digits = 3))
+
+#create facet labels
+names<- lapply(genecounts_full_RPKM_summary, as.character)
+facet_titles <- c()
+
+for (i in 1:nrow(genecounts_full_RPKM_summary)) {
+  facet_titles[i] <- paste(names$sample_id[i],"\nR2 =", names$r2[i],"  y = ", names$slope[i], "x + ", names$intercept[i])
+}
+
+facet_titles
+
+facet_labeller <- function(variable,value){
+  return(facet_titles[value])
+}
+
+
+
+
+colnames(genecounts_full_RPKM)
+ggplot(data = genecounts_full_RPKM, aes(x= noDASHRPKM, y = DASHedRPKM)) + geom_point(color = "darkgreen", alpha = 0.5) + facet_wrap(~sample_id, labeller = facet_labeller) + stat_smooth(method = "lm", color = "red") + xlab ("unfiltered (RPKM/FPKM)") + ylab ("filt-85-99.9-90 gene counts (RPKM/FPKM)") + scale_x_log10() + scale_y_log10() +
+  geom_text(aes(label=ifelse((DASHedRPKM/noDASHRPKM)<0.2,as.character(gene),'')),hjust=0,vjust=0, size = 2)
+```
+
+Filter out RPKM with 0 values
+```{r}
+#create filtered table
+genecounts_full_RPKM_filtered <- genecounts_full_RPKM  %>% group_by(sample_id, gene) %>% filter(DASHedRPKM > 0 && noDASHRPKM > 0)
+
+#create a summary table
+genecounts_full_RPKM_summary_filtered <- genecounts_full_RPKM_filtered %>% dplyr::group_by(sample_id) %>% dplyr::summarise(r2 = signif(summary(lm(DASHedRPKM ~ noDASHRPKM))$adj.r.squared, digits = 5), slope = signif(lm(DASHedRPKM ~ noDASHRPKM)$coef[[2]], digits = 3), intercept = signif(lm(DASHedRPKM ~ noDASHRPKM)$coef[[1]], digits = 3))
+
+#create facet labels
+names<- lapply(genecounts_full_RPKM_summary_filtered, as.character)
+
+for (i in 1:nrow(genecounts_full_RPKM_summary_filtered)) {
+  facet_titles[i] <- paste(names$sample_id[i],"\nR2 =", names$r2[i],"  y = ", names$slope[i], "x + ", names$intercept[i])
+}
+
+facet_titles
+
+facet_labeller <- function(variable,value){
+  return(facet_titles[value])
+}
+
+
+
+View(genecounts_full_RPKM_filtered)
+ggplot(data = genecounts_full_RPKM_filtered, aes(x= noDASHRPKM, y = DASHedRPKM)) + geom_point(color = "darkgreen", alpha = 0.5) + facet_wrap(~sample_id, labeller = facet_labeller) + stat_smooth(method = "lm", color = "red") + xlab ("unfiltered (RPKM/FPKM)") + ylab ("filt-85-99.9-90 gene counts (RPKM/FPKM)") + scale_x_log10() + scale_y_log10() + geom_text(aes(label=ifelse((DASHedRPKM/noDASHRPKM)<0.2,as.character(gene),'')),hjust=0,vjust=0, size = 2)
+```

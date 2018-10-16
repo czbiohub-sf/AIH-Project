@@ -65,16 +65,13 @@ rm (ERCCgenecounts)
 
 
 Reading in the metadata
-###Working directory is re-set for the latest metadata; here the column data string types should be factors (given that this is required for inclusion in DESeq2), and dupicates should have full clinical information
-###Then we check to be sure rowdata == coldata 
 
 ```{r}
 
 #read in metadata, remaname rows so that they match gene counts file
-setwd("~/Documents/Informatics/AIH/github/AIH-Project/DESeq2-R-Scripts/")
-metadata <- read.csv("AIH_metadata_firstpass_cut.csv", header=TRUE, row.names = 1)
-#removing water control
-metadata <- metadata[-c(56),]
+
+metadata <- read.csv("AIH_metadata_firstpass_cut_AL_modified.csv", header=TRUE, row.names = 1)
+
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
 
@@ -408,7 +405,7 @@ save(rld, file = "RLENormalized_AIH_filt_4_bydiagnosis.RData")
 vsd <- varianceStabilizingTransformation(dds_filt_4, blind=FALSE) 
 save(vsd, file = "VSDNormalized_AIH_filt_4_bydiagnosis.RData")
 ?varianceStabilizingTransformation
-#Creatine an output file for use in WGCNA and other downstream applications
+#Creating an output file for use in WGCNA and other downstream applications
 matrix_vsd <- assay(vsd)
 t_matrix_vsd <- t(matrix_vsd)
 write.csv (t_matrix_vsd, file = "VSDNormalized_AIH_filt_4_bydiagnosis.csv")
