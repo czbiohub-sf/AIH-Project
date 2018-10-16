@@ -1,0 +1,276 @@
+---
+title: "Angela's Pipeline"
+output: html_notebook
+outline pipeline:
+
+"a."	 Batch correct for plate in DESeq2 (discuss batch correction algorithms, have a look at “removeBatchEffect” from the limma package http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/limma/html/removeBatchEffect.html)
+"b."	Generate differential gene expression (log fold change) data from DESeq2
+            "i."	cases vs. controls
+            "ii."	complete vs. partial/nonresponders (include only a subset of patients)
+            "iii."	other variables of interest, for example disease status (AIH Type)
+            "iv." alt_coll, alt_hc (very complete data)
+            "v." fibrosis score?
+            "vi." on or off treatment
+"c."	Check module-trait graph from WGCNA to identify covariates that are correlated (both positive and negative) and look at gene modules associated with the correlations
+"d."	Data mining in IPA for pathways and drug targets for the multiple differential gene expression lists
+"e."	Patient stratification based on newly identified gene expression patterns
+"f."	Predictive model telling which covariates are most relevant for disease status and progression
+---
+
+Load packages required for steps a and b
+```{r}
+library("DESeq2")
+library("Rsamtools")
+library("biomaRt")
+library("GenomicAlignments")
+library("gplots")
+library("dplyr")
+library("ggplot2")
+library("RColorBrewer")
+library("magrittr")
+library("pheatmap")
+library("stringr")
+library(limma)
+library(edgeR)
+```
+
+Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
+
+Then we remove any genes that are ERCC genes (positive control RNA augmented to human genome in IDSeq) and water samples. We format the ENSEMBL gene names [rownames] to exclude the version number after the period. We format the file names [colnames] to extract the AASLD ID.
+```{r}
+genecounts<-read.delim(as.matrix("../AIH NovaSeq Gene Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE) 
+
+#make an ERCC gene counts dataframe and then remove those gene counts
+ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
+genecounts <- genecounts[ !rownames(genecounts) %in% rownames(ERCCgenecounts), ]
+
+Watergenecounts <- genecounts[,grep("water", colnames(genecounts))]
+genecounts <- genecounts[,!colnames(genecounts) %in% colnames(Watergenecounts) ]
+
+#removing top 4 rows
+genecounts <- genecounts[5:nrow(genecounts),]
+
+#take genenames from gene counts file and split them across the period, only taking the first column. this strips the version number of the ENSEMBL ID.
+genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
+rownames(genecounts) <- genenames
+
+#rename column names for AASLD samples 1-110, included in plate 1
+colnames(genecounts) <- paste0("AASLD", "_", str_extract(colnames(genecounts), pattern = "(?<=aasld[.|_])\\d\\d\\d"))
+
+#remove COMPLEX CASES
+genecounts <- genecounts[,-c(18,22)]
+
+```
+
+
+Read in the metadata - Amy ran Arielle's fibrosis algorithm and metadata code with some modifications after a RedCap download by Michele.
+
+We will bin continuous data in order make it compatible with DESeq2. Arielle chose correct bins based on histograms. 
+
+```{r}
+
+#read in metadata, rename rows so that they match gene counts file
+metadata <- read.csv("../AIH metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
+
+#rename metadata columns to match gene counts
+row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
+
+##recast all integers as factor data (taking continous data and binning it)
+
+##ast summary stats and plot data; cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$ast <- cut (metadata$ast, 25, labels = 1:25)
+
+#age summary stats cutting into approximately 20 bins (based on the numbers of bars on the graph)
+metadata$age <- cut (metadata$age, 20, labels = 1:20)
+
+##alt summary stats cutting into approx 30 bins (based on stats and #of bars in graph)
+metadata$alt <- cut (metadata$alt, 30, labels = 1:30)
+
+##tbili summary stats cutting into approx 15 bins (based on stats and #of bars in graph)
+metadata$bili <- cut (metadata$bili, 15, labels = 1:15)
+
+##alkp summary stats cutting into approx 20 bins (based on stats and #of bars in graph)
+metadata$alkp <- cut (metadata$alkp, 20, labels = 1:20)
+
+##igg summary stats cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$igg_coll <- cut (metadata$igg_coll, 25, labels = 1:25)
+
+#recast some variables
+metadata$spl_plate <- as.factor(metadata$spl_plate)
+metadata$dt_isl <- as.factor(metadata$dt_isl)
+metadata$response <- as.factor (metadata$response)
+
+#remove COMPLEX CASES
+metadata_filt <- metadata[!(metadata$case_hl_du == "complex" ) , ]
+
+
+```
+
+Before running DESeq2, you will need to have a data frame with the samples as columns, and the genes as rows, with the raw counts as entries in the data frame (aka genecounts) You will also need a data frame with the samples as rows, and any metadata as columns (aka metadata, the clinical variables to use for differential expression or adjustments, information on match). The columns of the countData must match the rows of colData.  
+
+```{r}
+#match gene counts to metadata table (effectively removing complex cases)
+genecounts <- genecounts[,rownames(metadata_filt)]
+
+#Check to ensure the count dat and metadata are in the same order (result = TRUE)
+all(rownames(metadata_filt) == colnames(genecounts))
+
+```
+We will now use biomart, a package which links gene ids from different databases, to convert ENSEMBL gene ID to HGNC symbol.
+```{r}
+#The following chunk of code uses the ENSEMBL mart, 
+#querying with the ENSEMBL gene id and requesting the Entrez gene id 
+#and HGNC gene symbol. 
+
+listMarts(host="www.ensembl.org")
+mart = useMart(biomart="ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host="www.ensembl.org", ensemblRedirect = FALSE)
+genemap <- getBM( attributes = c("ensembl_gene_id", "entrezgene", "hgnc_symbol", "gene_biotype", "description"),
+                  filters = "ensembl_gene_id",
+                  values = genenames,
+                  mart)
+```
+
+We then use biomart to pull gene attributes that can be linked to the ENSEMBL ID and create a new data frame that includes these attributes, including gene biotype.
+
+```{r}
+#create an index in which you are rearranging ensmbl gene ids from genemap into same order as they are in genenames
+idx <- match(genenames, genemap$ensembl_gene_id )
+
+#create new dataset which binds gene attributes
+entrez <- genemap$entrezgene[ idx ]
+hgnc_symbol <- genemap$hgnc_symbol[ idx ]
+description <- genemap$description[ idx ]
+gene_biotype <- genemap$gene_biotype[ idx ]
+ensembl <- genemap$ensembl_gene_id[ idx ]
+
+ga<-cbind(hgnc_symbol,description,gene_biotype,ensembl,entrez)
+
+#make ga into a data frame from a matrix
+ga<-as.data.frame(ga)
+ga$gene_biotype<-as.character(ga$gene_biotype)
+
+```
+
+Create a new dataframe that includes only the protein coding genes and gene counts
+
+```{r}
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+
+#make an index for protein coding genes
+idxpc<- match(pc$ensembl,rownames(genecounts))
+genecountspc<-genecounts[idxpc,]
+rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
+
+#write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_nofilter_genecounts-protein-coding.csv")
+```
+
+
+There are two different ways to control for batch effect: you can account for the variation generated by batch in your model (design = ~ batch + condition), or you can remove the batch effect prior to analysis (limma::removeBatchEffect)
+
+Let's start with DESeq2 controlling of batch effect.
+
+```{r}
+#relevel the metadata so control is the baseline
+metadata_filt$case_hl_du <- relevel (metadata_filt$case_hl_du, ref = "control")
+
+#create a DESeq data set/object
+dds <- DESeqDataSetFromMatrix(countData = genecountspc, colData = metadata_filt, design= ~ case_hl_du)
+
+```
+
+
+```{r}
+norm <- calcNormFactors(genecountspc) 
+logCPM <- cpm(norm, log=TRUE, prior.count=0.1) 
+
+logCPM_nobatch <- removeBatchEffect(log2(genecountspc),batch=metadata_filt$spl_plate,batch2=metadata_filt$dt_isl)
+
+library(RColorBrewer)
+
+#Creating a heat map with blue colors (using RColorBrewer) and creating heatmap with pheatmap package
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+pheatmap(dist(logCPM_nobatch),
+         clustering_distance_rows=logCPM_nobatch,
+         clustering_distance_cols=logCPM_nobatch,
+         col=colors)
+
+
+```
+
+
+
+
+Collapse replicates based on 'du' column
+```{r}
+#rename duplicates in order to collapse replicates by sample name
+#Note list of duplicate pairs (9/72, 19/11, 29/74, 39/96, 49/27, 59/75, 69/26, 79/32, 89/61, 99/23)
+
+#collapse replicates
+ddsCollapsed <- collapseReplicates( dds, groupby = dds$du)
+head( as.data.frame( colData(ddsCollapsed)[ ,"du"] ), 110)
+
+
+#Verify summing has peen correctly performed
+original <- rowSums( counts(dds)[ , dds$du == "AASLD-072" ] )
+all( original == counts(ddsCollapsed)[ ,"AASLD-072" ] )
+```
+
+Perform standard DESeq2 analysis
+```{r}
+#perform standard DESeq2 analysis
+dds<-DESeq(ddsCollapsed)
+
+#calculate results contrasting case and control
+results <- results(dds, contrast=c("case_hl_du", "case", "control"), alpha=0.05, tidy = TRUE)
+```
+
+Estimate size factors and perform a variance stabalizing transformation (for WGCNA analysis)
+```{r}
+vsd <- varianceStabilizingTransformation(dds, blind=TRUE) 
+
+#Creating an output file for use in WGCNA and other downstream applications
+matrix_vsd <- assay(vsd)
+t_matrix_vsd <- t(matrix_vsd)
+write.csv (t_matrix_vsd, file = "VSDNormalized_AIH_101518.csv")
+```
+
+```{r}
+
+#MA plot of signficant results (red) vs all genes to assess overall results
+results_MA <- results(dds, contrast=c("case_hl_du", "case", "control"), alpha=0.05)
+plotMA (results_MA, ylim = c(-3, 3))
+
+# Make a basic volcano plot
+with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot, ~condition", xlim=c(-3,3)))
+
+
+# Add colored points onto above volcano plot: red if padj<0.05, gray of log2FC>1, red if both
+with(subset(results_MA, padj<.05 ), points(log2FoldChange, -log10(pvalue), pch=20, col="gray"))
+with(subset(results_MA, abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
+with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
+
+
+
+results_significant <- results %>% filter (results$padj < 0.05) %>% arrange (padj, log2FoldChange)
+
+```
+```{r}
+
+```
+
+
+PCA plots!
+```{r}
+pca_dds <- plotPCA (vsd, intgroup=c ("case_hl_du", "sex", "race", "ethn", "aih_type", "on_tx", "igg_coll", "response", "relapse", "decomp", "lt", "liver_death", "age", "F03_F4", "alt", "ast", "bili", "alkp", "du", "spl_plate", "dt_isl"), returnData=TRUE)
+pca_dds_perc_var <- round(100 * attr(pca_dds , "percentVar"))
+
+ggplot(pca_dds, aes(PC1, PC2, color= dt_isl)) +
+  geom_text(size =3, aes(label = name)) +
+  xlab(paste0("PC1: ",pca_dds_perc_var[1],"% variance")) +
+  ylab(paste0("PC2: ",pca_dds_perc_var[2],"% variance")) + 
+  labs(title="~ condition", position = "center")+
+  coord_fixed()
+```
+
