@@ -9,22 +9,20 @@ output: html_document
 loading packages needed for the analysis and then generating the gene counts and ensuring genes OK
 
 ```{r}
-biocLite("robustbase")
-biocLite("pcaPP")
+
 library("BiocInstaller")
-biocLite("WGCNA")
 
 
 library("WGCNA")
 library("GO.db")
 library("AnnotationDbi")
 library("org.Hs.eg.db")
-biocLite("anRichmentMethods")
 library("anRichmentMethods")
 library("anRichment")
 library("XML")
 library("dplyr")
-library("TxDb.Hsapiens.UCSC.hg19.knownGene")
+biocLite("TxDb.Hsapiens.UCSC.hg38.knownGene")
+library("TxDb.Hsapiens.UCSC.hg38.knownGene")
 
 ```
 
@@ -32,7 +30,7 @@ library("TxDb.Hsapiens.UCSC.hg19.knownGene")
 setwd("~/Documents/Informatics/AIH/github/AIH-Project/DESeq2-R-Scripts/")
 
 #Reading in expression data
-t_matrix_vsd <- read.csv("VSDNormalized_AIH_filt_4_bydiagnosis.csv", row.names = 1)
+t_matrix_vsd <- read.csv("VSDNormalized_plate_extraction_AIH_101518.csv", row.names = 1)
 
 #Flagging genes with too many missing values
 ##allOK is a column in the S4 data object to examine which genes meet the criteria; if result is TRUE, than genes meet criteria
@@ -44,13 +42,14 @@ gsg$allOK
 Gene expression data are then clustered by sample using sample data to check for outliers
 
 ```{r}
-setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH metadata/")
+#setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH metadata/")
 
 #hc matrix clustering
 hc_matrix_vsd <- hclust(dist(t_matrix_vsd), method = "ward.D2")
 sizeGrWindow(12,9)
 par(cex = 0.6)
 par(mar = c(0,4,2,0))
+?hclust
 
 #plotting hc data and then writing it to jpeg file
 plot(hc_matrix_vsd, main = "h clustering, ward.D2", sub="", xlab="", cex.lab=1.5, cex.axis=1.5, cex.main = 2) 
@@ -63,12 +62,12 @@ plot(hc_matrix_vsd, main = "h clustering, ward.D2", sub="", xlab="", cex.lab=1.5
 Reading in metadata written from filtered DESeq2 file and then format correctly for analysis 
 
 ```{r}
-setwd("~/AIH-Project/AIH metadata/data")
-AIH_metadata <- read.csv("AIH_metadata_filt.csv", row.names = 1)
+#setwd("~/AIH-Project/AIH metadata/data")
+AIH_metadata <- read.csv("../AIH metadata/AIH_metadata_firstpass_ALedits.csv", row.names = 1)
 
-#Removing unneededc column data and merged duplicate row data
-AIH_metadata <- AIH_metadata[-c(69, 11,71, 92, 25, 72, 24, 30, 59, 21) ,-c(6, 21)]
-
+#Removing unneeded column data and merged duplicate row data
+AIH_metadata <- AIH_metadata[-c(69,11,71, 92, 25, 72, 24, 30, 59, 21,18,22),]
+AIH_metadata
 #Recasting all variables as numeric (required in this model)
 AIH_metadata$case_hl_du <- as.numeric(AIH_metadata$case_hl_du)
 AIH_metadata$response <- as.numeric (AIH_metadata$case_hl_du)
@@ -82,9 +81,12 @@ AIH_metadata$relapse <- as.numeric (AIH_metadata$relapse)
 AIH_metadata$decomp <- as.numeric(AIH_metadata$decomp)
 AIH_metadata$lt <- as.numeric(AIH_metadata$lt)
 AIH_metadata$liver_death <- as.numeric (AIH_metadata$liver_death)
-AIH_metadata$dup <- as.numeric(AIH_metadata$dup)
+AIH_metadata$du <- as.numeric(AIH_metadata$du)
 AIH_metadata$F03_F4 <- as.numeric(AIH_metadata$F03_F4) 
-AIH_metadata$plate <- as.numeric(AIH_metadata$plate)
+AIH_metadata$spl_plate <- as.numeric(AIH_metadata$spl_plate)
+AIH_metadata$dt_isl <- as.numeric(AIH_metadata$dt_isl)
+AIH_metadata$dt_isl
+
 
 
 ```
@@ -96,10 +98,20 @@ Renaming to sample names of datExpr (for gene expression) and datTraits
 ```{r}
 #renaming per tutorial code names to correspond to subsequent code
 datExpr <- t_matrix_vsd
-datTraits <- AIH_metadata
+datTraits <- AIH_metadata$dt_isl
 
+length (datTraits)
 #traits as colors w/ dendogram
+library("stringr")
+?numbers2colors
 traitColors = numbers2colors(datTraits, signed = FALSE)
+traitColors <- str_replace(traitColors,"#FFFFFF", "#FF2222") 
+?numbers2colors
+hc_matrix_vsd
+traitColors
+?str_replace
+?plotDendroAndColors
+unique(traitColors)
 plotDendroAndColors(hc_matrix_vsd, traitColors, groupLabels = names(datTraits), main = "sample dendogram and trait heatmap")
 ```
 
