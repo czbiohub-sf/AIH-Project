@@ -32,10 +32,10 @@ For PCA analysis, the data expects the samples to be rows and the genes to be co
 
 ```{r}
 
-setwd("~/AIH-Project/AIH NovaSeq Gene Counts")
+#setwd("~/AIH-Project/AIH NovaSeq Gene Counts")
 
 #take gene_counts_final from STAR tab file, after running Caitriona's script
-genecounts<-read.delim(as.matrix("aih_full_cutfilt_dashed_gene_counts_final.tsv"), row.names = 1) 
+genecounts<-read.delim(as.matrix("../AIH NovaSeq Gene Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1) 
 
 #make an ERCC gene counts dataframe and then remove those gene counts
 ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
@@ -47,7 +47,7 @@ genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
 rownames(genecounts) <- genenames
 
 #rename column names for AASLD samples 1-55, included in plate 1
-names(genecounts)[1:110]<-paste0("AASLD", "_", sprintf("%03.0f", 1:110))
+colnames(genecounts) <- paste0("AASLD", "_", str_extract(colnames(genecounts), pattern = "(?<=aasld[.|_])\\d\\d\\d"))
 
 
 #The following chunk of code uses the ENSEMBL mart, 
@@ -88,8 +88,6 @@ pc<-pc[!(is.na(pc$ensembl)),]
 idxpc<- match(pc$ensembl,rownames(genecounts))
 genecountspc<-genecounts[idxpc,]
 rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
-
-write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_nofilter_genecounts-protein-coding.csv")
 
 ```
 
