@@ -1,0 +1,514 @@
+---
+title: "AIH_WGCNA"
+author: "Arielle Klepper"
+date: "9/23/2018"
+output: html_document
+---
+
+## WGCNA - genes
+loading packages needed for the analysis and then generating the gene counts and ensuring genes OK
+
+```{r}
+
+library("BiocInstaller")
+
+
+library("WGCNA")
+library("GO.db")
+library("AnnotationDbi")
+library("org.Hs.eg.db")
+#library("anRichmentMethods")
+#library("anRichment")
+library("XML")
+library("dplyr")
+
+```
+
+```{r}
+setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
+
+#Reading in expression data
+t_matrix_vsd <- read.csv("../AIH DESeq2 Output/VSDNormalized_case_control_minus67and94_101618.csv", row.names = 1)
+
+#Flagging genes with too many missing values
+##allOK is a column in the S4 data object to examine which genes meet the criteria; if result is TRUE, than genes meet criteria
+#gsg <- goodSamplesGenes(t_matrix_vsd, verbose = 3)
+#gsg$allOK
+```
+
+## Sample Clustering 
+Gene expression data are then clustered by sample using sample data to check for outliers
+
+```{r}
+#setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH metadata/")
+
+#hc matrix clustering
+hc_matrix_vsd <- hclust(dist(t_matrix_vsd), method = "ward.D2")
+
+sizeGrWindow(12,9)
+par(cex = 0.6)
+par(mar = c(0,4,2,0))
+?hclust
+
+#plotting hc data and then writing it to jpeg file
+plot(hc_matrix_vsd, main = "h clustering, ward.D2", sub="", xlab="", cex.lab=1.5, cex.axis=1.5, cex.main = 2) 
+
+
+
+```
+
+
+## Reading in metadata
+Reading in metadata written from filtered DESeq2 file and then format correctly for analysis 
+
+```{r}
+#setwd("~/AIH-Project/AIH metadata/data")
+AIH_metadata <- read.csv("../AIH metadata/AIH_metadata_firstpass_ALedits.csv")
+
+#Removing unneeded column data and merged duplicate row data
+#AIH_metadata <- AIH_metadata[-c(72, 11,74,96,27,75,26,32,61,23,18,22, 67, 94),]
+AIH_metadata <- AIH_metadata[-c(9,19,29,39,49,59,69,79,89,99,18,22, 67, 94),]
+
+AIH_metadata
+#Recasting all variables as numeric (required in this model)
+AIH_metadata$case_hl_du <- as.numeric(AIH_metadata$case_hl_du)
+AIH_metadata$response <- as.numeric (AIH_metadata$case_hl_du)
+AIH_metadata$sex <- as.numeric(AIH_metadata$sex)
+AIH_metadata$race <- as.numeric(AIH_metadata$race)
+AIH_metadata$ethn <- as.numeric(AIH_metadata$ethn)
+AIH_metadata$aih_type <- as.numeric(AIH_metadata$aih_type)
+AIH_metadata$on_tx <- as.numeric (AIH_metadata$on_tx)
+AIH_metadata$response <- as.numeric (AIH_metadata$response)
+AIH_metadata$relapse <- as.numeric (AIH_metadata$relapse)
+AIH_metadata$decomp <- as.numeric(AIH_metadata$decomp)
+AIH_metadata$lt <- as.numeric(AIH_metadata$lt)
+AIH_metadata$liver_death <- as.numeric (AIH_metadata$liver_death)
+AIH_metadata$du <- as.numeric(AIH_metadata$du)
+AIH_metadata$F03_F4 <- as.numeric(AIH_metadata$F03_F4) 
+AIH_metadata$spl_plate <- as.numeric(AIH_metadata$spl_plate)
+AIH_metadata$dt_isl <- as.numeric(AIH_metadata$dt_isl)
+AIH_metadata$age <- cut(as.numeric(AIH_metadata$age), 3, labels = 1:3)
+length(AIH_metadata$age)
+
+
+
+```
+
+```{r}
+library("factoextra")
+install.packages("FactoMineR")
+library("FactoMineR")
+library (fpc)
+res <- hcut(dist(t_matrix_vsd), k = 8, stand = TRUE, hc_method = "ward.D2")
+res$cluster
+
+clusplot(res$data, res$cluster, color=FALSE, col.p=c("blue","red"),shade=FALSE, plotchar = FALSE,
+  	labels=1, lines=0)
+
+HCPC(pca, nb.clust = 0, iter.max = 10, min = 3, max = NULL, graph = TRUE)
+
+idx<-match(res$labels,AIH_metadata$aasld_id)
+caseidx<- AIH_metadata$case_hl_du[idx]
+
+res$color = numbers2colors(caseidx, signed = FALSE)
+dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
+
+pca <- prcomp(dist(t_matrix_vsd))
+
+##Formatting PCA data into data frames for entry into ggplot 2
+pcadf <- data.frame (sample = rownames (pca$x), x = pca$x[,1], y = pca$x[,2])
+
+
+##Call to ggplot the new dataframes generated above
+ggplot(data = pcadf, aes(x=x, y=y, label = sample)) +
+  geom_text() +
+  theme_bw() +
+  ggtitle ("PCA by hiearchal clustering")
+
+fviz_cluster(res, rect = TRUE, cex = 0.5,
+         ellipse=TRUE, shape = "circle", geom = "point")
+?fviz_cluster
+plot(res)
+fviz_contrib(res, choice = res$color, axes = 1)
+fviz_pca_biplot()
+my_data <- scale(dist(t_matrix_vsd))
+
+fviz_nbclust(my_data, hclust)
+
+
+
+K = 8
+km = kmeans(t_matrix_vsd,centers=K)
+
+X = t(scale(t_matrix_vsd,center=TRUE,scale=FALSE))
+sv = svd(t(X))
+U = sv$u
+V = sv$v
+D = sv$d
+Z = t(X)%*%V
+
+plot(Z[,1],Z[,2],col=km$cluster,type="n")
+text(Z[,1],Z[,2],colnames(t_matrix_vsd),cex=.75,col=km$cluster)
+cens = km$centers
+points(cens%*%V[,1],cens%*%V[,2],col=1:K,pch=16,cex=3)
+
+install.packages("cluster")
+library(cluster)
+clusplot(t_matrix_vsd, km$cluster, color=TRUE, shade=TRUE, 
+         labels=2, lines=0)
+
+library(cluster)
+install.packages("HSAUR")
+library(HSAUR)
+?clusplot
+
+
+ggplot(iris, aes(Petal.Length, Petal.Width, color = iris$cluster)) + geom_point()
+
+```
+
+```{r}
+my_data <- scale(dist(t_matrix_vsd), center=TRUE, scale=FALSE)
+
+fviz_nbclust(my_data, kmeans, method = "gap_stat")
+?fviz_nbclust
+
+
+km.res <- kmeans(my_data, 8, nstart = 1)
+?kmeans
+
+plot(km.res)
+
+clusplot(my_data, km.res$cluster, color=FALSE, col.p=c("blue","red"),shade=FALSE, plotchar = FALSE,
+  	labels=1, lines=0)
+
+fviz_cluster(km.res, data = my_data,
+             palette = c("#00AFBB","#2E9FDF", "#E7B800", "#FC4E07","#00AFCC","#2E9FCC", "#E7B821", "#FC4E13"),
+             ggtheme = theme_minimal(),
+             main = "Partitioning Clustering Plot",
+             ellipse = FALSE,
+             geom = "point"
+             )
+
+
+```
+
+
+
+```{r}
+library(ggplot2)
+install.packages("ggdendro")
+library(ggdendro)
+
+
+
+dendr <- dendro_data(hc_matrix_vsd, type="rectangle") 
+idx<-match(label(dendr)[,3],AIH_metadata$aasld_id)
+caseidx<- AIH_metadata$case_hl_du[idx] 
+dendr$color = numbers2colors(caseidx, signed = FALSE)
+dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
+
+
+ggplot() + 
+  geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), aes(x=x, y=y, label=label, color =dendr$color, hjust=0), size=3) +
+  coord_flip() + scale_y_reverse(expand=c(0.2, 0)) + 
+  theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background=element_rect(fill="white"),
+        panel.grid=element_blank()) +
+  scale_color_discrete(name = "Condition", labels = c("Case", "Control"))
+
+
+plateidx<- AIH_metadata$spl_plate[idx] 
+dendr$color = numbers2colors(plateidx, signed = FALSE)
+dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
+
+
+ggplot() + 
+  geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), aes(x=x, y=y, label=label, color =dendr$color, hjust=0), size=3) +
+  coord_flip() + scale_y_reverse(expand=c(0.2, 0)) + 
+  theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background=element_rect(fill="white"),
+        panel.grid=element_blank()) +
+  scale_color_discrete(name = "Library Prep Batch", labels = c("Plate 1", "Plate 2"))
+
+
+rnabatch<- AIH_metadata$dt_isl[idx] 
+dendr$color = numbers2colors(rnabatch, signed = FALSE)
+dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
+
+
+ggplot() + 
+  geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), aes(x=x, y=y, label=label, color =dendr$color, hjust=0), size=3) +
+  coord_flip() + scale_y_reverse(expand=c(0.2, 0)) + 
+  theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background=element_rect(fill="white"),
+        panel.grid=element_blank()) +
+  scale_color_discrete(name = "RNA Batch", labels = c("Batch 1", "Batch 2", "Batch 3", "Batch 4"))
+
+age<- AIH_metadata$age[idx] 
+
+dendr$color = numbers2colors(as.numeric(age), signed = FALSE)
+dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
+
+ggplot() + 
+  geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), aes(x=x, y=y, label=label, color =dendr$color, hjust=0), size=3) +
+  coord_flip() + scale_y_reverse(expand=c(0.2, 0)) + 
+  theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background=element_rect(fill="white"),
+        panel.grid=element_blank()) +
+  scale_color_discrete(name = "age", labels = c("20-39", "40-59", "60-79"))
+
+```
+
+
+## Re-clustering expression data w/ colors for clin data
+Renaming to sample names of datExpr (for gene expression) and datTraits
+```{r}
+#ggplot color dendrogam
+
+#renaming per tutorial code names to correspond to subsequent code
+datExpr <- t_matrix_vsd
+datTraits <- AIH_metadata$dt_isl
+
+length (datTraits)
+#traits as colors w/ dendogram
+library("stringr")
+?numbers2colors
+traitColors = numbers2colors(datTraits, signed = FALSE)
+traitColors <- str_replace(traitColors,"#FFFFFF", "#FF2222") 
+?numbers2colors
+hc_matrix_vsd
+traitColors
+
+unique(traitColors)
+plotDendroAndColors(hc_matrix_vsd, traitColors, groupLabels = names(datTraits), main = "sample dendogram and trait heatmap")
+```
+
+## Chosing a soft thresholidng power and viewing network topology
+
+```{r}
+
+# Choose a set of soft-thresholding powers
+powers <- c(c(1:10), seq(from = 12, to=20, by=2))
+
+# Call the network topology analysis function - the below gives an error
+sft <- pickSoftThreshold(datExpr, powerVector = powers, verbose = 5)
+
+# Plot the results:
+sizeGrWindow(9, 5)
+par(mfrow = c(1,2))
+cex1 = 0.9
+
+# Scale-free topology fit index as a function of the soft-thresholding power
+plot(sft$fitIndices[,1], -sign(sft$fitIndices[,3])*sft$fitIndices[,2],
+xlab="Soft Threshold (power)",ylab="Scale Free Topology Model Fit,signed R^2",type="n",
+main = paste("Scale independence"))
+text(sft$fitIndices[,1], -sign(sft$fitIndices[,3])*sft$fitIndices[,2],
+labels=powers,cex=cex1,col="red")
+
+# this line corresponds to using an R^2 cut-off of h
+abline(h=0.90,col="red")
+
+# Mean connectivity as a function of the soft-thresholding power
+plot(sft$fitIndices[,1], sft$fitIndices[,5],
+xlab="Soft Threshold (power)",ylab="Mean Connectivity", type="n",
+main = paste("Mean connectivity"))
+text(sft$fitIndices[,1], sft$fitIndices[,5], labels=powers, cex=cex1,col="red")
+
+```
+
+
+# Step-by-step construction of the gene network and identification of modules
+
+```{r}
+
+##Stepwise code 
+
+#Co-expression similarity and adjacency
+softPower = 6
+adjacency = adjacency(datExpr, power = softPower)
+
+# Topological Overlap Matrix (TOM)
+TOM = TOMsimilarity(adjacency)
+dissTOM = 1-TOM
+
+#Clustering using TOM
+# Call the hierarchical clustering function
+geneTree = hclust(as.dist(dissTOM), method = "average")
+# Plot the resulting clustering tree (dendrogram)
+sizeGrWindow(12,9)
+plot(geneTree, xlab="", sub="", main = "Gene clustering on TOM-based dissimilarity",
+labels = FALSE, hang = 0.04)
+
+# We like large modules, so we set the minimum module size relatively high:
+minModuleSize = 30;
+# Module identification using dynamic tree cut:
+dynamicMods = cutreeDynamic(dendro = geneTree, distM = dissTOM,
+deepSplit = 2, pamRespectsDendro = FALSE,
+minClusterSize = minModuleSize);
+table(dynamicMods)
+
+# Convert numeric lables into colors
+dynamicColors = labels2colors(dynamicMods)
+table(dynamicColors)
+# Plot the dendrogram and colors underneath
+sizeGrWindow(8,6)
+plotDendroAndColors(geneTree, dynamicColors, "Dynamic Tree Cut",
+dendroLabels = FALSE, hang = 0.03,
+addGuide = TRUE, guideHang = 0.05,
+main = "Gene dendrogram and module colors")
+
+#Merging of modules whose expression profiles are very similar
+# Calculate eigengenes
+MEList = moduleEigengenes(datExpr, colors = dynamicColors)
+MEs = MEList$eigengenes
+# Calculate dissimilarity of module eigengenes
+MEDiss = 1-cor(MEs);
+# Cluster module eigengenes
+METree = hclust(as.dist(MEDiss), method = "average");
+# Plot the result
+sizeGrWindow(7, 6)
+plot(METree, main = "Clustering of module eigengenes",
+xlab = "", sub = "")
+MEDissThres = 0.25
+# Plot the cut line into the dendrogram
+abline(h=MEDissThres, col = "red")
+# Call an automatic merging function
+merge = mergeCloseModules(datExpr, dynamicColors, cutHeight = MEDissThres, verbose = 3)
+# The merged module colors
+mergedColors = merge$colors;
+# Eigengenes of the new merged modules:
+mergedMEs = merge$newME
+
+
+#Replotting dendogram w clusters
+sizeGrWindow(12, 9)
+#pdf(file = "Plots/geneDendro-3.pdf", wi = 9, he = 6)
+plotDendroAndColors(geneTree, cbind(dynamicColors, mergedColors),
+c("Dynamic Tree Cut", "Merged dynamic"),
+dendroLabels = FALSE, hang = 0.03,
+addGuide = TRUE, guideHang = 0.05)
+#dev.off()
+
+
+# Rename to moduleColors
+moduleColors = mergedColors
+
+# Construct numerical labels corresponding to the colors
+colorOrder = c("grey", standardColors(50));
+moduleLabels = match(moduleColors, colorOrder)-1;
+MEs = mergedMEs
+
+# Save module colors and labels for use in subsequent parts
+save(MEs, moduleLabels, moduleColors, geneTree, file = "AIH-networkConstruction-stepByStep.RData")
+
+```
+
+
+```{r}
+
+```
+
+#Relating modules to external information and identifying important genes
+Eg metadata
+```{r}
+
+# Define numbers of genes and samples
+nGenes = ncol(datExpr)
+nSamples = nrow(datExpr)
+
+# Recalculate MEs with color labels
+MEs0 = moduleEigengenes(datExpr, moduleColors)$eigengenes
+MEs = orderMEs(MEs0)
+moduleTraitCor = cor(MEs, datTraits, use = "p")
+moduleTraitPvalue = corPvalueStudent(moduleTraitCor, nSamples)
+
+#Graph color coding associations by correlation value
+sizeGrWindow(10,6)
+# Will display correlations and their p-values
+textMatrix = paste(signif(moduleTraitCor, 2), "\n(",
+signif(moduleTraitPvalue, 1), ")", sep = "")
+dim(textMatrix) = dim(moduleTraitCor)
+par(mar = c(6, 8.5, 3, 3))
+# Display the correlation values within a heatmap plot
+labeledHeatmap(Matrix = moduleTraitCor,
+xLabels = names(datTraits),
+yLabels = names(MEs),
+ySymbols = names(MEs),
+colorLabels = FALSE,
+colors = greenWhiteRed(50),
+textMatrix = textMatrix,
+setStdMargins = FALSE,
+cex.text = 0.5,
+zlim = c(-1,1),
+main = paste("Module-trait relationships"))
+
+
+```
+
+#Annotating modules to assess significance 
+Using Bioconductor default package to annotate genes
+
+```{r}
+
+#########Changing human gene names to entrez
+entrez <- convert2entrez(organism = "human", symbol = colnames(datExpr))
+
+# Get the corresponding Locuis Link IDs
+allLLIDs = entrez
+
+# $ Choose interesting modules
+intModules = c("brown", "blue", "purple", "yellow", "turquoise")
+
+# Select module probes
+for (module in intModules)
+{
+modGenes = (moduleColors == module)
+# Get their entrez ID codes
+modLLIDs = allLLIDs[modGenes]
+# Write them into a file
+WGCNA_GO_analysis = paste("LocusLinkIDs-", module, ".txt", sep="");
+write.table(as.data.frame(modLLIDs), file = fileName,
+row.names = FALSE, col.names = FALSE)
+}
+
+# As background in the enrichment analysis, we will use all probes in the analysis.
+fileName = paste("LocusLinkIDs-all.txt", sep="")
+write.table(as.data.frame(colnames(datExpr)), file = fileName,
+row.names = FALSE, col.names = FALSE)
+all
+
+#GO enrichment analysis
+GOenr = GOenrichmentAnalysis(moduleColors, allLLIDs, organism = "human", nBestP = 10)
+
+#View signficant reuslts -- this is the best table to explore
+tab <- GOenr$bestPTerms[[4]]$enrichment
+
+GOcollection = buildGOcollection(organism = "human")
+
+
+```
+
+
+
+```{r}
+
+```
+
+

@@ -12,6 +12,7 @@ AIH_metadata <- read.csv ("../AIH metadata/AASLDAutoimmunePilot_DATA_2018-10-15_
 #Filter for selected columns
 AIH_metadata_firstpass <- dplyr::select(AIH_metadata, aasld_id, ind_id, du,spl_plate, dt_isl,  case_hl_du, date_lt, date_coll, sex, race, ethn, aih_type, te_coll, age_coll,  on_tx, igg_coll, ast_coll, alt_coll,  alp_coll, tbili_coll, response, relapse, decomp, lt, liver_death, age_hc, ast_hc, alt_hc, alkphos_hc, tbili_hc)
 colnames(AIH_metadata_firstpass)
+AIH_metadata_firstpass$response
 
 #assign complex cases as outlined by Craig the number 4
 
@@ -118,11 +119,14 @@ AIH_metadata_firstpass$aih_type <- ifelse(AIH_metadata_firstpass$case_hl_du == "
                    ifelse (AIH_metadata_firstpass$case_hl_du == "control", print ("healthy_cont"), print ("NA")
   )))))))
 
+AIH_metadata_firstpass$on_tx
 ###on_tx (1 - yes, 0 - no)
 AIH_metadata_firstpass$on_tx <- ifelse(AIH_metadata_firstpass$on_tx == 1, print ("yes"), print ("no"))
                                                   
-###response (1 - complete, 2 - partial)
-AIH_metadata_firstpass$response <- ifelse(AIH_metadata_firstpass$response == 1, print ("complete"), print ("partial"))
+
+###response (1 - complete, 2 - partial, 3 - non-responder)
+AIH_metadata_firstpass$response <- ifelse(AIH_metadata_firstpass$response == 1, print ("complete"), 
+                                          ifelse(AIH_metadata_firstpass$response == 2, print ("partial"), print ("non-responder")))
 
 ###relapse (0 - no, 1 - yes)
 AIH_metadata_firstpass$relapse <- ifelse(AIH_metadata_firstpass$relapse == 1, print ("yes"), print ("no"))
@@ -146,7 +150,8 @@ AIH_metadata_firstpass$F03_F4_final <- ifelse (AIH_metadata_firstpass$case_hl_du
                                          ))
                                
 
-
+#Adding a column if the sample was positive for pegivirus [Pegivirus 95, 37, 17, 18]
+AIH_metadata_firstpass$pegivirus <- ifelse (grepl ("AASLD-095|AASLD-037|AASLD-017|AASLD-018", AIH_metadata_firstpass_cut$aasld_id), print ("yes"), print ("no"))
                                          
 
 #Writing to a data file
@@ -243,8 +248,6 @@ AIH_metadata_firstpass_cut_57to111$plate <- as.factor ("plate_2")
 #Joining data from plates 1 and 2 as well as row 56
 AIH_metadata_firstpass_cut <- rbind (AIH_metadata_firstpass_cut_1to56, AIH_metadata_firstpass_cut_57to111)
 
-#Adding a column if the sample was positive for pegivirus [Pegivirus 95, 37, 17, 18]
-AIH_metadata_firstpass_cut$pegivirus <- ifelse (grepl ("AASLD-095|AASLD-037|AASLD-017|AASLD-018", AIH_metadata_firstpass_cut$aasld_id), print ("yes"), print ("no"))
 
 #Writing AASLD first pass cut
 write.csv (AIH_metadata_firstpass_cut, file = "AIH_metadata_firstpass_cut.csv", row.names = FALSE)
