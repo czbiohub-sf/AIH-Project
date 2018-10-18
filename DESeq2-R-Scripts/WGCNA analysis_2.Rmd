@@ -27,15 +27,15 @@ library("TxDb.Hsapiens.UCSC.hg38.knownGene")
 ```
 
 ```{r}
-setwd("~/Documents/Informatics/AIH/github/AIH-Project/DESeq2-R-Scripts/")
+setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
 
 #Reading in expression data
-t_matrix_vsd <- read.csv("VSDNormalized_plate_extraction_AIH_101518.csv", row.names = 1)
+t_matrix_vsd <- read.csv("../AIH DESeq2 Output/VSDNormalized_plate_extraction_completevnonresponder_101518.csv", row.names = 1)
 
 #Flagging genes with too many missing values
 ##allOK is a column in the S4 data object to examine which genes meet the criteria; if result is TRUE, than genes meet criteria
-gsg <- goodSamplesGenes(t_matrix_vsd, verbose = 3)
-gsg$allOK
+#gsg <- goodSamplesGenes(t_matrix_vsd, verbose = 3)
+#gsg$allOK
 ```
 
 ## Sample Clustering 
@@ -96,6 +96,8 @@ AIH_metadata$dt_isl
 ## Re-clustering expression data w/ colors for clin data
 Renaming to sample names of datExpr (for gene expression) and datTraits
 ```{r}
+#ggplot color dendrogam
+
 #renaming per tutorial code names to correspond to subsequent code
 datExpr <- t_matrix_vsd
 datTraits <- AIH_metadata$dt_isl
@@ -109,8 +111,7 @@ traitColors <- str_replace(traitColors,"#FFFFFF", "#FF2222")
 ?numbers2colors
 hc_matrix_vsd
 traitColors
-?str_replace
-?plotDendroAndColors
+
 unique(traitColors)
 plotDendroAndColors(hc_matrix_vsd, traitColors, groupLabels = names(datTraits), main = "sample dendogram and trait heatmap")
 ```
