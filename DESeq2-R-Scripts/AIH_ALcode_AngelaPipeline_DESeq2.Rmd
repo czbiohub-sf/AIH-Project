@@ -100,10 +100,13 @@ metadata$response <- as.factor (metadata$response)
 metadata_filt <- metadata[!(metadata$case_hl_du == "complex" ) , ]
 
 #remove outlier samples 67 and 94
-metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AASLD_094")), ]
+metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AASLD_094")),]
+
+#remove patients who had a liver transplant before sample collection
+metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
 
 #only look at cases with response data
-#metadata_filt <- metadata_filt[!(is.na(metadata_filt$response)), ]
+metadata_filt <- metadata_filt[!(is.na(metadata_filt$response)), ]
 
 #length(rownames(metadata_filt))
 
@@ -117,6 +120,7 @@ genecounts <- genecounts[,rownames(metadata_filt)]
 
 #Check to ensure the count dat and metadata are in the same order (result = TRUE)
 all(rownames(metadata_filt) == colnames(genecounts))
+colnames(genecounts)
 
 ```
 We will now use biomart, a package which links gene ids from different databases, to convert ENSEMBL gene ID to HGNC symbol.
@@ -196,9 +200,10 @@ There are two different ways to control for batch effect: you can account for th
 ```{r}
 #relevel the metadata so control is the baseline
 metadata_filt$case_hl_du <- relevel (metadata_filt$case_hl_du, ref = "control")
+#metadata_filt$response <- relevel (metadata_filt$response, ref = "complete")
 
 #create a DESeq data set/object
-dds <- DESeqDataSetFromMatrix(countData = genecountspc, colData = metadata_filt, design= ~case_hl_du)
+dds <- DESeqDataSetFromMatrix(countData = genecountspc, colData = metadata_filt, design= ~response)
 
 ```
 
@@ -234,8 +239,8 @@ head( as.data.frame( colData(ddsCollapsed)[ ,"du"] ), 110)
 
 
 #Verify summing has peen correctly performed
-original <- rowSums( counts(dds)[ , dds$du == "AASLD-072" ] )
-all( original == counts(ddsCollapsed)[ ,"AASLD-072" ] )
+#original <- rowSums( counts(dds)[ , dds$du == "AASLD-072" ] )
+#all( original == counts(ddsCollapsed)[ ,"AASLD-072" ] )
 ```
 
 Perform standard DESeq2 analysis on the collapsed dataset
@@ -248,7 +253,10 @@ dds<-DESeq(ddsCollapsed)
 Calculate a results table contrasting pairwise
 ```{r}
 #calculate results contrasting case and control
-results <- results(dds, contrast=c("case_hl_du", "case", "control"), alpha=0.05, tidy = TRUE)
+resultsNames(dds)
+results <- results(dds, contrast=list("complete",c("non-responder","partial")), alpha=0.05, tidy = TRUE)
+?results
+View(results)
 ```
 
 Perform a variance stabalizing transformation (for WGCNA analysis). VST will perform normalization. VST is faster than rlog but more sensitive to size factors. For WGCNA and other machine learning algorithms, VST is preferred.
@@ -259,7 +267,7 @@ vsd <- varianceStabilizingTransformation(dds, blind=TRUE)
 setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
 matrix_vsd <- assay(vsd)
 t_matrix_vsd <- t(matrix_vsd)
-write.csv (t_matrix_vsd, file = "VSDNormalized_case_control_minus67and94_101618.csv")
+write.csv (t_matrix_vsd, file = "VSDNormalized_case_control_nooutliers_nolivertransplants_101618.csv")
 ```
 
 ```{r}
@@ -269,7 +277,7 @@ results_MA <- results(dds, contrast=c("case_hl_du", "case", "control"), alpha=0.
 DESeq2::plotMA (results_MA, ylim = c(-10, 10))
 
 # Make a basic volcano plot
-with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot, ~ case, case vs control, minus 67 and 94", xlim=c(-3,3)))
+with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot, ~ case, case vs control, no outliers and liver transplants", xlim=c(-3,3)))
 
 
 # Add colored points onto above volcano plot: red if padj<0.05, gray of log2FC>1, red if both
@@ -281,8 +289,9 @@ with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange
 
 results_significant <- results %>% filter (results$padj < 0.05) %>% arrange (padj, log2FoldChange)
 setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
-results_significant
-write.csv(results_significant, "AIH_case_v_control_minus67and94_FDR0.05.csv")
+write.csv(results, "AIH_case_v_control_nooutliers_nolivertrans.csv")
+
+write.csv(results_significant, "AIH_case_v_control_nooutliers_nolivertrans_FDR0.05.csv")
 ```
 ```{r}
 
