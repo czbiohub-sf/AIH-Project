@@ -28,7 +28,7 @@ library("dplyr")
 setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
 
 #Reading in expression data
-t_matrix_vsd <- read.csv("../AIH DESeq2 Output/VSDNormalized_case_control_minus67and94_101618.csv", row.names = 1)
+t_matrix_vsd <- read.csv("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/VSDNormalized_case_control_nooutliers_nolivertransplants_101618.csv", row.names = 1)
 
 #Flagging genes with too many missing values
 ##allOK is a column in the S4 data object to examine which genes meet the criteria; if result is TRUE, than genes meet criteria
@@ -52,8 +52,6 @@ par(mar = c(0,4,2,0))
 
 #plotting hc data and then writing it to jpeg file
 plot(hc_matrix_vsd, main = "h clustering, ward.D2", sub="", xlab="", cex.lab=1.5, cex.axis=1.5, cex.main = 2) 
-
-
 
 ```
 
@@ -88,12 +86,11 @@ AIH_metadata$F03_F4 <- as.numeric(AIH_metadata$F03_F4)
 AIH_metadata$spl_plate <- as.numeric(AIH_metadata$spl_plate)
 AIH_metadata$dt_isl <- as.numeric(AIH_metadata$dt_isl)
 AIH_metadata$age <- cut(as.numeric(AIH_metadata$age), 3, labels = 1:3)
-length(AIH_metadata$age)
-
+AIH_metadata$lt_before_coll <- as.numeric(AIH_metadata$lt_before_coll)
 
 
 ```
-
+Trying different clustering stuffs (Amy)
 ```{r}
 library("factoextra")
 install.packages("FactoMineR")
@@ -166,7 +163,7 @@ library(HSAUR)
 ggplot(iris, aes(Petal.Length, Petal.Width, color = iris$cluster)) + geom_point()
 
 ```
-
+More clustering stuff (amy)
 ```{r}
 my_data <- scale(dist(t_matrix_vsd), center=TRUE, scale=FALSE)
 
@@ -194,10 +191,10 @@ fviz_cluster(km.res, data = my_data,
 ```
 
 
-
+Colored dendrograms
 ```{r}
 library(ggplot2)
-install.packages("ggdendro")
+#install.packages("ggdendro")
 library(ggdendro)
 
 
@@ -273,6 +270,7 @@ ggplot() +
         panel.background=element_rect(fill="white"),
         panel.grid=element_blank()) +
   scale_color_discrete(name = "age", labels = c("20-39", "40-59", "60-79"))
+
 
 ```
 
