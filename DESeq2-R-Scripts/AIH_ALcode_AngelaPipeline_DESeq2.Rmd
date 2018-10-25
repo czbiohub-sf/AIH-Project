@@ -1,7 +1,7 @@
 ---
 title: "Angela's Pipeline"
 output: html_notebook
-outline pipeline:
+outline pipeline: 
 
 "a."	 Batch correct for plate in DESeq2 (discuss batch correction algorithms, have a look at “removeBatchEffect” from the limma package http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/limma/html/removeBatchEffect.html)
 "b."	Generate differential gene expression (log fold change) data from DESeq2
@@ -38,7 +38,7 @@ Read in the raw gene counts table, after filtering using PriceSeqFilter and cutt
 
 Then we remove any genes that are ERCC genes (positive control RNA augmented to human genome in IDSeq) and water samples. We format the ENSEMBL gene names [rownames] to exclude the version number after the period. We format the file names [colnames] to extract the AASLD ID.
 ```{r}
-genecounts<-read.delim(as.matrix("../AIH NovaSeq Gene Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE) 
+genecounts<-read.delim(as.matrix("../AIH-NovaSeq-Gene-Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE) 
 
 #make an ERCC gene counts dataframe and then remove those gene counts
 ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
@@ -66,7 +66,7 @@ We will bin continuous data in order make it compatible with DESeq2. Arielle cho
 ```{r}
 
 #read in metadata, rename rows so that they match gene counts file
-metadata <- read.csv("../AIH metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
 
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
@@ -76,11 +76,23 @@ row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), patte
 ##ast summary stats and plot data; cutting into approx 25 bins (based on stats and #of bars in graph)
 metadata$ast <- cut (metadata$ast, 25, labels = 1:25)
 
-#age summary stats cutting into approximately 20 bins (based on the numbers of bars on the graph)
-metadata$age <- cut (metadata$age, 3, labels = 1:3)
+#age summary stats cutting into 3 bins (based on the numbers of bars on the graph)
+#metadata$age <- cut (metadata$age, 3, labels = 1:3)
+
+#create fibrosis groups
+metadata$fibrosis_groups<- ifelse(metadata$case_hl_du =="control", "healthy", ifelse(metadata$F03_F4_final == "F0_F3", "AIHnocirrhosis", "AIHcirrhosis"))
+
+##alt summary stats cutting into three bins 
+metadata$alt_groups <- ifelse(metadata$case_hl_du == "control", "healthy", ifelse(metadata$alt>30, "AIHelevatedALT", "AIHnormalALT"))
+
+##on treatment groups
+metadata$on_tx_groups <- ifelse(metadata$case_hl_du == "control", "healthy", as.character(metadata$on_tx))
 
 ##alt summary stats cutting into approx 30 bins (based on stats and #of bars in graph)
 metadata$alt <- cut (metadata$alt, 30, labels = 1:30)
+
+##response - giving healthys a 'no treatment'
+metadata$response_groups <- ifelse(metadata$case_hl_du == "control", "healthy-notreat", as.character(metadata$response))
 
 ##tbili summary stats cutting into approx 15 bins (based on stats and #of bars in graph)
 metadata$bili <- cut (metadata$bili, 15, labels = 1:15)
@@ -105,9 +117,17 @@ metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AA
 #remove patients who had a liver transplant before sample collection
 metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
 
-#only look at cases with response data
-metadata_filt <- metadata_filt[!(is.na(metadata_filt$response)), ]
+#only look at cases with no NA
+#age+case_hl_du+sex+on_tx_groups+fibrosis_groups+alt_groups+race+ethn
+metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
 
+#nrow(metadata_filt)
+table(metadata_filt$on_tx_groups)
+table(metadata_filt$case_hl_du)
+table(metadata_filt$fibrosis_groups)
+table(metadata_filt$alt_groups)
+
+#View(metadata_filt)
 #length(rownames(metadata_filt))
 
 ```
@@ -120,7 +140,7 @@ genecounts <- genecounts[,rownames(metadata_filt)]
 
 #Check to ensure the count dat and metadata are in the same order (result = TRUE)
 all(rownames(metadata_filt) == colnames(genecounts))
-colnames(genecounts)
+#colnames(genecounts)
 
 ```
 We will now use biomart, a package which links gene ids from different databases, to convert ENSEMBL gene ID to HGNC symbol.
@@ -169,10 +189,12 @@ pc<-pc[!(is.na(pc$ensembl)),]
 #make an index for protein coding genes
 idxpc<- match(pc$ensembl,rownames(genecounts))
 genecountspc<-genecounts[idxpc,]
+pc$hgnc_symbol
 rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
+?make.unique
 
 
-length(rownames(genecountspc))
+#length(rownames(genecountspc))
 #write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_nofilter_genecounts-protein-coding.csv")
 ```
 
@@ -195,15 +217,20 @@ length(rownames(genecountspc))
 ```
 
 
-There are two different ways to control for batch effect: you can account for the variation generated by batch in your model (design = ~ batch + condition), or you can remove the batch effect prior to analysis (limma::removeBatchEffect). We have tried controlling batch effect DESeq2 but based on our unsupervised clustering (hiearchal clustering and PCA) we have determined neither batch (plate + data RNA extracted) and demographic info (age, race, ethn) to be contributing to batch. Thus, we include only the variable of interest in the design.
+There are two different ways to control for batch effect: you can account for the variation generated by batch in your model (design = ~ batch + condition), or you can remove the batch effect prior to analysis (limma::removeBatchEffect). We have tried controlling batch effect DESeq2 but based on our unsupervised clustering (hiearchal clustering and PCA) we have determined neither batch (plate + data RNA extracted) and demographic info (age, race, ethn) to be contributing to gene expression. Thus, we include only the variable of interest in the design.
 
 ```{r}
-#relevel the metadata so control is the baseline
-metadata_filt$case_hl_du <- relevel (metadata_filt$case_hl_du, ref = "control")
-#metadata_filt$response <- relevel (metadata_filt$response, ref = "complete")
-
 #create a DESeq data set/object
-dds <- DESeqDataSetFromMatrix(countData = genecountspc, colData = metadata_filt, design= ~response)
+dds <- DESeqDataSetFromMatrix(countData = genecountspc, colData = metadata_filt,
+                              design= ~age+sex+race+ethn+case_hl_du)
+
+
+dds <- DESeqDataSetFromMatrix(countData = genecountspc, colData = metadata_filt,
+                              design= ~case_hl_du+fibrosis_groups+alt_groups+on_tx_groups)#
+
+#relevel the metadata so control is the baseline
+dds$case_hl_du<- relevel (dds$case_hl_du, ref = "control")
+
 
 ```
 
@@ -235,7 +262,7 @@ Collapse replicates by sample name in the 'du' column, so they can be identified
 
 #collapse replicates
 ddsCollapsed <- collapseReplicates( dds, groupby = dds$du)
-head( as.data.frame( colData(ddsCollapsed)[ ,"du"] ), 110)
+#head( as.data.frame( colData(ddsCollapsed)[ ,"du"] ), 110)
 
 
 #Verify summing has peen correctly performed
@@ -254,15 +281,22 @@ Calculate a results table contrasting pairwise
 ```{r}
 #calculate results contrasting case and control
 resultsNames(dds)
-results <- results(dds, contrast=list("complete",c("non-responder","partial")), alpha=0.05, tidy = TRUE)
 ?results
+results <- results(dds, contrast=c("alt_groups", "AIHelevatedALT", "AIHnormalALT"), alpha=0.05, tidy = TRUE)
+#write results to a table
+results_significant <- results %>% filter (results$padj < 0.05) %>% arrange (padj, log2FoldChange)
+setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH-DESeq2-Output/Amy_DESeq2_DEGenes_102418/")
 View(results)
+write.csv(results, "AIH_ALTrelevel_AIHelevatedALTvsAIHnormalALT_nooutliers_nolivertrans.csv")
+write.csv(results_significant, "AIH_ALTrelevel_AIHelevatedALTvsAIHnormalALT_nooutliers_nolivertrans_FDR0.05.csv")
+
+
 ```
 
 Perform a variance stabalizing transformation (for WGCNA analysis). VST will perform normalization. VST is faster than rlog but more sensitive to size factors. For WGCNA and other machine learning algorithms, VST is preferred.
 ```{r}
 vsd <- varianceStabilizingTransformation(dds, blind=TRUE) 
-
+rlogdata <- rlog(dds)
 #Creating an output file for use in WGCNA and other downstream applications
 setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
 matrix_vsd <- assay(vsd)
@@ -271,7 +305,6 @@ write.csv (t_matrix_vsd, file = "VSDNormalized_case_control_nooutliers_nolivertr
 ```
 
 ```{r}
-
 #MA plot of signficant results (red) vs all genes to assess overall results
 results_MA <- results(dds, contrast=c("case_hl_du", "case", "control"), alpha=0.05)
 DESeq2::plotMA (results_MA, ylim = c(-10, 10))
@@ -284,15 +317,9 @@ with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot
 with(subset(results_MA, padj<.05 ), points(log2FoldChange, -log10(pvalue), pch=20, col="gray"))
 with(subset(results_MA, abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
 with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
-
-
-
-results_significant <- results %>% filter (results$padj < 0.05) %>% arrange (padj, log2FoldChange)
-setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
-write.csv(results, "AIH_case_v_control_nooutliers_nolivertrans.csv")
-
-write.csv(results_significant, "AIH_case_v_control_nooutliers_nolivertrans_FDR0.05.csv")
 ```
+
+
 ```{r}
 
 ```
