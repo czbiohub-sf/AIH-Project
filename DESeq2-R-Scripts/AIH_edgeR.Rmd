@@ -1,0 +1,291 @@
+---
+title: "edgeR"
+output: html_notebook
+outline pipeline: 
+
+"a."	 Batch correct for plate in DESeq2 (discuss batch correction algorithms, have a look at “removeBatchEffect” from the limma package http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/limma/html/removeBatchEffect.html)
+"b."	Generate differential gene expression (log fold change) data from DESeq2
+            "i."	cases vs. controls
+            "ii."	complete vs. partial/nonresponders (include only a subset of patients)
+            "iii."	other variables of interest, for example disease status (AIH Type)
+            "iv." alt_coll, alt_hc (very complete data)
+            "v." fibrosis score?
+            "vi." on or off treatment
+"c."	Check module-trait graph from WGCNA to identify covariates that are correlated (both positive and negative) and look at gene modules associated with the correlations
+"d."	Data mining in IPA for pathways and drug targets for the multiple differential gene expression lists
+"e."	Patient stratification based on newly identified gene expression patterns
+"f."	Predictive model telling which covariates are most relevant for disease status and progression
+---
+
+Load packages required for steps a and b
+```{r}
+library("DESeq2")
+library("Rsamtools")
+library("biomaRt")
+library("GenomicAlignments")
+library("gplots")
+library("dplyr")
+library("ggplot2")
+library("RColorBrewer")
+library("magrittr")
+library("pheatmap")
+library("stringr")
+library("limma")
+library("edgeR")
+```
+
+Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
+
+Then we remove any genes that are ERCC genes (positive control RNA augmented to human genome in IDSeq) and water samples. We format the ENSEMBL gene names [rownames] to exclude the version number after the period. We format the file names [colnames] to extract the AASLD ID.
+```{r}
+genecounts<-read.delim(as.matrix("../AIH-NovaSeq-Gene-Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE) 
+
+#make an ERCC gene counts dataframe and then remove those gene counts
+ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
+genecounts <- genecounts[ !rownames(genecounts) %in% rownames(ERCCgenecounts), ]
+
+Watergenecounts <- genecounts[,grep("water", colnames(genecounts))]
+genecounts <- genecounts[,!colnames(genecounts) %in% colnames(Watergenecounts) ]
+
+#removing top 4 rows
+genecounts <- genecounts[5:nrow(genecounts),]
+
+#take genenames from gene counts file and split them across the period, only taking the first column. this strips the version number of the ENSEMBL ID.
+genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
+rownames(genecounts) <- genenames
+
+#rename column names for AASLD samples 1-110, included in plate 1
+colnames(genecounts) <- paste0("AASLD", "_", str_extract(colnames(genecounts), pattern = "(?<=aasld[.|_])\\d\\d\\d"))
+```
+
+
+Read in the metadata - Amy ran Arielle's fibrosis algorithm and metadata code with some modifications after a RedCap download by Michele.
+
+We will bin continuous data in order make it compatible with DESeq2. Arielle chose correct bins based on histograms. 
+
+```{r}
+
+#read in metadata, rename rows so that they match gene counts file
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
+
+#rename metadata columns to match gene counts
+row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
+
+##recast all integers as factor data (taking continous data and binning it)
+
+##ast summary stats and plot data; cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$ast <- cut (metadata$ast, 25, labels = 1:25)
+
+#age summary stats cutting into 3 bins (based on the numbers of bars on the graph)
+#metadata$age <- cut (metadata$age, 3, labels = 1:3)
+
+#create fibrosis groups
+metadata$fibrosis_groups<- ifelse(metadata$case_hl_du =="control", "healthy", ifelse(metadata$F03_F4_final == "F0_F3", "AIHnocirrhosis", "AIHcirrhosis"))
+
+##alt summary stats cutting into three bins 
+metadata$alt_groups <- ifelse(metadata$case_hl_du == "control", "healthy", ifelse(metadata$alt>30, "AIHelevatedALT", "AIHnormalALT"))
+
+##on treatment groups
+metadata$on_tx_groups <- as.factor(ifelse(metadata$case_hl_du == "control", "healthy", as.character(metadata$on_tx)))
+
+##alt summary stats cutting into approx 30 bins (based on stats and #of bars in graph)
+metadata$alt <- cut (metadata$alt, 30, labels = 1:30)
+
+##response - giving healthys a 'no treatment'
+metadata$response_groups <- ifelse(metadata$case_hl_du == "control", "healthy-notreat", as.character(metadata$response))
+
+##tbili summary stats cutting into approx 15 bins (based on stats and #of bars in graph)
+metadata$bili <- cut (metadata$bili, 15, labels = 1:15)
+
+##alkp summary stats cutting into approx 20 bins (based on stats and #of bars in graph)
+metadata$alkp <- cut (metadata$alkp, 20, labels = 1:20)
+
+##igg summary stats cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$igg_coll <- cut (metadata$igg_coll, 25, labels = 1:25)
+
+#recast some variables
+metadata$spl_plate <- as.factor(metadata$spl_plate)
+metadata$dt_isl <- as.factor(metadata$dt_isl)
+metadata$response <- as.factor (metadata$response)
+
+#remove COMPLEX CASES
+metadata_filt <- metadata[!(metadata$case_hl_du == "complex" ) , ]
+
+#remove outlier samples 67 and 94
+metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AASLD_094")),]
+
+#remove patients who had a liver transplant before sample collection
+metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
+
+#only look at cases with no NA
+#age+case_hl_du+sex+on_tx_groups+fibrosis_groups+alt_groups+race+ethn
+metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
+
+#nrow(metadata_filt)
+table(metadata_filt$on_tx_gwroups)
+table(metadata_filt$case_hl_du)
+table(metadata_filt$fibrosis_groups)
+table(metadata_filt$alt_groups)
+
+#View(metadata_filt)
+#length(rownames(metadata_filt))
+
+```
+
+Before running DESeq2, you will need to have a data frame with the samples as columns, and the genes as rows, with the raw counts as entries in the data frame (aka genecounts) You will also need a data frame with the samples as rows, and any metadata as columns (aka metadata, the clinical variables to use for differential expression or adjustments, information on match). The columns of the countData must match the rows of colData.  
+
+```{r}
+#match gene counts to metadata table (effectively removing complex cases)
+genecounts <- genecounts[,rownames(metadata_filt)]
+
+#Check to ensure the count dat and metadata are in the same order (result = TRUE)
+all(rownames(metadata_filt) == colnames(genecounts))
+#colnames(genecounts)
+
+```
+We will now use biomart, a package which links gene ids from different databases, to convert ENSEMBL gene ID to HGNC symbol.
+```{r}
+#The following chunk of code uses the ENSEMBL mart, 
+#querying with the ENSEMBL gene id and requesting the Entrez gene id 
+#and HGNC gene symbol. 
+
+listMarts(host="www.ensembl.org")
+mart = useMart(biomart="ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host="www.ensembl.org", ensemblRedirect = FALSE)
+genemap <- getBM( attributes = c("ensembl_gene_id", "entrezgene", "hgnc_symbol", "gene_biotype", "description"),
+                  filters = "ensembl_gene_id",
+                  values = genenames,
+                  mart)
+
+```
+
+We then use biomart to pull gene attributes that can be linked to the ENSEMBL ID and create a new data frame that includes these attributes, including gene biotype.
+
+```{r}
+#create an index in which you are rearranging ensmbl gene ids from genemap into same order as they are in genenames
+idx <- match(genenames, genemap$ensembl_gene_id )
+
+#create new dataset which binds gene attributes
+entrez <- genemap$entrezgene[ idx ]
+hgnc_symbol <- genemap$hgnc_symbol[ idx ]
+description <- genemap$description[ idx ]
+gene_biotype <- genemap$gene_biotype[ idx ]
+ensembl <- genemap$ensembl_gene_id[ idx ]
+
+ga<-cbind(hgnc_symbol,description,gene_biotype,ensembl,entrez)
+
+#make ga into a data frame from a matrix
+ga<-as.data.frame(ga)
+ga$gene_biotype<-as.character(ga$gene_biotype)
+
+```
+
+Create a new dataframe that includes only the protein coding genes and gene counts
+
+```{r}
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+
+#make an index for protein coding genes
+idxpc<- match(pc$ensembl,rownames(genecounts))
+genecountspc<-genecounts[idxpc,]
+pc$hgnc_symbol
+rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
+?make.unique
+
+
+#length(rownames(genecountspc))
+#write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_nofilter_genecounts-protein-coding.csv")
+```
+
+
+Remove hemoglobin genes based on BioMart description (searching for word "hemoglobin"). There are 14 genes related to hemoglobin which STAR aligns to; of those, 12 are protein coding.
+```{r}
+#identify hemoglobin genes and write to CSV
+# setwd("~/Documents/Informatics/AIH/github/AIH-Project/DESeq2-R-Scripts/")
+hemoglobin <- genemap[grepl("hemoglobin[ |,]", genemap$description),]
+# write.csv(genemap[grepl("hemoglobin ", genemap$description),], "hemoglobin_genes.csv")
+
+#what genes are being removed? then remove them from our genecounts table
+genecountspc[rownames(genecountspc) %in% hemoglobin$hgnc_symbol, ]
+genecountspc <- genecountspc[ !rownames(genecountspc) %in% hemoglobin$hgnc_symbol, ]
+
+#how many genes have hemoglobin? how many genes are left?
+nrow(hemoglobin)
+length(rownames(genecountspc))
+
+```
+
+
+There are two different ways to control for batch effect: you can account for the variation generated by batch in your model (design = ~ batch + condition), or you can remove the batch effect prior to analysis (limma::removeBatchEffect). We have tried controlling batch effect DESeq2 but based on our unsupervised clustering (hiearchal clustering and PCA) we have determined neither batch (plate + data RNA extracted) and demographic info (age, race, ethn) to be contributing to gene expression. Thus, we include only the variable of interest in the design.
+
+
+```{r}
+# aux <- as.data.frame(t(metadata_filt))
+# length(aux)
+# dim(genecountspc)
+# length(t(metadata_filt))
+# dim(genecountspc)
+# y <- DGEList(counts=genecountspc,group=as.data.frame(t(metadata_filt)))
+
+
+targets <- metadata_filt
+targets
+
+group <- metadata_filt$case_hl_du
+group <- factor(paste0(paste0(paste0(targets$case_hl_du, ".", targets$on_tx_groups), ".",targets$fibrosis_groups), ".",targets$alt_groups))
+length(group)
+
+y <- DGEList(counts=genecountspc,group=group)
+keep <- filterByExpr(y)
+summary(keep)
+
+y <- calcNormFactors(y)
+
+plotMD(cpm(y, log=TRUE), column=1)
+abline(h=0, col="red", lty=2, lwd=2)
+
+points <- c(0,1,2,15,16,17)
+colors <- rep(c("blue", "darkgreen", "red"), 2)
+plotMDS(y, col=colors[group], pch=points[group])
+legend("topleft", legend=levels(group), pch=points, col=colors, ncol=2)
+
+design <- model.matrix(~0+group)
+design
+
+y <- estimateDisp(y, design, robust=TRUE)
+y$common.dispersion
+
+plotBCV(y)
+
+fit <- glmQLFit(y, design, robust=TRUE)
+head(fit$coefficients)
+
+plotQLDisp(fit)
+
+con <- makeContrasts(groupcase.no.AIHnocirrhosis.AIHelevatedALT - groupcase.no.AIHnocirrhosis.AIHnormalALT, levels=design)
+qlf <- glmQLFTest(fit, contrast=con)
+
+topTags(qlf)
+summary(decideTests(qlf))
+
+plotMD(qlf)
+
+tr <- glmTreat(fit, contrast=con, lfc=log2(1.2))
+topTags(tr)
+
+summary(decideTests(tr))
+plotMD(tr)
+
+#ANOVA-like testing
+con <- makeContrasts(
+  CDvsH = groupcase.yes.AIHnocirrhosis.AIHnormalALT - groupcontrol.healthy.healthy.healthy,
+  CDAvsH = groupcase.yes.AIHnocirrhosis.AIHelevatedALT - groupcontrol.healthy.healthy.healthy,
+  CDACvsH = groupcase.yes.AIHcirrhosis.AIHelevatedALT - groupcontrol.healthy.healthy.healthy, levels=design)
+
+anov <- glmQLFTest(fit, contrast=con)
+
+topTags(anov)
+```
+
+
