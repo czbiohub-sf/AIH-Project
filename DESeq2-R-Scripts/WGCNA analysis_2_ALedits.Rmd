@@ -11,31 +11,31 @@ loading packages needed for the analysis and then generating the gene counts and
 ```{r}
 
 library("BiocInstaller")
-
-
+#biocLite("WGCNA")
 library("WGCNA")
 library("GO.db")
 library("AnnotationDbi")
 library("org.Hs.eg.db")
-#library("anRichmentMethods")
-#library("anRichment")
+#had to install anRichmentMethods via wget #https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/GeneAnnotation/InstallationInstructions.html
+library("anRichmentMethods")
+library("anRichment")
 library("XML")
 library("dplyr")
-
 ```
 
 ```{r}
-setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/")
+setwd("../AIH-DESeq2-Output/")
 
 #Reading in expression data
-t_matrix_vsd <- read.csv("~/Documents/Informatics/AIH/github/AIH-Project/AIH DESeq2 Output/VSDNormalized_case_control_nooutliers_nolivertransplants_101618.csv", row.names = 1)
+t_matrix_vsd <- read.csv("VSDNormalized_case_control_nooutliers_nolivertransplants_101618.csv", row.names = 1)
 
 #Flagging genes with too many missing values
 ##allOK is a column in the S4 data object to examine which genes meet the criteria; if result is TRUE, than genes meet criteria
-#gsg <- goodSamplesGenes(t_matrix_vsd, verbose = 3)
-#gsg$allOK
-```
+gsg <- goodSamplesGenes(t_matrix_vsd, verbose = 3)
+gsg$goodSamples
 
+
+```
 ## Sample Clustering 
 Gene expression data are then clustered by sample using sample data to check for outliers
 
@@ -48,7 +48,6 @@ hc_matrix_vsd <- hclust(dist(t_matrix_vsd), method = "ward.D2")
 sizeGrWindow(12,9)
 par(cex = 0.6)
 par(mar = c(0,4,2,0))
-?hclust
 
 #plotting hc data and then writing it to jpeg file
 plot(hc_matrix_vsd, main = "h clustering, ward.D2", sub="", xlab="", cex.lab=1.5, cex.axis=1.5, cex.main = 2) 
@@ -56,39 +55,135 @@ plot(hc_matrix_vsd, main = "h clustering, ward.D2", sub="", xlab="", cex.lab=1.5
 ```
 
 
+
+EdgeR analysis
+```{r}
+#setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH metadata/")
+
+dim(t(log.cpm.y))
+
+#hc matrix clustering
+hc_matrix_vsd <- hclust(dist(t(log.cpm.y)), method = "ward.D2")
+
+sizeGrWindow(12,9)
+par(cex = 0.6)
+par(mar = c(0,4,2,0))
+
+#plotting hc data and then writing it to jpeg file
+plot(hc_matrix_vsd, main = "h clustering, ward.D2", sub="", xlab="", cex.lab=1.5, cex.axis=1.5, cex.main = 2) 
+```
+
+
 ## Reading in metadata
 Reading in metadata written from filtered DESeq2 file and then format correctly for analysis 
 
 ```{r}
-#setwd("~/AIH-Project/AIH metadata/data")
-AIH_metadata <- read.csv("../AIH metadata/AIH_metadata_firstpass_ALedits.csv")
+#read in metadata, rename rows so that they match gene counts file
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
 
-#Removing unneeded column data and merged duplicate row data
-#AIH_metadata <- AIH_metadata[-c(72, 11,74,96,27,75,26,32,61,23,18,22, 67, 94),]
-AIH_metadata <- AIH_metadata[-c(9,19,29,39,49,59,69,79,89,99,18,22, 67, 94),]
+#rename metadata columns to match gene counts
+rownames(metadata)<-paste0("AASLD", "-", str_extract(rownames(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
 
-AIH_metadata
-#Recasting all variables as numeric (required in this model)
-AIH_metadata$case_hl_du <- as.numeric(AIH_metadata$case_hl_du)
-AIH_metadata$response <- as.numeric (AIH_metadata$case_hl_du)
-AIH_metadata$sex <- as.numeric(AIH_metadata$sex)
-AIH_metadata$race <- as.numeric(AIH_metadata$race)
-AIH_metadata$ethn <- as.numeric(AIH_metadata$ethn)
-AIH_metadata$aih_type <- as.numeric(AIH_metadata$aih_type)
-AIH_metadata$on_tx <- as.numeric (AIH_metadata$on_tx)
-AIH_metadata$response <- as.numeric (AIH_metadata$response)
-AIH_metadata$relapse <- as.numeric (AIH_metadata$relapse)
-AIH_metadata$decomp <- as.numeric(AIH_metadata$decomp)
-AIH_metadata$lt <- as.numeric(AIH_metadata$lt)
-AIH_metadata$liver_death <- as.numeric (AIH_metadata$liver_death)
-AIH_metadata$du <- as.numeric(AIH_metadata$du)
-AIH_metadata$F03_F4 <- as.numeric(AIH_metadata$F03_F4) 
-AIH_metadata$spl_plate <- as.numeric(AIH_metadata$spl_plate)
-AIH_metadata$dt_isl <- as.numeric(AIH_metadata$dt_isl)
-AIH_metadata$age <- cut(as.numeric(AIH_metadata$age), 3, labels = 1:3)
-AIH_metadata$lt_before_coll <- as.numeric(AIH_metadata$lt_before_coll)
+##recast all integers as factor data (taking continous data and binning it)
 
+##ast summary stats and plot data; cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$ast <- cut (metadata$ast, 25, labels = 1:25)
 
+#age summary stats cutting into 3 bins (based on the numbers of bars on the graph)
+metadata$age <- cut (metadata$age, 3, labels = 1:3)
+
+#create fibrosis groups
+metadata$fibrosis_groups<- as.factor(ifelse(metadata$case_hl_du =="control", "healthy", ifelse(metadata$F03_F4_final == "F0_F3", "AIHnocirrhosis", "AIHcirrhosis")))
+
+##alt summary stats cutting into three bins 
+metadata$alt_groups <- as.factor(ifelse(metadata$case_hl_du == "control", "healthy", ifelse(metadata$alt>30, "AIHelevatedALT", "AIHnormalALT")))
+
+##on treatment groups
+metadata$on_tx_groups <- ifelse(metadata$case_hl_du == "control", "healthy", as.character(metadata$on_tx))
+
+##alt summary stats cutting into approx 30 bins (based on stats and #of bars in graph)
+metadata$alt <- cut (metadata$alt, 30, labels = 1:30)
+
+##response - giving healthys a 'no treatment'
+metadata$response_groups <- ifelse(metadata$case_hl_du == "control", "healthy-notreat", as.character(metadata$response))
+
+##tbili summary stats cutting into approx 15 bins (based on stats and #of bars in graph)
+metadata$bili <- cut (metadata$bili, 15, labels = 1:15)
+
+##alkp summary stats cutting into approx 20 bins (based on stats and #of bars in graph)
+metadata$alkp <- cut (metadata$alkp, 20, labels = 1:20)
+
+##igg summary stats cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$igg_coll <- cut (metadata$igg_coll, 25, labels = 1:25)
+
+#recast some variables
+metadata$spl_plate <- as.factor(metadata$spl_plate)
+metadata$dt_isl <- as.factor(metadata$dt_isl)
+metadata$response <- as.factor (metadata$response)
+
+#remove COMPLEX CASES
+metadata_filt <- metadata[!(metadata$case_hl_du == "complex" ) , ]
+
+#remove outlier samples 67 and 94
+metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD-067", "AASLD-094")),]
+
+#remove patients who had a liver transplant before sample collection
+metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
+
+#only look at cases with no NA
+#age+case_hl_du+sex+on_tx_groups+fibrosis_groups+alt_groups+race+ethn
+metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
+
+#nrow(metadata_filt)
+table(metadata_filt$on_tx_groups)
+table(metadata_filt$case_hl_du)
+table(metadata_filt$fibrosis_groups)
+table(metadata_filt$alt_groups)
+
+#remove duplicates
+metadata_filt <- metadata_filt[rownames(metadata_filt) == metadata_filt$du,]
+
+#casting all as numeric
+metadata_filt$case_hl_du <- factor(metadata_filt$case_hl_du, levels = c("control", "case"))
+metadata_filt$case_hl_du <- as.numeric(metadata_filt$case_hl_du)
+metadata_filt$response_groups <- factor(metadata_filt$response_groups, levels = c("healthy","complete", "partial", "nonresponders"))
+metadata_filt$response_groups <- as.numeric (metadata_filt$response_groups)
+metadata_filt$sex <- factor(metadata_filt$sex, levels = c("female","male"))
+metadata_filt$sex <- as.numeric(metadata_filt$sex)
+metadata_filt$race <- factor(metadata_filt$race, levels = c("white","black","asian"))
+metadata_filt$race <- as.numeric(metadata_filt$race)
+metadata_filt$ethn <- factor(metadata_filt$ethn, levels = c("Not_hisp_latino", "hisp_latino"))
+metadata_filt$ethn <- as.numeric(metadata_filt$ethn)
+metadata_filt$aih_type <- factor(metadata_filt$aih_type, levels = c("healthy_cont","type_1_aih", "type_2_aih", "drug_induced_aih", "unknown_aih"))
+metadata_filt$aih_type <- as.numeric(metadata_filt$aih_type)
+metadata_filt$on_tx_groups<- factor (metadata_filt$on_tx_groups, levels = c("healthy","no","yes"))
+metadata_filt$on_tx_groups <- as.numeric (metadata_filt$on_tx_groups)
+metadata_filt$relapse <- factor(metadata_filt$relapse, levels = c(NA,"no","yes"))
+metadata_filt$relapse <- as.numeric (metadata_filt$relapse)
+metadata_filt$decomp <- factor(metadata_filt$decomp, levels = c(NA,"no","yes"))
+metadata_filt$decomp <- as.numeric(metadata_filt$decomp)
+metadata_filt$lt <- factor(metadata_filt$lt, levels = c(NA,"no","yes"))
+metadata_filt$lt <- as.numeric(metadata_filt$lt)
+metadata_filt$lt_before_coll <- factor(metadata_filt$lt_before_coll, levels = c(NA,"no","yes"))
+metadata_filt$lt_before_coll <- as.numeric(metadata_filt$lt_before_coll)
+metadata_filt$liver_death <- factor(metadata_filt$liver_death, levels = c(NA,"yes"))
+metadata_filt$liver_death <- as.numeric (metadata_filt$liver_death)
+metadata_filt$F03_F4_final <- factor(metadata_filt$F03_F4_final, levels = c("F0","F0_F3","F4")) 
+metadata_filt$F03_F4_final <- as.numeric(metadata_filt$F03_F4_final) 
+metadata_filt$spl_plate <- as.numeric(metadata_filt$spl_plate)
+metadata_filt$dt_isl <- as.numeric(metadata_filt$dt_isl)
+metadata_filt$pegivirus <- factor(metadata_filt$pegivirus, levels=c("no","yes"))
+metadata_filt$pegivirus <- as.numeric(metadata_filt$pegivirus)
+metadata_filt$alt_groups <- factor(metadata_filt$alt_groups, levels = c("healthy", "AIHelevatedALT", "AIHnormalALT"))
+metadata_filt$alt_groups <- as.numeric(metadata_filt$alt_groups)
+metadata_filt$fibrosis_groups <- factor(metadata_filt$fibrosis_groups, levels = c("healthy","AIHnocirrhosis","AIHcirrhosis"))
+metadata_filt$fibrosis_groups <- as.numeric(metadata_filt$fibrosis_groups)
+metadata_filt$date_coll <- as.numeric(metadata_filt$date_coll)
+table(metadata_filt$case_hl_du)
+
+rownames(metadata_filt)<-paste0("AASLD", "_", str_extract(rownames(metadata_filt), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
+
+rownames(metadata_filt)
 ```
 Trying different clustering stuffs (Amy)
 ```{r}
@@ -104,8 +199,8 @@ clusplot(res$data, res$cluster, color=FALSE, col.p=c("blue","red"),shade=FALSE, 
 
 HCPC(pca, nb.clust = 0, iter.max = 10, min = 3, max = NULL, graph = TRUE)
 
-idx<-match(res$labels,AIH_metadata$aasld_id)
-caseidx<- AIH_metadata$case_hl_du[idx]
+idx<-match(res$labels,metadata_filt$aasld_id)
+caseidx<- metadata_filt$case_hl_du[idx]
 
 res$color = numbers2colors(caseidx, signed = FALSE)
 dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
@@ -197,11 +292,12 @@ library(ggplot2)
 #install.packages("ggdendro")
 library(ggdendro)
 
-
-
+label(dendr)[,3]
+rownames(metadata_filt)
 dendr <- dendro_data(hc_matrix_vsd, type="rectangle") 
-idx<-match(label(dendr)[,3],AIH_metadata$aasld_id)
-caseidx<- AIH_metadata$case_hl_du[idx] 
+idx<-match(as.character(label(dendr)[,3]),rownames(metadata_filt))
+idx
+caseidx<- metadata_filt$case_hl_du[idx] 
 dendr$color = numbers2colors(caseidx, signed = FALSE)
 dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
 
@@ -219,7 +315,7 @@ ggplot() +
   scale_color_discrete(name = "Condition", labels = c("Case", "Control"))
 
 
-plateidx<- AIH_metadata$spl_plate[idx] 
+plateidx<- metadata_filt$spl_plate[idx] 
 dendr$color = numbers2colors(plateidx, signed = FALSE)
 dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
 
@@ -237,7 +333,7 @@ ggplot() +
   scale_color_discrete(name = "Library Prep Batch", labels = c("Plate 1", "Plate 2"))
 
 
-rnabatch<- AIH_metadata$dt_isl[idx] 
+rnabatch<- metadata_filt$dt_isl[idx] 
 dendr$color = numbers2colors(rnabatch, signed = FALSE)
 dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
 
@@ -254,7 +350,7 @@ ggplot() +
         panel.grid=element_blank()) +
   scale_color_discrete(name = "RNA Batch", labels = c("Batch 1", "Batch 2", "Batch 3", "Batch 4"))
 
-age<- AIH_metadata$age[idx] 
+age<- metadata_filt$age[idx] 
 
 dendr$color = numbers2colors(as.numeric(age), signed = FALSE)
 dendr$color <- str_replace(dendr$color,"#FFFFFF", "#FF2222") 
@@ -281,18 +377,14 @@ Renaming to sample names of datExpr (for gene expression) and datTraits
 #ggplot color dendrogam
 
 #renaming per tutorial code names to correspond to subsequent code
-datExpr <- t_matrix_vsd
-datTraits <- AIH_metadata$dt_isl
+datExpr <- t(log.cpm.y)
 
-length (datTraits)
+datTraits <- as.numeric(metadata_filt$case_hl_du)
 #traits as colors w/ dendogram
-library("stringr")
-?numbers2colors
+
+
 traitColors = numbers2colors(datTraits, signed = FALSE)
-traitColors <- str_replace(traitColors,"#FFFFFF", "#FF2222") 
-?numbers2colors
-hc_matrix_vsd
-traitColors
+#traitColors <- str_replace(traitColors,"#FFFFFF", "#FF2222") 
 
 unique(traitColors)
 plotDendroAndColors(hc_matrix_vsd, traitColors, groupLabels = names(datTraits), main = "sample dendogram and trait heatmap")
@@ -431,29 +523,36 @@ Eg metadata
 nGenes = ncol(datExpr)
 nSamples = nrow(datExpr)
 
+#set datTraits to the metadata
+datTraits<-metadata_filt[,!(colnames(metadata_filt) %in% c("du","response","F03_F4","on_tx","liver_death","lt_before_coll","date_lt"))]
+names(datTraits)
+
 # Recalculate MEs with color labels
 MEs0 = moduleEigengenes(datExpr, moduleColors)$eigengenes
 MEs = orderMEs(MEs0)
+
 moduleTraitCor = cor(MEs, datTraits, use = "p")
 moduleTraitPvalue = corPvalueStudent(moduleTraitCor, nSamples)
 
 #Graph color coding associations by correlation value
-sizeGrWindow(10,6)
+sizeGrWindow(11,12)
 # Will display correlations and their p-values
 textMatrix = paste(signif(moduleTraitCor, 2), "\n(",
 signif(moduleTraitPvalue, 1), ")", sep = "")
 dim(textMatrix) = dim(moduleTraitCor)
-par(mar = c(6, 8.5, 3, 3))
+par(mar = c(7, 8.5, 4, 3))
 # Display the correlation values within a heatmap plot
+datTraits
+names(MEs)
 labeledHeatmap(Matrix = moduleTraitCor,
 xLabels = names(datTraits),
 yLabels = names(MEs),
 ySymbols = names(MEs),
 colorLabels = FALSE,
-colors = greenWhiteRed(50),
+colors = blueWhiteRed(50),
 textMatrix = textMatrix,
 setStdMargins = FALSE,
-cex.text = 0.5,
+cex.text = 0.7,
 zlim = c(-1,1),
 main = paste("Module-trait relationships"))
 
@@ -464,27 +563,39 @@ main = paste("Module-trait relationships"))
 Using Bioconductor default package to annotate genes
 
 ```{r}
-
 #########Changing human gene names to entrez
-entrez <- convert2entrez(organism = "human", symbol = colnames(datExpr))
-
-# Get the corresponding Locuis Link IDs
-allLLIDs = entrez
-
+#entrez <- convert2entrez(organism = "human", symbol = colnames(datExpr))
+#?convert2entrez
+# Get the corresponding Locuis Link IDs for Ensembl ID
+allLLIDs = colnames(datExpr)
+allLLIDs
 # $ Choose interesting modules
-intModules = c("brown", "blue", "purple", "yellow", "turquoise")
-
+intModules = c("salmon", "blue", "pink", "green", "purple")
+modGenes = (moduleColors == "purple")
 # Select module probes
+
 for (module in intModules)
 {
 modGenes = (moduleColors == module)
 # Get their entrez ID codes
+#modDESeq2Results = results[modGenes]
 modLLIDs = allLLIDs[modGenes]
 # Write them into a file
-WGCNA_GO_analysis = paste("LocusLinkIDs-", module, ".txt", sep="");
-write.table(as.data.frame(modLLIDs), file = fileName,
-row.names = FALSE, col.names = FALSE)
+WGCNA_GO_analysis = paste("EdgeR_LocusLinkIDs-", module, ".txt", sep="")
+#for DESeq2: table = cbind(as.data.frame(modLLIDs),results[results$row %in% modLLIDs,])
+table = cbind(as.data.frame(modLLIDs),allgenes[rownames(allgenes) %in% modLLIDs,])
+write.table(table, file = WGCNA_GO_analysis, row.names = TRUE, col.names = TRUE)
 }
+
+#allgenes[rownames(allgenes) %in% modLLIDs,]
+#allgenes=topTags(qlf, n=Inf)
+
+#rownames(allgenes)
+```
+
+
+GO enrichment analysis
+```{r}
 
 # As background in the enrichment analysis, we will use all probes in the analysis.
 fileName = paste("LocusLinkIDs-all.txt", sep="")
@@ -499,13 +610,6 @@ GOenr = GOenrichmentAnalysis(moduleColors, allLLIDs, organism = "human", nBestP 
 tab <- GOenr$bestPTerms[[4]]$enrichment
 
 GOcollection = buildGOcollection(organism = "human")
-
-
-```
-
-
-
-```{r}
 
 ```
 
