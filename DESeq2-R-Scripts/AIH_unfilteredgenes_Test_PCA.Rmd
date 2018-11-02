@@ -10,8 +10,6 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-setwd("~/AIH-Project/DESeq2-R-Scripts")
-
 library("DESeq2")
 library("Rsamtools")
 library("biomaRt")
@@ -35,7 +33,7 @@ For PCA analysis, the data expects the samples to be rows and the genes to be co
 #setwd("~/AIH-Project/AIH NovaSeq Gene Counts")
 
 #take gene_counts_final from STAR tab file, after running Caitriona's script
-genecounts<-read.delim(as.matrix("../AIH NovaSeq Gene Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1) 
+genecounts<-read.delim(as.matrix("../AIH-NovaSeq-Gene-Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1) 
 
 #make an ERCC gene counts dataframe and then remove those gene counts
 ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
@@ -176,7 +174,7 @@ pca_var_sample <- pca_by_sample$sdev^2
 pca_var_perc_sample <- round (pca_var_sample/sum(pca_var_sample)*100, 1)
 
 #plot the percentage of variation for princial components using base bar plot function (Scree Plot looks at each comonent and how much that contributes to overall variability)
-barplot (pca_var_perc_sample, main = "Scree Plot", xlab = "principal comonent", ylab = "% variation")
+barplot (pca_var_perc_sample, main = "Screen Plot", xlab = "principal comonent", ylab = "% variation")
 
 
 #QQ plot to assess outliers of each principal component (can also use qqnorm for a smiplified plot however, outliers are not labeled here)
