@@ -1,0 +1,128 @@
+---
+title: "AIH_Decompensation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("DESeq2")
+library("Rsamtools")
+library("biomaRt")
+library("GenomicAlignments")
+library("gplots")
+library("dplyr")
+library("ggplot2")
+library("RColorBrewer")
+library("magrittr")
+library("pheatmap")
+library("stringr")
+library("limma")
+library("edgeR")
+```
+
+
+Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
+
+Then we remove any genes that are ERCC genes (positive control RNA augmented to human genome in IDSeq) and water samples. We format the ENSEMBL gene names [rownames] to exclude the version number after the period. We format the file names [colnames] to extract the AASLD ID.
+```{r}
+genecounts<-read.delim(as.matrix("../AIH-NovaSeq-Gene-Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE) 
+
+#make an ERCC gene counts dataframe and then remove those gene counts
+ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
+genecounts <- genecounts[ !rownames(genecounts) %in% rownames(ERCCgenecounts), ]
+
+Watergenecounts <- genecounts[,grep("water", colnames(genecounts))]
+genecounts <- genecounts[,!colnames(genecounts) %in% colnames(Watergenecounts) ]
+
+#removing top 4 rows
+genecounts <- genecounts[5:nrow(genecounts),]
+
+#take genenames from gene counts file and split them across the period, only taking the first column. this strips the version number of the ENSEMBL ID.
+genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
+rownames(genecounts) <- genenames
+
+#rename column names for AASLD samples 1-110, included in plate 1
+colnames(genecounts) <- paste0("AASLD", "_", str_extract(colnames(genecounts), pattern = "(?<=aasld[.|_])\\d\\d\\d"))
+```
+
+
+Read in the metadata - Amy ran Arielle's fibrosis algorithm and metadata code with some modifications after a RedCap download by Michele. Careful to run this all as a chunk - rerunning certain parts separately will not result in the correct metadata.
+
+We will bin continuous data in order make it compatible with DESeq2. Arielle chose correct bins based on histograms. 
+
+```{r}
+
+
+#read in metadata, rename rows so that they match gene counts file
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
+metadata
+#rename metadata columns to match gene counts
+row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
+
+##recast all integers as factor data (taking continous data and binning it)
+
+
+#store the unbinned data for other purposes
+metadata$age_nobin <- metadata$age
+metadata$alt_nobin <- metadata$alt
+metadata$igg_coll_nobin <- metadata$igg_coll
+
+##ast summary stats and plot data; cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$ast <- cut (metadata$ast, 25, labels = 1:25)
+
+#age summary stats cutting into 3 bins (based on the numbers of bars on the graph)
+metadata$age <- cut (metadata$age, 25, labels = 1:25)
+
+#create fibrosis groups
+metadata$fibrosis_groups<- ifelse(metadata$case_hl_du =="control", "healthy", ifelse(metadata$F03_F4_final == "F0_F3", "AIHnocirrhosis", "AIHcirrhosis"))
+
+##alt summary stats cutting into three bins 
+metadata$alt_groups <- ifelse(metadata$case_hl_du == "control", "healthy", ifelse(metadata$alt>30, "AIHelevatedALT", "AIHnormalALT"))
+
+##on treatment groups
+metadata$on_tx_groups <- ifelse(metadata$case_hl_du == "control", "healthy", as.character(metadata$on_tx))
+
+##alt summary stats cutting into approx 30 bins (based on stats and #of bars in graph)
+metadata$alt <- cut (metadata$alt, 30, labels = 1:30)
+
+##response - giving healthys a 'no treatment'
+metadata$response_groups <- ifelse(metadata$case_hl_du == "control", "healthy-notreat", as.character(metadata$response))
+
+##tbili summary stats cutting into approx 15 bins (based on stats and #of bars in graph)
+metadata$bili <- cut (metadata$bili, 15, labels = 1:15)
+
+##alkp summary stats cutting into approx 20 bins (based on stats and #of bars in graph)
+metadata$alkp <- cut (metadata$alkp, 20, labels = 1:20)
+
+##igg summary stats cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$igg_coll <- cut (metadata$igg_coll, 25, labels = 1:25)
+
+#recast some variables as factors
+metadata$spl_plate <- as.factor(metadata$spl_plate)
+metadata$dt_isl <- as.factor(metadata$dt_isl)
+metadata$response <- as.factor (metadata$response)
+metadata
+
+#remove COMPLEX CASES
+metadata_filt <- metadata[!(metadata$case_hl_du == "complex" ) , ]
+
+#remove outlier samples 67 and 94
+metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AASLD_094")),]
+
+#remove patients who had a liver transplant before sample collection
+metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
+
+
+#select only 
+
+table(metadata_filt$on_tx_groups)
+table(metadata_filt$case_hl_du)
+table(metadata_filt$fibrosis_groups)
+table(metadata_filt$alt_groups)
+table(metadata_filt$dt_isl)
+
+
+```
