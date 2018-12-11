@@ -1,0 +1,223 @@
+---
+title: "AIH_Gene_Counts_EdgeR_Analysis"
+output: html_notebook
+---
+
+Load in gene counts and metadata, and remove ERCCs
+
+```{r}
+#take gene_counts_final from STAR tab file, after running Caitriona's script
+genecounts<-read.delim(as.matrix("gene_counts_final_AIH_NovaSeq_1xPCR-DASHed_noDASH.tsv"), row.names = 1, stringsAsFactors = TRUE) 
+
+#make an ERCC gene counts dataframe and then remove those gene counts
+ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
+genecounts <- genecounts[ !rownames(genecounts) %in% rownames(ERCCgenecounts), ]
+
+
+#select only 1XPCR DASHed samples, which are the first 56 samples
+genecounts <- genecounts[,1:55]
+
+#take a metadata spreadsheet with samples as first column and metadata headers as first row
+metadata <- read.csv("18_0820_AIH_metadata_plate01.csv", header=TRUE, nrows = 55, stringsAsFactors = TRUE)
+rownames(metadata) <- metadata[,1]
+metadata <- metadata[,-1]
+
+#strip the names to only include the AASLD ID
+rownames(metadatafilt)<-str_extract(rownames(metadatafilt), pattern = "aasld_\\d+")
+colnames(genecountsfilt) <- str_extract(colnames(genecountsfilt), pattern = "aasld_\\d+")
+
+#check that column names of gene counts equals rownames of gene counts
+all(rownames(metadata)==colnames(genecounts))
+
+#take genenames from gene counts file and split them across the period, only taking the first column
+genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
+rownames(genecounts) <- genenames
+
+```
+
+Relabel the genes and filter for protein coding
+
+```{r}
+#ensemble use HG38 as a reference
+listMarts(host="www.ensembl.org")
+mart = useMart(biomart="ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host="www.ensembl.org")
+genemap <- getBM( attributes = c("ensembl_gene_id", "entrezgene", "hgnc_symbol", "gene_biotype", "description"),
+                  filters = "ensembl_gene_id",
+                  values = genenames,
+                  mart)
+
+
+#create an index in which you are rearranging ensmbl gene ids from genemap into same order as they are in genenames
+idx <- match(genenames, genemap$ensembl_gene_id )
+
+#create new dataset which binds gene attributes
+entrez <- genemap$entrezgene[ idx ]
+hgnc_symbol <- genemap$hgnc_symbol[ idx ]
+description <- genemap$description[ idx ]
+gene_biotype <- genemap$gene_biotype[ idx ]
+ensembl <- genemap$ensembl_gene_id[ idx ]
+
+ga<-cbind(hgnc_symbol,description,gene_biotype,ensembl,entrez)
+
+#make ga into a data frame from a matrix
+ga<-as.data.frame(ga)
+ga$gene_biotype<-as.character(ga$gene_biotype)
+
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+
+#make an index for protein coding genes
+idxpc<- match(pc$ensembl,rownames(genecounts))
+genecountspc<-genecounts[idxpc,]
+rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
+```
+
+Make a DGE object
+
+```{r}
+#make a DGE object from original data table
+
+
+dge <- DGEList(counts = genecountspc, lib.size = colSums(genecountspc), genes = pc)
+metadata$case_hl_du[is.na(metadata$case_hl_du)] <- 4
+dge$samples$group <- metadata["case_hl_du"]
+?DGEList
+dge$samples$group
+```
+
+Normalize the data and filter it
+
+```{r}
+#normalizes to RPM
+cpm <- cpm(dge)
+
+#now we want to analyze the log fold difference (by default, does log2)
+log2_cpm <- cpm(dge, log=TRUE)
+
+#filter out samples that have cpm > 1 in more than 3 samples
+dge_sub <- dge[rowSums(cpm>2)>=15, ]
+head(rowSums(cpm>1))
+dim(dge)
+dim(dge_sub)
+
+nsamples <- ncol(dge)
+col <- brewer.pal(nsamples, "Paired")
+col
+
+log2cpm_raw <- cpm(dge, log=TRUE)
+log2cpm_sub <- cpm(dge_sub, log=TRUE)
+
+#density() function from the stats package will give us the data to plot the raw and filtered data by giving the frequency of the gene count
+#Notice the different ranges for the log2(CPM) values (x).
+density(log2cpm_raw[,1])
+density(log2cpm_sub[,1])
+
+
+
+```
+
+Plot the raw and filtered data
+
+```{r}
+
+#plot the raw data 
+par(mfrow=c(1,2))
+plot(density(log2cpm_raw[,1]),
+     col=col[1], 
+     lwd=2, 
+     ylim=c(0,0.21), 
+     las=2, 
+     main="", 
+     xlab="")
+title(main="A. Raw data", xlab="Log2(CPM)")
+
+#add the rest of the samples
+abline(v=0, lty=3)
+for (i in 2:nsamples){
+  den <- density(log2cpm_raw[,i])
+  lines(den$x, den$y, col=col[i], lwd=2)
+}
+
+#plot the filtered samples
+plot(density(log2cpm_sub[,1]), 
+     col=col[1], 
+     lwd=2, 
+     ylim=c(0,0.21), 
+     las=2, 
+     main="", 
+     xlab="")
+title(main="B. Filtered data", xlab="Log2(CPM)")
+
+#add the rest of the samples
+abline(v=0, lty=3)
+for (i in 2:nsamples){
+  den <- density(log2cpm_sub[,i])
+  lines(den$x, den$y, col=col[i], lwd=2)
+}
+```
+
+Plot the raw and normalized data
+
+```{r}
+#from the EdgeR package, many types of normalization methods [TMM is only one]
+#takes raw gene counts or DGE object
+#normalizes based on library size, anything that went wrong with experiment
+dge_sub_norm <- calcNormFactors(dge_sub, method = "TMM")
+dge_sub_norm$samples
+
+#demonstrate the effects of normalization
+dge_sub$counts[,1] <- dge_sub$counts[,1]*0.05
+dge_sub$counts[,2] <- dge_sub$counts[,2]*5
+log2cpm_unorm <- cpm(dge_sub, log=TRUE)
+log2cpm_norm <- cpm(dge_sub_norm, log=TRUE)
+
+#plot them side by side, they should all look the same in terms of interquartile ranges and means
+par(mfrow=c(1,2))
+boxplot(log2cpm_unorm, 
+        las=2, 
+        col=col, 
+        main="")
+title(main="A. Unnormalized data",ylab="Log2(CPM)")
+
+
+boxplot(log2cpm_norm, 
+        las=2, 
+        col=col, 
+        main="")
+title(main="B. Normalized data",ylab="Log2(CPM)")
+
+```
+
+Create an unsupervised clustering
+
+```{r}
+#assign a color and label to each group
+
+col.grp <- dge_sub$samples$group
+levels(col.grp) <-  brewer.pal(4, "Set1")
+col.grp <- as.character(col.grp)
+col.grp 
+
+
+#plot them in clusters without using labelling information 
+#these groups should cluster by labels
+#uses a PCA like analysis
+?plotMDS
+#png("DistancePlot.png")
+par(mfrow=c(1,1))
+plotMDS(log2cpm_norm, 
+        labels=c("case","healthy","duplicate","complex"), 
+        col=c("blue","green","red", "purple"),
+        xlab="Log2(Fold-Change)",
+        ylab="Log2(Fold-Change)")
+title(main="Sample groups")
+
+```
+
+```{r}
+?ggbiplot
+pca <- log2cpm_norm
+ggbiplot(prcomp(t(pca)))
+```
+
