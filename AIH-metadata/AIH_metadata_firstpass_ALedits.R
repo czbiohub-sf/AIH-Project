@@ -1,16 +1,15 @@
-
 ##Set working directory
-#setwd("~/AIH-Project/AIH metadata/data")
+setwd("~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/")
 library ("plyr")
 library("dplyr")
 library("magrittr")
 library("ggplot2")
 
-#Read in comprehensive metadata file (downloaded from redcap)
-AIH_metadata <- read.csv ("../AIH metadata/AASLDAutoimmunePilot_DATA_2018-10-15_0903.csv", stringsAsFactors = FALSE)
+#Read in comprehensive metadata file (downloaded from RedCap)
+AIH_metadata <- read.csv ("AASLDAutoimmunePilot_DATA_2018-10-15_0903.csv", stringsAsFactors = FALSE)
 
 #Filter for selected columns
-AIH_metadata_firstpass <- dplyr::select(AIH_metadata, aasld_id, ind_id, du,spl_plate, dt_isl,  case_hl_du, date_lt, date_coll, sex, race, ethn, aih_type, te_coll, age_coll,  on_tx, igg_coll, ast_coll, alt_coll,  alp_coll, tbili_coll, response, relapse, decomp, lt, liver_death, age_hc, ast_hc, alt_hc, alkphos_hc, tbili_hc)
+AIH_metadata_firstpass <- dplyr::select(AIH_metadata, aasld_id, ind_id, du,spl_plate, dt_isl,  case_hl_du, date_lt, date_coll, sex, race, ethn, aih_type, te_coll, age_coll,  on_tx, diff_treat, igg_coll, ast_coll, alt_coll,  alp_coll, tbili_coll, response, relapse, decomp, lt, liver_death, age_hc, ast_hc, alt_hc, alkphos_hc, tbili_hc)
 colnames(AIH_metadata_firstpass)
 AIH_metadata_firstpass$response
 
@@ -25,13 +24,11 @@ for (i in 1:nrow(AIH_metadata_firstpass)){
 
 #Add in data regarding Fib4 and F03_F4
 ##Requires having run the algorithm data separately (code seperately; uploaded from prior file)
-#setwd("~/Documents/AIH/AIH_R_Projects/Determine_if_cirrhotic")
 AIH_metadata_QF4_join <- read.csv("18_1005_AIH_cases_QF4_calls.csv", stringsAsFactors = FALSE)
 AIH_metadata_firstpass <- full_join(AIH_metadata_firstpass, AIH_metadata_QF4_join, "aasld_id")
 colnames(AIH_metadata_firstpass)
 AIH_metadata_firstpass$F03_F4
 
-?full_join
 #Merge data for duplicate rows into the data frame
 
 for (i in 1:nrow(AIH_metadata_firstpass)){
@@ -53,8 +50,8 @@ colnames(AIH_metadata_firstpass)
 
 
 #Remove duplicate column data from the above 
-AIH_metadata_firstpass %<>% select (aasld_id, case_hl_du, du, spl_plate, dt_isl, date_lt,date_coll, sex, 
-                                    race, ethn, aih_type, te_coll, on_tx, igg_coll, response, 
+AIH_metadata_firstpass %<>% select (aasld_id, ind_id, case_hl_du, du, spl_plate, dt_isl, date_lt, date_coll, sex, 
+                                    race, ethn, aih_type, te_coll, on_tx, diff_treat, igg_coll, response, 
                                     relapse, decomp, lt, liver_death, age, ast, alt, bili, alkp, fib4, F03_F4)
                               
 #make du column represent the 'sample' so that we can collapse replicates later
@@ -123,6 +120,9 @@ AIH_metadata_firstpass$on_tx
 ###on_tx (1 - yes, 0 - no)
 AIH_metadata_firstpass$on_tx <- ifelse(AIH_metadata_firstpass$on_tx == 1, print ("yes"), print ("no"))
                                                   
+###diff_treat (1 - yes, 0 - no)
+AIH_metadata_firstpass$diff_treat <- ifelse(AIH_metadata_firstpass$diff_treat == 1, print ("yes"), print ("no"))
+
 
 ###response (1 - complete, 2 - partial, 3 - non-responder)
 AIH_metadata_firstpass$response <- ifelse(AIH_metadata_firstpass$response == 1, print ("complete"), 
@@ -150,18 +150,20 @@ AIH_metadata_firstpass$F03_F4_final <- ifelse (AIH_metadata_firstpass$case_hl_du
                                          ))
                                
 
-#Adding a column if the sample was positive for pegivirus [Pegivirus 95, 37, 17, 18]
-AIH_metadata_firstpass$pegivirus <- ifelse (grepl ("AASLD-095|AASLD-037|AASLD-017|AASLD-018", AIH_metadata_firstpass_cut$aasld_id), print ("yes"), print ("no"))
+#Adding a column if the sample was positive for pegivirus [Pegivirus 95, 37, 17, 18; also present in small numbers in 99, 84 and 77]
+AIH_metadata_firstpass$pegivirus <- ifelse (grepl ("AASLD-095|AASLD-037|AASLD-017|AASLD-018|AASLD-077|AASLD-099|AASLD-84", AIH_metadata_firstpass$aasld_id), print ("yes"), print ("no"))
                                          
 
 #Writing to a data file
-setwd("../AIH metadata/")
-write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits.csv", row.names = FALSE)
+setwd("../AIH-metadata/")
+write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits_121018.csv", row.names = FALSE)
 
+
+#################Amy runs up to here and cuts metadata in DESeq2 file.
 
 #Making factors from cont variable from sample colleciton (ast, alt, tbili, alkp, igg)
 
-AIH_metadata_firstpass_cut <- read.csv ("AIH_metadata_firstpass_ALedits.csv")
+AIH_metadata_firstpass_cut <- read.csv ("AIH_metadata_firstpass_ALedits_121018.csv")
 AIH_metadata_firstpass_cut$aasld_id <- as.character(AIH_metadata_firstpass_cut$aasld_id)
 AIH_metadata_firstpass_cut$response <- as.factor(AIH_metadata_firstpass_cut$response)
 

@@ -1,0 +1,38 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+
+library("ape")
+
+library("Biostrings")
+
+library("ggplot2")
+install.packages("ggtree", dependencies = TRUE)
+library("ggtree")
+
+
+class(c("GB virus C variant troglodytes - AF070476.1", "Human pegivirus - LT009489.1",      "AIH_095 Pegivirus Assembly","UGANDA_S17_SER-S Pegivirus Assembly",                                     "Human pegivirus - LT009487.1" ,                                                        "PTBI_M2699097_6_RNA_S68 Pegivirus Contigs" , "AIH_037 Pegivirus Contigs" ,"Human pegivirus - LT009483.1","GB virus C - KU685421.1", "AIH_018 Pegivirus Contigs" ,
+"AIH_017_Pegivirus_Contigs"))
+tree <- read.newick(file = "../pegivirus/AIH_pegivirus_tree.newick", text=NULL)
+tree$tip.label <- c("GB virus C variant troglodytes - AF070476.1", "Human pegivirus - LT009489.1",      "AIH_095 Pegivirus Assembly","UGANDA_S17_SER-S Pegivirus Assembly",                                     "Human pegivirus - LT009487.1" ,                                                        "PTBI_M2699097_6_RNA_S68 Pegivirus Contigs" , "AIH_037 Pegivirus Contigs" ,"Human pegivirus - LT009483.1","GB virus C - KU685421.1", "AIH_018 Pegivirus Contigs" ,
+"AIH_017_Pegivirus_Contigs")
+ggtree(tree) + geom_tiplab(color = c("black", "black","purple", "orange", "black","orange","purple", "black","black","purple","purple"), size = 8)  + geom_treescale() +theme(plot.margin = unit(c(1,0,1,1), "cm"))+ggplot2::xlim(0, 0.7) 
+
+
+tree$tip.label
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+

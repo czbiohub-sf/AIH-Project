@@ -1,0 +1,668 @@
+---
+title: "AIH_unfilteredgenes_Test_PCA"
+author: "Arielle Klepper and Amy Lyden"
+date: "9/21/2018"
+output: html_document
+---
+
+#Set WD and read in libraries
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library("DESeq2")
+library("Rsamtools")
+library("biomaRt")
+library("GenomicAlignments")
+library("gplots")
+library("ggplot2")
+library("dplyr")
+library("gplots")
+library("RColorBrewer")
+library ("ggfortify")
+library ("car")
+
+```
+
+
+#Reformatting data for PCA analysis 
+For PCA analysis, the data expects the samples to be rows and the genes to be columns -- we can read in our unfiltered data, select rows of interest, assign gene names using biomaRt, and filter down onto just the protein coding genes for analysis as below (code, taken from AIH DESeq code); then we need to transpose the row names and column names if we want to look by sample (non-transposed genes yield analysis by column)
+
+Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
+
+Then we remove any genes that are ERCC genes (positive control RNA augmented to human genome in IDSeq) and water samples. We format the ENSEMBL gene names [rownames] to exclude the version number after the period. We format the file names [colnames] to extract the AASLD ID.
+```{r}
+genecounts<-read.delim(as.matrix("../AIH-NovaSeq-Gene-Counts/aih_full_cutfilt-85-98-90_dashed_gene_counts_final.tsv"), row.names = 1, stringsAsFactors = TRUE) 
+
+#make an ERCC gene counts dataframe and then remove those gene counts
+ERCCgenecounts <- genecounts[grep("ERCC", rownames(genecounts)), ]
+genecounts <- genecounts[ !rownames(genecounts) %in% rownames(ERCCgenecounts), ]
+
+Watergenecounts <- genecounts[,grep("water", colnames(genecounts))]
+genecounts <- genecounts[,!colnames(genecounts) %in% colnames(Watergenecounts) ]
+
+#removing top 4 rows
+genecounts <- genecounts[5:nrow(genecounts),]
+
+#take genenames from gene counts file and split them across the period, only taking the first column. this strips the version number of the ENSEMBL ID.
+genenames<- sapply( strsplit( rownames(genecounts), split="\\." ), "[", 1 )
+rownames(genecounts) <- genenames
+
+#rename column names for AASLD samples 1-110, included in plate 1
+colnames(genecounts) <- paste0("AASLD", "_", str_extract(colnames(genecounts), pattern = "(?<=aasld[.|_])\\d\\d\\d"))
+```
+
+
+Read in the metadata - Amy ran Arielle's fibrosis algorithm and metadata code with some modifications after a RedCap download by Michele.
+
+We will bin continuous data in order make it compatible with DESeq2. Arielle chose correct bins based on histograms. 
+
+```{r}
+
+#read in metadata, rename rows so that they match gene counts file
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
+
+#rename metadata columns to match gene counts
+row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
+
+##recast all integers as factor data (taking continous data and binning it)
+
+##ast summary stats and plot data; cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$ast <- cut (metadata$ast, 25, labels = 1:25)
+
+#age summary stats cutting into 3 bins (based on the numbers of bars on the graph)
+metadata$age <- cut (metadata$age, 3, labels = 1:3)
+
+#create fibrosis groups
+metadata$fibrosis_groups<- ifelse(metadata$case_hl_du =="control", "healthy", ifelse(metadata$F03_F4_final == "F0_F3", "AIHnocirrhosis", "AIHcirrhosis"))
+
+##alt summary stats cutting into three bins 
+metadata$alt_groups <- ifelse(metadata$case_hl_du == "control", "healthy", ifelse(metadata$alt>30, "AIHelevatedALT", "AIHnormalALT"))
+
+##on treatment groups
+metadata$on_tx_groups <- as.factor(ifelse(metadata$case_hl_du == "control", "healthy", as.character(metadata$on_tx)))
+
+##alt summary stats cutting into approx 30 bins (based on stats and #of bars in graph)
+metadata$alt <- cut (metadata$alt, 30, labels = 1:30)
+
+##response - giving healthys a 'no treatment'
+metadata$response_groups <- ifelse(metadata$case_hl_du == "control", "healthy-notreat", as.character(metadata$response))
+
+##tbili summary stats cutting into approx 15 bins (based on stats and #of bars in graph)
+metadata$bili <- cut (metadata$bili, 15, labels = 1:15)
+
+##alkp summary stats cutting into approx 20 bins (based on stats and #of bars in graph)
+metadata$alkp <- cut (metadata$alkp, 20, labels = 1:20)
+
+##igg summary stats cutting into approx 25 bins (based on stats and #of bars in graph)
+metadata$igg_coll <- cut (metadata$igg_coll, 25, labels = 1:25)
+
+#recast some variables
+metadata$spl_plate <- as.factor(metadata$spl_plate)
+metadata$dt_isl <- as.factor(metadata$dt_isl)
+metadata$response <- as.factor (metadata$response)
+
+#remove COMPLEX CASES
+metadata_filt <- metadata[!(metadata$case_hl_du == "complex" ) , ]
+
+#remove outlier samples 67 and 94
+metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AASLD_094")),]
+
+#remove patients who had a liver transplant before sample collection
+metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
+
+#only look at cases with no NA
+#age+case_hl_du+sex+on_tx_groups+fibrosis_groups+alt_groups+race+ethn
+metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
+
+#nrow(metadata_filt)
+table(metadata_filt$on_tx_groups)
+table(metadata_filt$case_hl_du)
+table(metadata_filt$fibrosis_groups)
+table(metadata_filt$alt_groups)
+
+#View(metadata_filt)
+#length(rownames(metadata_filt))
+
+```
+
+```{r}
+notduplicates = c()
+
+for (sample in rownames(metadata_filt))
+{
+  if (str_extract(sample, "\\d++") == str_extract(metadata_filt[sample,]$du,"\\d++"))
+    notduplicates = c(notduplicates, sample)
+  else
+    {
+      genecounts[ ,paste0("AASLD_", str_extract(metadata_filt[sample,]$du,"\\d++"))] <- rowSums(cbind(genecounts[ ,paste0("AASLD_", str_extract(metadata_filt[sample,]$du,"\\d++"))],genecounts[, sample]))
+      
+    }
+}
+
+#remove duplicate records from the metadata_filt object
+metadata_filt <- metadata_filt[rownames(metadata_filt) %in% notduplicates,]
+
+table(metadata_filt$case_hl_du)
+length(notduplicates)
+
+
+```
+
+Before running DESeq2, you will need to have a data frame with the samples as columns, and the genes as rows, with the raw counts as entries in the data frame (aka genecounts) You will also need a data frame with the samples as rows, and any metadata as columns (aka metadata, the clinical variables to use for differential expression or adjustments, information on match). The columns of the countData must match the rows of colData.  
+
+```{r}
+#match gene counts to metadata table (effectively removing complex cases)
+genecounts <- genecounts[,rownames(metadata_filt)]
+
+#Check to ensure the count dat and metadata are in the same order (result = TRUE)
+all(rownames(metadata_filt) == colnames(genecounts))
+#colnames(genecounts)
+
+```
+
+
+
+
+We will now use biomart, a package which links gene ids from different databases, to convert ENSEMBL gene ID to HGNC symbol.
+```{r}
+#The following chunk of code uses the ENSEMBL mart, 
+#querying with the ENSEMBL gene id and requesting the Entrez gene id 
+#and HGNC gene symbol. 
+
+listMarts(host="www.ensembl.org")
+mart = useMart(biomart="ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host="www.ensembl.org", ensemblRedirect = FALSE)
+genemap <- getBM( attributes = c("ensembl_gene_id", "entrezgene", "hgnc_symbol", "gene_biotype", "description"),
+                  filters = "ensembl_gene_id",
+                  values = genenames,
+                  mart)
+
+```
+
+
+We then use biomart to pull gene attributes that can be linked to the ENSEMBL ID and create a new data frame that includes these attributes, including gene biotype.
+
+```{r}
+#create an index in which you are rearranging ensmbl gene ids from genemap into same order as they are in genenames
+idx <- match(genenames, genemap$ensembl_gene_id )
+
+#create new dataset which binds gene attributes
+entrez <- genemap$entrezgene[ idx ]
+hgnc_symbol <- genemap$hgnc_symbol[ idx ]
+description <- genemap$description[ idx ]
+gene_biotype <- genemap$gene_biotype[ idx ]
+ensembl <- genemap$ensembl_gene_id[ idx ]
+
+ga<-cbind(hgnc_symbol,description,gene_biotype,ensembl,entrez)
+
+#make ga into a data frame from a matrix
+ga<-as.data.frame(ga)
+ga$gene_biotype<-as.character(ga$gene_biotype)
+
+```
+
+```{r}
+#pc = protein coding
+pc<-ga[ga$gene_biotype=="protein_coding",]
+pc<-pc[!(is.na(pc$ensembl)),]
+
+#make an index for protein coding genes
+idxpc<- match(pc$ensembl,rownames(genecounts))
+genecountspc<-genecounts[idxpc,]
+
+#rownames(genecountspc)<-make.unique(as.character(pc$hgnc_symbol))
+
+
+#length(rownames(genecountspc))
+#write.csv( as.data.frame(genecountspc), file="AIH_1xPCRDASHed_NovaSeq_Plate01_nofilter_genecounts-protein-coding.csv")
+```
+
+
+Remove hemoglobin genes based on BioMart description (searching for word "hemoglobin"). There are 14 genes related to hemoglobin which STAR aligns to; of those, 12 are protein coding. Can choose not to run this module to see the effects of keeping hemoglobin genes in on the PCA by gene.
+```{r}
+#identify hemoglobin genes and write to CSV
+# setwd("~/Documents/Informatics/AIH/github/AIH-Project/DESeq2-R-Scripts/")
+hemoglobin <- genemap[grepl("hemoglobin[ |,]", genemap$description),]
+# write.csv(genemap[grepl("hemoglobin ", genemap$description),], "hemoglobin_genes.csv")
+length(rownames(genecountspc))
+rownames(genecountspc)
+hemoglobin$ensembl_gene_id
+#what genes are being removed? then remove them from our genecounts table
+genecountspc[rownames(genecountspc) %in% hemoglobin$ensembl_gene_id, ]
+genecountspc <- genecountspc[ !rownames(genecountspc) %in% hemoglobin$ensembl_gene_id, ]
+
+#how many genes have hemoglobin? how many genes are left?
+nrow(hemoglobin)
+length(rownames(genecountspc))
+
+```
+
+##Plotting PCA
+PCA by genes
+
+```{r}
+
+#PCA by gene (unfiltered data)
+##plotting data frame
+###unfiltered
+
+pca_by_gene <- prcomp(genecountspc_filt)
+
+#Assessing variability by multiple mehtods (by each prinical component and by genes in each princple component)
+
+#calculate how much variation in the original data each principal component in the data accounts for (square of the standard devation)
+pca_var_gene <- pca_by_gene$sdev^2
+
+#calculate the *percentage* of variation each principal component accounts for
+pca_var_perc_gene <- round (pca_var_gene/sum(pca_var_gene)*100, 1)
+
+#plot the percentage of variation for princial components using base bar plot function (Scree Plot looks at each comonent and how much that contributes to overall variability)
+barplot (pca_var_perc_gene, main = "Screen Plot", xlab = "principal comonent", ylab = "% variation")
+
+
+#QQ plot to assess outliers of each principal component (can also use qqnorm for a smiplified plot however, outliers are not labeled here)
+
+#Below plot identifies outliers HBB and HBA2 in PCA1
+qqPlot (pca_by_gene$x[,1])
+
+#Below outliers HBB and HBA2 in PCA2
+qqPlot (pca_by_gene$x[,2])
+
+#Below outliers are HLA-C, ACTB (more that aren't captured) in PCA3
+qqPlot (pca_by_gene$x[,3])
+
+#Below outliers are EEF1A1, HBA1 (more that aren't captured) in PCA4
+qqPlot (pca_by_gene$x[,4])
+
+
+##Formatting PCA data into data frames for entry into ggplot 2
+pca_df_by_gene <- data.frame (sample = rownames (pca_by_gene$x), x = pca_by_gene$x[,1], y = pca_by_gene$x[,2])
+
+
+##Call to ggplot the new dataframes generated above
+ggplot(data = pca_df_by_gene, aes(x=x, y=y, label = sample)) +
+  geom_text() +
+  theme_bw() +
+  ggtitle ("PCA by Gene")
+
+##Used above code to identify outliers, removed as per the list below and re-plotted
+#removing outliers (HBB == 10121,HBA2 == 12826, HBA1 == 13827, ACTB == 6999)
+pca_by_gene <- prcomp(genecountspc [-c(6999, 10121, 13826, 13827, 6186, 6552),])
+
+
+##Formatting PCA data into data frames for entry into ggplot 2
+pca_df_by_gene <- data.frame (sample = rownames (pca_by_gene$x), x = pca_by_gene$x[,1], y = pca_by_gene$x[,2])
+
+
+##Call to ggplot the new dataframes generated above
+ggplot(data = pca_df_by_gene, aes(x=x, y=y, label = sample)) +
+  geom_text() +
+  theme_bw() +
+  ggtitle ("PCA by Gene")
+```
+
+##Plotting PCA
+PCA by sample
+
+```{r}
+library(ggfortify)
+
+#collapse duplicates by summing
+notduplicates = c()
+
+for (sample in rownames(metadata_filt))
+{
+  if (str_extract(sample, "\\d++") == str_extract(metadata_filt[sample,]$du,"\\d++"))
+    notduplicates = c(notduplicates, sample)
+  else
+    {
+      print(paste0("AASLD_", str_extract(metadata_filt[sample,]$du,"\\d++")))
+      genecountspc_filt[ ,paste0("AASLD_", str_extract(metadata_filt[sample,]$du,"\\d++"))] <- rowSums(cbind(genecountspc_filt[ ,paste0("AASLD_", str_extract(metadata_filt[sample,]$du,"\\d++"))],genecountspc_filt[, sample]))
+      
+    }
+}
+
+#remove duplicate records from the metadata_filt object
+metadata_filt <- metadata_filt[rownames(metadata_filt) %in% notduplicates,]
+
+#match gene counts to metadata table (effectively removing unwanted samples)
+genecountspc_filt <- genecountspc_filt[,rownames(metadata_filt)]
+
+#Check to ensure the count dat and metadata are in the same order (result = TRUE)
+all(rownames(metadata_filt) == colnames(genecountspc_filt))
+#colnames(genecounts)
+table(metadata_filt$case_hl_du)
+colnames(genecountspc_filt)
+
+#using EdgeR object to normalize counts for PCA plotting by cpm
+y <- DGEList(counts=genecountspc_filt,group=as.factor(metadata_filt$case_hl_du))
+  
+#Determine which genes have sufficiently large counts to be retained in a statistal analysis. 
+#DEFAULT: min.count=10, min.total.count=15, n is 10+(MinSampleSize-10)*0.7 = 10+(25-10)*0.7=20.5, or ~24%
+keep <- filterByExpr(y) 
+summary(keep)
+y <- y[keep, ,keep.lib.sizes=FALSE]
+
+  
+#normalize the library sizes
+y <- calcNormFactors(y)
+#y$samples$norm.factors
+
+#export log cpm values for WGCNA
+log.cpm.y = cpm(y, log = TRUE)
+
+#Transpose the data.frame for use in PCA analysis to compare samples (vs comparing genes)
+transp_genecountspc_forpca <- t(log.cpm.y)
+
+#run pr comp analysis by sample
+pca_by_sample <- prcomp(transp_genecountspc_forpca)
+
+autoplot(pca_by_sample, data = metadata_filt, colour = "race")
+
+#Assessing variability by multiple mehtods (by each prinical component and by genes in each princple component)
+
+#calculate how much variation in the original data each principal component in the data accounts for (square of the standard devation)
+pca_var_sample <- pca_by_sample$sdev^2
+pca_var_sample
+
+#calculate the *percentage* of variation each principal component accounts for
+pca_var_perc_sample <- round (pca_var_sample/sum(pca_var_sample)*100, 1)
+pca_var_perc_sample
+
+#plot the percentage of variation for princial components using base bar plot function (Scree Plot looks at each comonent and how much that contributes to overall variability)
+barplot (pca_var_perc_sample, main = "Screen Plot", xlab = "principal comonent", ylab = "% variation")
+
+
+#QQ plot to assess outliers of each principal component (can also use qqnorm for a smiplified plot however, outliers are not labeled here)
+
+#Below plot identifies outliers HBB and HBA2 in PCA1
+qqPlot (pca_by_sample$x[,1])
+
+#Below outliers HBB and HBA2 in PCA2
+qqPlot (pca_by_sample$x[,2])
+
+#Below outliers are HLA-C, ACTB (more that aren't captured) in PCA3
+qqPlot (pca_by_sample$x[,3])
+
+#Below outliers are EEF1A1, HBA1 (more that aren't captured) in PCA4
+qqPlot (pca_by_sample$x[,4])
+
+pca_by_sample$x
+
+##Formatting PCA data into data frames for entry into ggplot 2
+pca_df_by_sample <- data.frame (sample = rownames (pca_by_sample$x), x=pca_by_sample$x[,1], y=pca_by_sample$x[,2])
+
+##adding in metadata - read in from another file of AIH_metadata to identify duplicates
+#pca_df_by_sample$duplicate <- metadata_filt$dup
+pca_df_by_sample$case_control <- metadata_filt$case_hl_du
+pca_df_by_sample$spl_plate <- metadata_filt$spl_plate
+pca_df_by_sample$dt_isl <- metadata_filt$dt_isl
+pca_df_by_sample$F03_F4 <- metadata_filt$F03_F4
+pca_df_by_sample$on_tx <- metadata_filt$on_tx
+pca_df_by_sample$sex <- metadata_filt$sex
+pca_df_by_sample$race <- metadata_filt$race
+pca_df_by_sample$ethn <- metadata_filt$ethn
+pca_df_by_sample$age <- metadata_filt$age
+pca_df_by_sample$alt <- metadata_filt$alt
+pca_df_by_sample$ast <- metadata_filt$ast
+pca_df_by_sample$tbili <- metadata_filt$bili
+pca_df_by_sample$alkp <- metadata_filt$alkp
+pca_df_by_sample$igg <- metadata_filt$igg
+pca_df_by_sample$rna <- metadata_filt$dt_isl
+pca_df_by_sample$plate <- metadata_filt$spl_plate
+pca_df_by_sample$alt_groups <- metadata_filt$alt_groups
+pca_df_by_sample$tx_groups <- metadata_filt$on_tx_groups
+pca_df_by_sample$response_groups <- metadata_filt$response_groups
+pca_df_by_sample$fibrosis_groups <- metadata_filt$fibrosis_groups
+
+##Call to ggplot the new dataframes generated above
+#Note list of duplicate pairs (9/72, 19/11, 29/74, 39/96, 49/27)
+##Plotting gene expression data by sample
+library(wesanderson)
+library(RColorBrewer)
+setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_response_groups_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = response_groups)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: Response to Treatment",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        legend.position = c(1.23,0.5),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ) +
+  scale_color_brewer(palette = "Set1",name = "Response Groups", labels = c("complete response", "healthy, no treatment", "non-responder", "partial response")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_alt_groups_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = alt_groups)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: ALT Measurements",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        legend.position = c(1.2,0.5),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ) +
+  scale_color_brewer(palette = "Set1",name = "ALT Groups", labels = c("AIH, ALT > 30", "AIH, ALT <= 30", "healthy")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_fibrosis_groups_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = fibrosis_groups)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: Fibrosis Level Classification",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        legend.position = c(1.23,0.5),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ) +
+  scale_color_brewer(palette = "Set1",name = "Fibrosis Groups", labels = c("AIH, with cirrhosis", "AIH, no cirrhosis", "healthy")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_treatment_groups_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = tx_groups)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: On or Off Treatment",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ,
+        legend.position = c(1.23,0.5)) +
+  scale_color_brewer(palette = "Set1",name = "Treatment Groups", labels = c("healthy, no treatment", "AIH, no treatment", "AIH, treated")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_age_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = age)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: Age of Patient",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ,
+        legend.position = c(1.15,0.5)) +
+  scale_color_brewer(palette = "Set1",name = "Age Groups",labels = c("20-39", "40-59", "60-79")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_sex_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = sex)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: Sex of Patient",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ,
+        legend.position = c(1.15,0.5)) +
+  scale_color_brewer(palette = "Set1",name = "Sex") #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_race_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = race)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: Race of Patient",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ,
+        legend.position = c(1.15,0.5)) +
+  scale_color_brewer(palette = "Set1",name = "Race") #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_ethn_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = ethn) )+
+  geom_point (size = 5) +
+  labs(title = "PCA: Ethnicity of Patient",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ,
+        legend.position = c(1.2,0.5)) +
+  scale_color_brewer(palette = "Set1", name = "Ethnicity",labels = c("hispanic/latino", "not hispanic/latino")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_response_groups_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = response_groups) )+
+  geom_point (size = 5) +
+  labs(title = "PCA: Treatment Response from Patients",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ,
+        legend.position = c(1.2,0.5)) +
+  scale_color_brewer(palette = "Set1", name = "Response Groups") #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_RNAbatch_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = dt_isl)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: RNA Extraction Batch",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        legend.position = c(1.23,0.5),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ) +
+  scale_color_brewer(palette = "Set1",name = "Date RNA Extracted") #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_libraryplate_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = spl_plate)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: Sequencing Library Preparation Batch",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        legend.position = c(1.2,0.5),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ) +
+  scale_color_brewer(palette = "Set1",name = "Library Batch", labels = c("Plate 1", "Plate 2")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+#setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
+png(filename = "PCA_EdgeR_prcomp_case_110418.png", width = 1024, height = 500)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = case_control)) +
+  geom_point (size = 5) +
+  labs(title = "PCA: AIH Cases and Healthy Controls",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
+        plot.margin = margin(1, 10, 1, 1, "cm"),
+        legend.position = c(1.2,0.5),
+        axis.title.x = element_text(size=23), 
+        axis.title.y = element_text(size=23), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ) +
+  scale_color_brewer(palette = "Set1",name = "AIH Status", labels = c("Case", "Control")) 
+dev.off()
+
+
+
+```
+
