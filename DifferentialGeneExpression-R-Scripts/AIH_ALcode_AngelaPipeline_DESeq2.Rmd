@@ -309,7 +309,7 @@ dds <- DESeqDataSetFromMatrix(countData = genecountspc_filt, colData = metadata_
                              # design= ~case_hl_du:fibrosis_groups)#+alt_groups+on_tx_groups)#
 
 #relevel the metadata so control is the baseline
-#dds$case_hl_du<- relevel (dds$case_hl_du, ref = "control")
+dds$case_hl_du<- relevel (dds$case_hl_du, ref = "control")
 
 
 ```
@@ -345,10 +345,9 @@ results <- results(dds, contrast=c("case_hl_du", "case", "control"), alpha=0.05,
 results_significant <- results %>% filter (results$padj < 0.05) 
 
 length(results$row) - length(results_significant$row)
-results_significant %>% count(results_significant$log2FoldChange>0)
 
-#setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_112718_BatchEffect/")
-#write.csv(results, "AIH_DESeq2_~spl_plate + age25+case_hl_du_67cases_120418_prefiltering.csv")
+setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_UpdatedDesignMatrix_121418/")
+write.csv(results, "AIH_DESeq2_~spl_plate + age25+case_hl_du_67cases_120418_prefiltering.csv")
 #write.csv(results_significant, "AIH_ALTrelevel_AIHelevatedALTvsAIHnormalALT_nooutliers_nolivertrans_FDR0.05.csv")
 
 
@@ -375,13 +374,13 @@ Write an MA plot to a PNG
 results_MA <- results(dds, contrast=c("case_hl_du", "case", "control"), alpha=0.05)
 
 #MA plot with upregulated gene in red and downregulated genes in blue
-
-#png("DESeq2_prefilter_MDplot_112018.png", 1024, 512)
-#par(mar=c(5,5,5,5))
+setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_UpdatedDesignMatrix_121418/MAPlots")
+png("DESeq2_prefilter_MDplot_112018.png", 1024, 512)
+par(mar=c(5,5,5,5))
 DESeq2::plotMA (results_MA, ylim = c(-4, 4), cex.lab = 2.2, cex.axis = 1.8)
 with(subset(results_MA, padj<.05 & log2FoldChange<0), points(baseMean, log2FoldChange, pch=20, col="blue", cex = 0.4))
 with(subset(results_MA, padj<.05 & log2FoldChange>0), points(baseMean, log2FoldChange, pch=20, col="red", cex = 0.4))
-#dev.off()
+dev.off()
 
 #MA plot with all DE genes in red
 DESeq2::plotMA (results_MA, ylim = c(-4, 4))
