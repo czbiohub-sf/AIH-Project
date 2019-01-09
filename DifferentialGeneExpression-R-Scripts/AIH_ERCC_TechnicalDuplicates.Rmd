@@ -1,12 +1,9 @@
 ---
-title: "AIH_Decompensation"
-output: html_document
+title: "R Notebook"
+output: html_notebook
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
+Load packages required, will need to install.packages("") if you do not have them already
 ```{r}
 library("DESeq2")
 library("Rsamtools")
@@ -22,7 +19,6 @@ library("stringr")
 library("limma")
 library("edgeR")
 ```
-
 
 Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
 
@@ -46,10 +42,31 @@ rownames(genecounts) <- genenames
 
 #rename column names for AASLD samples 1-110, included in plate 1
 colnames(genecounts) <- paste0("AASLD", "_", str_extract(colnames(genecounts), pattern = "(?<=aasld[.|_])\\d\\d\\d"))
+colnames(ERCCgenecounts) <- paste0("AASLD", "_", str_extract(colnames(ERCCgenecounts), pattern = "(?<=aasld[.|_])\\d\\d\\d"))
+
+```
+
+```{r}
+ERCCspikein <- read.delim(as.matrix("../../../../ERCC_spikein_conc.txt"), stringsAsFactors = TRUE)
+rownames(ERCCspikein) <- ERCCspikein$ERCC.ID
+?order
+ERCCspikein <- ERCCspikein[,base::order(ERCC.ID)] 
+all(rownames(ERCCgenecounts) == rownames(ERCCspikein))
+
+
 ```
 
 
-Read in the metadata - Amy ran Arielle's fibrosis algorithm and metadata code with some modifications after a RedCap download by Michele. Careful to run this all as a chunk - rerunning certain parts separately will not result in the correct metadata.
+```{r}
+
+
+ggplot(data = genecounts_full_RPKM, aes(x= noDASHRPKM, y = DASHedRPKM)) + geom_point(alpha = 0.5, color = "darkorchid4") + facet_wrap(~sample_id, labeller = facet_labeller) + stat_smooth(method = "lm", color = "red") + xlab ("no DASH gene counts (RPKM/FPKM)") + ylab ("DASHed gene counts (RPKM/FPKM)") + scale_x_log10() + scale_y_log10() +  geom_text(aes(label=ifelse((DASHedRPKM/noDASHRPKM)<0.6,as.character(gene),'')),hjust=0,vjust=0, size = 2)
+```
+
+
+
+
+Read in the metadata - Amy ran Arielle's fibrosis algorithm and metadata code with some modifications after a RedCap download by Michele (this file is called AIH_metadata_firstpass_ALedits.R). Careful to run this all as a chunk - rerunning certain parts separately will not result in the correct metadata.
 
 We will bin continuous data in order make it compatible with DESeq2. Arielle chose correct bins based on histograms. 
 
@@ -57,13 +74,10 @@ We will bin continuous data in order make it compatible with DESeq2. Arielle cho
 
 
 #read in metadata, rename rows so that they match gene counts file
-metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_122018.csv", header=TRUE, row.names = 1)
 metadata
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
-
-##recast all integers as factor data (taking continous data and binning it)
-
 
 #store the unbinned data for other purposes
 metadata$age_nobin <- metadata$age
@@ -73,8 +87,8 @@ metadata$igg_coll_nobin <- metadata$igg_coll
 ##ast summary stats and plot data; cutting into approx 25 bins (based on stats and #of bars in graph)
 metadata$ast <- cut (metadata$ast, 25, labels = 1:25)
 
-#age summary stats cutting into 3 bins (based on the numbers of bars on the graph)
-metadata$age <- cut (metadata$age, 25, labels = 1:25)
+#age summary stats cutting into 3 bins (based on the numbers of bars on the graph). We can also cast age in 25 bins
+metadata$age <- cut (metadata$age, 3, labels = 1:3)
 
 #create fibrosis groups
 metadata$fibrosis_groups<- ifelse(metadata$case_hl_du =="control", "healthy", ifelse(metadata$F03_F4_final == "F0_F3", "AIHnocirrhosis", "AIHcirrhosis"))
@@ -104,7 +118,6 @@ metadata$igg_coll <- cut (metadata$igg_coll, 25, labels = 1:25)
 metadata$spl_plate <- as.factor(metadata$spl_plate)
 metadata$dt_isl <- as.factor(metadata$dt_isl)
 metadata$response <- as.factor (metadata$response)
-metadata
 
 #remove COMPLEX CASES
 metadata_filt <- metadata[!(metadata$case_hl_du == "complex" ) , ]
@@ -115,14 +128,16 @@ metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AA
 #remove patients who had a liver transplant before sample collection
 metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
 
+#only look at cases with no NA - this was removed but can be added back in if needed for subgroup analyses
+metadata_filt <- metadata_filt[!( is.na(metadata_filt$response_groups)), ]
 
-#select only 
-
-table(metadata_filt$on_tx_groups)
+#metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
 table(metadata_filt$case_hl_du)
+table(metadata_filt$on_tx_groups)
 table(metadata_filt$fibrosis_groups)
 table(metadata_filt$alt_groups)
-table(metadata_filt$dt_isl)
+table(metadata_filt$response_groups)
+
 
 
 ```
