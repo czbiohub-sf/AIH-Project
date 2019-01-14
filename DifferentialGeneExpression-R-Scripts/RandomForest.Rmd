@@ -1,0 +1,82 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+library(varSelRF)
+set.seed(644685)
+
+library(openxlsx)
+library(stringr)
+```
+
+```{r}
+# get only the genes that are TFs
+tm.facs.matrix.tfs <- genecountspc_filt
+# tm.facs.matrix.tfs <- tm.facs.matrix.tfs[,match(tm.facs.metadata$cell[!is.na(tm.facs.metadata$cell_ontology_class)],colnames(tm.facs.matrix))]
+# rownames(tm.facs.metadata) = tm.facs.metadata$cell
+tm.facs.metadata.tfs <- metadata_filt
+
+tm.facs.matrix.tfs<- cpm(genecountspc_filt, log = TRUE)
+
+
+# create a new metadata column to have `cell_ontology_class_tissue`
+tm.facs.metadata.tfs$factors <- droplevels.factor(metadata_filt$case_hl_du)
+tm.facs.metadata.tfs$factors
+# create a list out of those factors
+cell.type.tissue <- unique(tm.facs.metadata.tfs$factors[!is.na(tm.facs.metadata.tfs$case_hl_du)])
+cell.type.tissue
+# and iterate over all `cell_ontology_class_tissue`
+# for (varselrf.id in 1:length(cell.type.tissue)){
+  # print here is useful to keep track in case there are many  values `cell_ontology_class_tissue`
+  # print(varselrf.id)
+  # tm.facs.metadata.tfs$varSelRF <- tm.facs.metadata.tfs$factors
+  
+  # Group A is the not of interest "rest"
+  # tm.facs.metadata.tfs$varSelRF[tm.facs.metadata.tfs$varSelRF != cell.type.tissue[varselrf.id]] <- "A"
+  # Group B is the  `cell_ontology_class_tissue` of interest: the order matters!
+  # tm.facs.metadata.tfs$varSelRF[tm.facs.metadata.tfs$varSelRF == cell.type.tissue[varselrf.id]] <- "B"
+  # tissFACStfs <- CreateSeuratObject(raw.data = tm.facs.matrix.tfs, meta.data = tm.facs.metadata.tfs)
+  # tissFACStfs <- NormalizeData(object = tissFACStfs, normalization.method = "LogNormalize", scale.factor = 10000)
+  # after creating the Seurat Objects it's important to reset the idents
+  # tissFACStfs <- SetAllIdent(object = tissFACStfs, id = "varSelRF")
+  # tissFACStfs <- SubsetData(tissFACStfs, max.cells.per.ident = 100, subset.raw = T)
+  # get data in shape for varselRF
+  tm.facs.matrix.tfsRF <- cpm(genecountspc_filt, log = TRUE)#as.matrix(tissFACStfs@data)
+  RF_factors <- tm.facs.metadata.tfs$factors#tissFACStfs@meta.data$varSelRF
+  #vars.drop.frac is an optimization error
+  varselRF.tissFACS <- varSelRF(t(tm.facs.matrix.tfsRF), as.factor(RF_factors), c.sd = 0.2, mtryFactor = 1, ntree = 5000, ntreeIterat = 2000, vars.drop.num = NULL, vars.drop.frac = 0.2, whole.range = FALSE, recompute.var.imp = FALSE, verbose = TRUE, returnFirstForest = TRUE, fitted.rf = NULL, keep.forest = TRUE)
+  
+  varselRF.tissFACS
+  # assign results to easy-to-relate-to-names
+  cell.type.tissue.name <- paste("varselRF.tissFACS",cell.type.tissue[varselrf.id], sep = ".")
+  assign(cell.type.tissue.name, varselRF.tissFACS)
+  
+
+
+```
+
+```{r}
+wb <- createWorkbook("rf.model.one.vs.all")
+for (varselrf.id in 1:length(cell.type.tissue)){
+  sheetname <- cell.type.tissue[varselrf.id]
+  sheetname <- str_sub(sheetname,1,25)
+  sheetname <- paste(sheetname,varselrf.id,sep=".")
+  addWorksheet(wb,sheetname)
+  varselRF.tissFACS <- get(paste("varselRF.tissFACS",cell.type.tissue[varselrf.id], sep = "."))
+  writeData(wb, sheet = sheetname, as.data.frame(apply(varselRF.tissFACS$rf.model$importance,decreasing = TRUE,2,sort)),rowNames = TRUE)
+}
+saveWorkbook(wb,"rf.model.one.vs.all.allgenes.xlsx",overwrite = TRUE)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
