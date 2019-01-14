@@ -194,9 +194,32 @@ genecountspc <- genecountspc[ !rownames(genecountspc) %in% hemoglobin$ensembl_ge
 nrow(hemoglobin)
 length(rownames(genecountspc))
 ```
+
+
+Present/absent filter - have been running consistently. 
+```{r}
+#Current number of total genes in the set (by dimesion)
+dim(genecountspc)
+    
+#Identify number of sammples with at least 10 reads in 20% of samples
+genecountspc_filt <- apply(genecountspc, 1, function(x) ((sum(x>10)) > (0.2*ncol(genecountspc)))) 
+
+#First pass of removing low read count genes
+genecountspc_filt <- as.data.frame(genecountspc_filt)
+colnames(genecountspc_filt) <- "N"
+
+#keep only genes for which the filter is TRUE
+genecountspc_filt <- genecountspc_filt[genecountspc_filt$N == "TRUE", , drop = FALSE]
+
+dim(genecountspc_filt) # xx genes make it past the filter
+FilterIdx <- match(rownames(genecountspc_filt), rownames(genecountspc))
+genecountspc_filt <- genecountspc[FilterIdx,]
+dim(genecountspc_filt)
+```
+
 need to take log cpm of values
 ```{r}
-y <- DGEList(counts=genecountspc)
+y <- DGEList(counts=genecountspc_filt)
 y <- calcNormFactors(y)
 log.cpm.y = cpm(y, log = TRUE)
 ```
@@ -214,14 +237,15 @@ wilcox.test(nocomp,yescomp, paired = TRUE, p.adjust.methods = "BH")
 #run DESeq2 on paired sample
 # ~ patient.ID + treatment + response
 library(DESeq2)
-dds <- DESeqDataSetFromMatrix(countData = genecountspc, colData = decompgroup,
+dds <- DESeqDataSetFromMatrix(countData = genecountspc_filt, colData = decompgroup,
                               design= ~patientpair+decomp)
 dds<-DESeq(dds)
 
 results <- results(dds, contrast=c("decomp", "yes","no"), alpha=0.05, tidy = TRUE)
 
+results$hgnc <- genemap$hgnc_symbol[match(results$row, genemap$ensembl_gene_id)]
 
-
+write.csv(results, file = "../DifferentialGeneExpression-Output/Amy_Decompensation_Analysis_010819/2019-01-09_AIH_Decompensation_Paired_Prefiltered_DEGenes_ALL.csv")
 ####
 
 #genecountspc_t = t(genecountspc)
