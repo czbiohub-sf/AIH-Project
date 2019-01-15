@@ -130,7 +130,7 @@ metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AA
 metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
 
 #only look at cases with no NA - this was removed but can be added back in if needed for subgroup analyses
-metadata_filt <- metadata_filt[!( is.na(metadata_filt$response_groups)), ]
+#metadata_filt <- metadata_filt[!( is.na(metadata_filt$response_groups)), ]
 
 #metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
 table(metadata_filt$case_hl_du)
