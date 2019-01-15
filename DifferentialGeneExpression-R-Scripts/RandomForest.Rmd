@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Random Forest Model"
 output: html_notebook
 ---
 
@@ -22,7 +22,7 @@ tm.facs.matrix.tfs <- genecountspc_filt
 # rownames(tm.facs.metadata) = tm.facs.metadata$cell
 tm.facs.metadata.tfs <- metadata_filt
 
-tm.facs.matrix.tfs<- cpm(genecountspc_filt, log = TRUE)
+genecounts_filt_cpm <- cpm(genecountspc_filt, log = TRUE)
 
 
 # create a new metadata column to have `cell_ontology_class_tissue`
