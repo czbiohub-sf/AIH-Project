@@ -37,9 +37,9 @@ library("edgeR")
 
 Edit variables
 ```{r}
-design = ~spl_plate+sex+age+response_groups
-filename= paste("AIH_122018", "~spl_plate+sex+age+response_groups", "partial-vs-non-responder", sep='_')
-contrast=c("response_groups", "partial", "non-responder")
+design = ~spl_plate+sex+age+fibrosis_groups
+filename= paste("AIH_012919", "~spl_plate+sex+age+fibrosis_groups", "AIHnocirrhosis-vs-healthy", sep='_')
+contrast=c("fibrosis_groups", "AIHnocirrhosis", "healthy")
 ```
 
 Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
@@ -75,7 +75,7 @@ We will bin continuous data in order make it compatible with DESeq2. Arielle cho
 
 
 #read in metadata, rename rows so that they match gene counts file
-metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_122018.csv", header=TRUE, row.names = 1)
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_012919.csv", header=TRUE, row.names = 1)
 metadata
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
@@ -130,7 +130,7 @@ metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AA
 metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
 
 #only look at cases with no NA - this was removed but can be added back in if needed for subgroup analyses
-#metadata_filt <- metadata_filt[!( is.na(metadata_filt$response_groups)), ]
+metadata_filt <- metadata_filt[!( is.na(metadata_filt$fibrosis_groups)), ]
 
 #metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
 table(metadata_filt$case_hl_du)
@@ -139,8 +139,7 @@ table(metadata_filt$fibrosis_groups)
 table(metadata_filt$alt_groups)
 table(metadata_filt$response_groups)
 
-
-
+subset(metadata_filt, fibrosis_groups == "AIHcirrhosis")
 ```
 Add replicates together - only necessary if you want to look at summary statistics. Skip if proceeding with differential gene expression
 
@@ -362,9 +361,9 @@ results_significant <- results %>% filter (results$padj < 0.05)
 
 length(results$row) - length(results_significant$row)
 
-setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_122018_updateDesign/")
+setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_012919_updateFibrosisGroups/")
 write.csv(results, paste(filename, "DEgenes_ALL.csv", sep = "_"))
-setwd("Signifigant_DE_Genes/")
+setwd("Signifigant_DE_genes/")
 write.csv(results_significant, paste(filename, "DEgenes_FDR0.05.csv", sep = "_"))
 
 
@@ -379,7 +378,7 @@ vsd <- varianceStabilizingTransformation(dds, blind=TRUE)
 #rlogdata <- rlog(dds)
 
 #Creating an output file for use in WGCNA and other downstream applications
-setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_122018_updateDesign/VSD_Transformation/")
+setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_012919_updateFibrosisGroups/")
 matrix_vsd <- assay(vsd)
 t_matrix_vsd <- t(matrix_vsd)
 write.csv (t_matrix_vsd, file = paste("VSTnormalized_genecounts_", filename, ".csv", sep = ""))
@@ -391,7 +390,7 @@ Write an MA plot to a PNG
 results_MA <- results(dds, contrast=contrast, alpha=0.05)
 
 #MA plot with upregulated gene in red and downregulated genes in blue
-setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_122018_updateDesign/MA_Plots")
+setwd("../DifferentialGeneExpression-Output/Amy_DESeq2_DEGenes_012919_updateFibrosisGroups/")
 png(paste(filename, "MAplot.png", sep = "_"), 1024, 512)
 par(mar=c(5,5,5,5))
 DESeq2::plotMA (results_MA, ylim = c(-4, 4), cex.lab = 2.2, cex.axis = 1.8)
