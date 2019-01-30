@@ -182,156 +182,119 @@ $(document).ready(function () {
 <h2>Using <em>varSelRF</em> package for variable selection using random forest</h2>
 <p><a href="https://cran.r-project.org/web/packages/varSelRF/varSelRF.pdf" class="uri">https://cran.r-project.org/web/packages/varSelRF/varSelRF.pdf</a></p>
 <p>I normalized the pre-filtered gene counts of the 92 AIH and healthy patients (no liver transplants, no outliers and no complex cases) using cpm() function of EdgeR, log = TRUE.</p>
+<p>I defined the two groups as AIH and healthy.</p>
+<p>After this, I ran the random forest model with differing standard deviations, starting at 2 and subtracting 0.25 in every loop. As the standard deviation became less stringent (lower), the number of genes increased. I recorded the genes in a dataframe.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBsb2FkIGluIGdlbmVjb3VudHMgYW5kIG1ldGFkYXRhXG5nZW5lY291bnRzX3JmIDwtIGdlbmVjb3VudHNwY19maWx0XG5tZXRhZGF0YV9yZiA8LSBtZXRhZGF0YV9maWx0XG4jIG5vcm1hbGl6ZSBnZW5lIGNvdW50c1xuZ2VuZWNvdW50c19maWx0X2NwbSA8LSBjcG0oZ2VuZWNvdW50c3BjX2ZpbHQsIGxvZyA9IFRSVUUpXG4jIHNldCB1cCB0aGUgY29sdW1uIG9mIGludGVyZXN0LCByZW1vdmUgZW1wdHkgbGV2ZWxzXG5tZXRhZGF0YV9yZiRmYWN0b3JzIDwtIGRyb3BsZXZlbHMuZmFjdG9yKG1ldGFkYXRhX2ZpbHQkY2FzZV9obF9kdSlcbiNkZWNsYXJlIHRoZSBmYWN0b3JzIGZvciByYW5kb20gZm9yZXN0IG1vZGVsXG5SRl9mYWN0b3JzIDwtIG1ldGFkYXRhX3JmJGZhY3RvcnNcbiNpbml0aWFsaXplIGRhdGEgZnJhbWUgYW5kIHN0YW5kYXJkIGRldmlhdGlvblxuUkZfcmVzdWx0cyA8LWRhdGEuZnJhbWUoc3RhbmRhcmRkZXYgPSBpbnRlZ2VyKCksIG51bV9nZW5lcyA9IGludGVnZXIoKSwgZ2VuZXMgPSBjaGFyYWN0ZXIoKSlcblJGX3Jlc3VsdHMgPC0gcmJpbmQoUkZfcmVzdWx0cywgYyhzdGRkZXYsIG51bS5nZW5lcywgcGFzdGUodW5saXN0KGdlbmVzKSwgY29sbGFwc2U9JywgJykpKVxuc3RkZGV2ID0gMC41XG5udW0uZ2VuZXMgPSAwXG53aGlsZSAobnVtLmdlbmVzIDwgNTApIHtcbiNydW4gcmFuZG9tIGZvcmVzdFxudmFyc2VsUkYuQUlIIDwtIHZhclNlbFJGKHQoZ2VuZWNvdW50c19maWx0X2NwbSksIGFzLmZhY3RvcihSRl9mYWN0b3JzKSwgYy5zZCA9IHN0ZGRldiwgbXRyeUZhY3RvciA9IDEsIG50cmVlID0gNTAwMCwgbnRyZWVJdGVyYXQgPSAyMDAwLCB2YXJzLmRyb3AubnVtID0gTlVMTCwgdmFycy5kcm9wLmZyYWMgPSAwLjIsIHdob2xlLnJhbmdlID0gRkFMU0UsIHJlY29tcHV0ZS52YXIuaW1wID0gRkFMU0UsIHZlcmJvc2UgPSBUUlVFLCByZXR1cm5GaXJzdEZvcmVzdCA9IFRSVUUsIGZpdHRlZC5yZiA9IE5VTEwsIGtlZXAuZm9yZXN0ID0gVFJVRSlcbiNzdG9yZSBkYXRhIGludG8gZGF0YSBmcmFtZVxuZ2VuZXMgPSBnZW5lbWFwW21hdGNoKHZhcnNlbFJGLkFJSCRzZWxlY3RlZC52YXJzLCBnZW5lbWFwJGVuc2VtYmxfZ2VuZV9pZCksXSRoZ25jXG5udW0uZ2VuZXMgPSB2YXJzZWxSRi5BSUgkYmVzdC5tb2RlbC5udmFyc1xuUkZfcmVzdWx0cyA8LSByYmluZChSRl9yZXN1bHRzLCBjKHN0ZGRldiwgbnVtLmdlbmVzLCBwYXN0ZSh1bmxpc3QoZ2VuZXMpLCBjb2xsYXBzZT0nLCAnKSkpXG5jb2xuYW1lcyhSRl9yZXN1bHRzKSA8LSBjKFwic3RkZGV2XCIsXCJudW0uZ2VuZXNcIixcImdlbmVzXCIpXG5wcmludChwYXN0ZShcIlN0YW5kYXJkIGRldmlhdGlvbiBpc1wiLCBzdGRkZXYpKVxucHJpbnQocGFzdGUoXCJOdW1iZXIgb2YgZ2VuZXMgaXNcIixudW0uZ2VuZXMpKVxuI2RpdmlkZSBzdGFuZGFyZCBkZXZpYXRpb24gaW4gaGFsZlxuc3RkZGV2ID0gc3RkZGV2IC0gMC4yNVxufVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBsb2FkIGluIGdlbmVjb3VudHMgYW5kIG1ldGFkYXRhXG5nZW5lY291bnRzX3JmIDwtIGdlbmVjb3VudHNwY19maWx0XG5tZXRhZGF0YV9yZiA8LSBtZXRhZGF0YV9maWx0XG5cbiMgbm9ybWFsaXplIGdlbmUgY291bnRzXG5nZW5lY291bnRzX2ZpbHRfY3BtIDwtIGNwbShnZW5lY291bnRzcGNfZmlsdCwgbG9nID0gVFJVRSlcblxuIyBzZXQgdXAgdGhlIGNvbHVtbiBvZiBpbnRlcmVzdCwgcmVtb3ZlIGVtcHR5IGxldmVsc1xubWV0YWRhdGFfcmYkZmFjdG9ycyA8LSBkcm9wbGV2ZWxzLmZhY3RvcihtZXRhZGF0YV9maWx0JGNhc2VfaGxfZHUpXG5cbiNkZWNsYXJlIHRoZSBmYWN0b3JzIGZvciByYW5kb20gZm9yZXN0IG1vZGVsIChBSUggdnMgaGVhbHRoeSlcblJGX2ZhY3RvcnMgPC0gbWV0YWRhdGFfcmYkZmFjdG9yc1xuXG4jaW5pdGlhbGl6ZSBkYXRhIGZyYW1lLCBzdGFuZGFyZCBkZXZpYXRpb24sIG51bWJlciBvZiBnZW5lc1xuUkZfcmVzdWx0cyA8LWRhdGEuZnJhbWUoc3RkZGV2ID0gaW50ZWdlcigpLCBudW0uZ2VuZXMgPSBpbnRlZ2VyKCksIGdlbmVzID0gY2hhcmFjdGVyKCkpXG5zdGRkZXYgPSAyXG5udW0uZ2VuZXMgPSAwXG5cbiNydW4gcmFuZG9tIGZvcmVzdCB1bnRpbCBJIGhhdmUgbW9yZSB0aGFuIDUwIGdlbmVzIGluIGEgZ3JvdXBcbndoaWxlIChudW0uZ2VuZXMgPCA1MCkge1xuXG4jcmFuZG9tIGZvcmVzdCBjb21tYW5kXG52YXJzZWxSRi5BSUggPC0gdmFyU2VsUkYodChnZW5lY291bnRzX2ZpbHRfY3BtKSwgYXMuZmFjdG9yKFJGX2ZhY3RvcnMpLCBjLnNkID0gc3RkZGV2LCBtdHJ5RmFjdG9yID0gMSwgbnRyZWUgPSA1MDAwLCBudHJlZUl0ZXJhdCA9IDIwMDAsIHZhcnMuZHJvcC5udW0gPSBOVUxMLCB2YXJzLmRyb3AuZnJhYyA9IDAuMiwgd2hvbGUucmFuZ2UgPSBGQUxTRSwgcmVjb21wdXRlLnZhci5pbXAgPSBGQUxTRSwgdmVyYm9zZSA9IFRSVUUsIHJldHVybkZpcnN0Rm9yZXN0ID0gVFJVRSwgZml0dGVkLnJmID0gTlVMTCwga2VlcC5mb3Jlc3QgPSBUUlVFKVxuXG4jc3RvcmUgZGF0YSBpbnRvIGRhdGEgZnJhbWVcbmdlbmVzID0gZ2VuZW1hcFttYXRjaCh2YXJzZWxSRi5BSUgkc2VsZWN0ZWQudmFycywgZ2VuZW1hcCRlbnNlbWJsX2dlbmVfaWQpLF0kaGduY1xubnVtLmdlbmVzID0gdmFyc2VsUkYuQUlIJGJlc3QubW9kZWwubnZhcnNcbmdlbmVzX3QgPC0gZGF0YS5mcmFtZSh0KGMoc3RkZGV2LCBudW0uZ2VuZXMsIHBhc3RlKHVubGlzdChnZW5lcyksIGNvbGxhcHNlPScsICcpKSkpXG5jb2xuYW1lcyhnZW5lc190KSA8LSBjKFwic3RkZGV2XCIsXCJudW0uZ2VuZXNcIixcImdlbmVzXCIpXG5SRl9yZXN1bHRzPC1yYmluZChSRl9yZXN1bHRzLGdlbmVzX3QpXG5cbiNyZWR1Y2Ugc3RhbmRhcmQgZGV2aWF0aW9uIGJ5IDAuMjVcbnN0ZGRldiA9IHN0ZGRldiAtIDAuMjVcblxufVxuXG5cbmBgYCJ9 -->
 <pre class="r"><code># load in genecounts and metadata
 genecounts_rf &lt;- genecountspc_filt
 metadata_rf &lt;- metadata_filt
+
 # normalize gene counts
 genecounts_filt_cpm &lt;- cpm(genecountspc_filt, log = TRUE)
+
 # set up the column of interest, remove empty levels
 metadata_rf$factors &lt;- droplevels.factor(metadata_filt$case_hl_du)
-#declare the factors for random forest model
+
+#declare the factors for random forest model (AIH vs healthy)
 RF_factors &lt;- metadata_rf$factors
-#initialize data frame and standard deviation
-RF_results &lt;-data.frame(standarddev = integer(), num_genes = integer(), genes = character())
-RF_results &lt;- rbind(RF_results, c(stddev, num.genes, paste(unlist(genes), collapse=', ')))
-stddev = 0.5
+
+#initialize data frame, standard deviation, number of genes
+RF_results &lt;-data.frame(stddev = integer(), num.genes = integer(), genes = character())
+stddev = 2
 num.genes = 0
+
+#run random forest until I have more than 50 genes in a group
 while (num.genes &lt; 50) {
-#run random forest
+
+#random forest command
 varselRF.AIH &lt;- varSelRF(t(genecounts_filt_cpm), as.factor(RF_factors), c.sd = stddev, mtryFactor = 1, ntree = 5000, ntreeIterat = 2000, vars.drop.num = NULL, vars.drop.frac = 0.2, whole.range = FALSE, recompute.var.imp = FALSE, verbose = TRUE, returnFirstForest = TRUE, fitted.rf = NULL, keep.forest = TRUE)
+
 #store data into data frame
 genes = genemap[match(varselRF.AIH$selected.vars, genemap$ensembl_gene_id),]$hgnc
 num.genes = varselRF.AIH$best.model.nvars
-RF_results &lt;- rbind(RF_results, c(stddev, num.genes, paste(unlist(genes), collapse=', ')))
-colnames(RF_results) &lt;- c(&quot;stddev&quot;,&quot;num.genes&quot;,&quot;genes&quot;)
-print(paste(&quot;Standard deviation is&quot;, stddev))
-print(paste(&quot;Number of genes is&quot;,num.genes))
-#divide standard deviation in half
+genes_t &lt;- data.frame(t(c(stddev, num.genes, paste(unlist(genes), collapse=', '))))
+colnames(genes_t) &lt;- c(&quot;stddev&quot;,&quot;num.genes&quot;,&quot;genes&quot;)
+RF_results&lt;-rbind(RF_results,genes_t)
+
+#reduce standard deviation by 0.25
 stddev = stddev - 0.25
-}</code></pre>
+
+}
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiSW5pdGlhbCBPT0IgZXJyb3I6IG1lYW4gPSAwLjIwNjU7IHNkID0gMC4wNDIyXCJcblsxXSBcImdjIGluc2lkZSBsb29wIG9mIHZhclNlbFJGXCJcbiAgICAgICAgICAgdXNlZCAgKE1iKSBnYyB0cmlnZ2VyICAoTWIpIG1heCB1c2VkICAoTWIpXG5OY2VsbHMgIDUwNDExMzAgMjY5LjMgICAgODI3Mzg1MiA0NDEuOSAgODI3Mzg1MiA0NDEuOVxuVmNlbGxzIDI2MjAwMjcyIDE5OS45ICAgNDQ5ODA3MTggMzQzLjIgNDQ5NzQwMzQgMzQzLjJcblsxXSBcIi4uLi4uIGl0ZXJhdGlvbiAxOyBPT0IgZXJyb3I6IG1lYW4gPSAwLjE5NTc7IHNkID0gMC4wNDE0OyBudW0uIHZhcnMgPSAxMDgxMFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDUyMDEwIDI2OS45ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjQ2MzM2MCAyMDEuOSAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMjsgT09CIGVycm9yOiBtZWFuID0gMC4xOTU3OyBzZCA9IDAuMDQxNDsgbnVtLiB2YXJzID0gODY0OFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDYwNzM4IDI3MC4zICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjcwMzk5NiAyMDMuOCAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMzsgT09CIGVycm9yOiBtZWFuID0gMC4yMDY1OyBzZCA9IDAuMDQyMjsgbnVtLiB2YXJzID0gNjkxOFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDU2ODQ3IDI3MC4xICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY4MjQyNiAyMDMuNiAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gNDsgT09CIGVycm9yOiBtZWFuID0gMC4yMDY1OyBzZCA9IDAuMDQyMjsgbnVtLiB2YXJzID0gNTUzNFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDUzNzM0IDI2OS45ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY2MjM2NyAyMDMuNSAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gNTsgT09CIGVycm9yOiBtZWFuID0gMC4xODQ4OyBzZCA9IDAuMDQwNTsgbnVtLiB2YXJzID0gNDQyN1wiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDUxMjQ0IDI2OS44ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY3MTUyMSAyMDMuNSAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gNjsgT09CIGVycm9yOiBtZWFuID0gMC4xODQ4OyBzZCA9IDAuMDQwNTsgbnVtLiB2YXJzID0gMzU0MlwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQ5MjUzIDI2OS43ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY1MzY1MCAyMDMuNCAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gNzsgT09CIGVycm9yOiBtZWFuID0gMC4xNzM5OyBzZCA9IDAuMDM5NTsgbnVtLiB2YXJzID0gMjgzNFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQ3NjYxIDI2OS42ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjYzNjU1NyAyMDMuMyAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gODsgT09CIGVycm9yOiBtZWFuID0gMC4xNzM5OyBzZCA9IDAuMDM5NTsgbnVtLiB2YXJzID0gMjI2N1wiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQ2Mzg3IDI2OS42ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY0ODA3OSAyMDMuNCAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gOTsgT09CIGVycm9yOiBtZWFuID0gMC4xNzM5OyBzZCA9IDAuMDM5NTsgbnVtLiB2YXJzID0gMTgxNFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQ1MzY4IDI2OS41ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY2MDA5OCAyMDMuNSAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMTA7IE9PQiBlcnJvcjogbWVhbiA9IDAuMTczOTsgc2QgPSAwLjAzOTU7IG51bS4gdmFycyA9IDE0NTFcIlxuWzFdIFwiZ2MgaW5zaWRlIGxvb3Agb2YgdmFyU2VsUkZcIlxuICAgICAgICAgICB1c2VkICAoTWIpIGdjIHRyaWdnZXIgIChNYikgbWF4IHVzZWQgIChNYilcbk5jZWxscyAgNTA0NDU1MyAyNjkuNSAgICA4MjczODUyIDQ0MS45ICA4MjczODUyIDQ0MS45XG5WY2VsbHMgMjY2NDQ1MTIgMjAzLjMgICA0NDk4MDcxOCAzNDMuMiA0NDk3NDAzNCAzNDMuMlxuWzFdIFwiLi4uLi4gaXRlcmF0aW9uIDExOyBPT0IgZXJyb3I6IG1lYW4gPSAwLjE3Mzk7IHNkID0gMC4wMzk1OyBudW0uIHZhcnMgPSAxMTYxXCJcblsxXSBcImdjIGluc2lkZSBsb29wIG9mIHZhclNlbFJGXCJcbiAgICAgICAgICAgdXNlZCAgKE1iKSBnYyB0cmlnZ2VyICAoTWIpIG1heCB1c2VkICAoTWIpXG5OY2VsbHMgIDUwNDM5MDEgMjY5LjQgICAgODI3Mzg1MiA0NDEuOSAgODI3Mzg1MiA0NDEuOVxuVmNlbGxzIDI2NjQzMjQzIDIwMy4zICAgNDQ5ODA3MTggMzQzLjIgNDQ5NzQwMzQgMzQzLjJcblsxXSBcIi4uLi4uIGl0ZXJhdGlvbiAxMjsgT09CIGVycm9yOiBtZWFuID0gMC4xNzM5OyBzZCA9IDAuMDM5NTsgbnVtLiB2YXJzID0gOTI5XCJcblsxXSBcImdjIGluc2lkZSBsb29wIG9mIHZhclNlbFJGXCJcbiAgICAgICAgICAgdXNlZCAgKE1iKSBnYyB0cmlnZ2VyICAoTWIpIG1heCB1c2VkICAoTWIpXG5OY2VsbHMgIDUwNDMzODAgMjY5LjQgICAgODI3Mzg1MiA0NDEuOSAgODI3Mzg1MiA0NDEuOVxuVmNlbGxzIDI2NjQyMjMwIDIwMy4zICAgNDQ5ODA3MTggMzQzLjIgNDQ5NzQwMzQgMzQzLjJcblsxXSBcIi4uLi4uIGl0ZXJhdGlvbiAxMzsgT09CIGVycm9yOiBtZWFuID0gMC4xNjM7IHNkID0gMC4wMzg1OyBudW0uIHZhcnMgPSA3NDNcIlxuWzFdIFwiZ2MgaW5zaWRlIGxvb3Agb2YgdmFyU2VsUkZcIlxuICAgICAgICAgICB1c2VkICAoTWIpIGdjIHRyaWdnZXIgIChNYikgbWF4IHVzZWQgIChNYilcbk5jZWxscyAgNTA0Mjk2MyAyNjkuNCAgICA4MjczODUyIDQ0MS45ICA4MjczODUyIDQ0MS45XG5WY2VsbHMgMjY2Mjc0MTcgMjAzLjIgICA0NDk4MDcxOCAzNDMuMiA0NDk3NDAzNCAzNDMuMlxuWzFdIFwiLi4uLi4gaXRlcmF0aW9uIDE0OyBPT0IgZXJyb3I6IG1lYW4gPSAwLjE2Mzsgc2QgPSAwLjAzODU7IG51bS4gdmFycyA9IDU5NFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQyNjI5IDI2OS40ICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY0MDc2MiAyMDMuMyAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMTU7IE9PQiBlcnJvcjogbWVhbiA9IDAuMTUyMjsgc2QgPSAwLjAzNzQ7IG51bS4gdmFycyA9IDQ3NVwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQyMzYyIDI2OS4zICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY0MDIzOCAyMDMuMyAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMTY7IE9PQiBlcnJvcjogbWVhbiA9IDAuMTUyMjsgc2QgPSAwLjAzNzQ7IG51bS4gdmFycyA9IDM4MFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQyMTQ5IDI2OS4zICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjYzOTgyMSAyMDMuMyAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMTc7IE9PQiBlcnJvcjogbWVhbiA9IDAuMTQxMzsgc2QgPSAwLjAzNjM7IG51bS4gdmFycyA9IDMwNFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQxOTc5IDI2OS4zICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjYzOTQ4OCAyMDMuMyAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMTg7IE9PQiBlcnJvcjogbWVhbiA9IDAuMTQxMzsgc2QgPSAwLjAzNjM7IG51bS4gdmFycyA9IDI0M1wiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQxODQzIDI2OS4zICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjYzOTIyMSAyMDMuMyAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMTk7IE9PQiBlcnJvcjogbWVhbiA9IDAuMTMwNDsgc2QgPSAwLjAzNTE7IG51bS4gdmFycyA9IDE5NFwiXG5bMV0gXCJnYyBpbnNpZGUgbG9vcCBvZiB2YXJTZWxSRlwiXG4gICAgICAgICAgIHVzZWQgIChNYikgZ2MgdHJpZ2dlciAgKE1iKSBtYXggdXNlZCAgKE1iKVxuTmNlbGxzICA1MDQxNzM0IDI2OS4zICAgIDgyNzM4NTIgNDQxLjkgIDgyNzM4NTIgNDQxLjlcblZjZWxscyAyNjY1MzAwNCAyMDMuNCAgIDQ0OTgwNzE4IDM0My4yIDQ0OTc0MDM0IDM0My4yXG5bMV0gXCIuLi4uLiBpdGVyYXRpb24gMjA7IE9PQiBlcnJvcjogbWVhbiA9IDAuMTUyMjsgc2QgPSAwLjAzNzQ7IG51bS4gdmFycyA9IDE1NVwiXG4ifQ== -->
-<pre><code>[1] &quot;Initial OOB error: mean = 0.2065; sd = 0.0422&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5041130 269.3    8273852 441.9  8273852 441.9
-Vcells 26200272 199.9   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 1; OOB error: mean = 0.1957; sd = 0.0414; num. vars = 10810&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5052010 269.9    8273852 441.9  8273852 441.9
-Vcells 26463360 201.9   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 2; OOB error: mean = 0.1957; sd = 0.0414; num. vars = 8648&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5060738 270.3    8273852 441.9  8273852 441.9
-Vcells 26703996 203.8   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 3; OOB error: mean = 0.2065; sd = 0.0422; num. vars = 6918&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5056847 270.1    8273852 441.9  8273852 441.9
-Vcells 26682426 203.6   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 4; OOB error: mean = 0.2065; sd = 0.0422; num. vars = 5534&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5053734 269.9    8273852 441.9  8273852 441.9
-Vcells 26662367 203.5   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 5; OOB error: mean = 0.1848; sd = 0.0405; num. vars = 4427&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5051244 269.8    8273852 441.9  8273852 441.9
-Vcells 26671521 203.5   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 6; OOB error: mean = 0.1848; sd = 0.0405; num. vars = 3542&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5049253 269.7    8273852 441.9  8273852 441.9
-Vcells 26653650 203.4   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 7; OOB error: mean = 0.1739; sd = 0.0395; num. vars = 2834&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5047661 269.6    8273852 441.9  8273852 441.9
-Vcells 26636557 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 8; OOB error: mean = 0.1739; sd = 0.0395; num. vars = 2267&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5046387 269.6    8273852 441.9  8273852 441.9
-Vcells 26648079 203.4   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 9; OOB error: mean = 0.1739; sd = 0.0395; num. vars = 1814&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5045368 269.5    8273852 441.9  8273852 441.9
-Vcells 26660098 203.5   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 10; OOB error: mean = 0.1739; sd = 0.0395; num. vars = 1451&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5044553 269.5    8273852 441.9  8273852 441.9
-Vcells 26644512 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 11; OOB error: mean = 0.1739; sd = 0.0395; num. vars = 1161&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5043901 269.4    8273852 441.9  8273852 441.9
-Vcells 26643243 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 12; OOB error: mean = 0.1739; sd = 0.0395; num. vars = 929&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5043380 269.4    8273852 441.9  8273852 441.9
-Vcells 26642230 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 13; OOB error: mean = 0.163; sd = 0.0385; num. vars = 743&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5042963 269.4    8273852 441.9  8273852 441.9
-Vcells 26627417 203.2   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 14; OOB error: mean = 0.163; sd = 0.0385; num. vars = 594&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5042629 269.4    8273852 441.9  8273852 441.9
-Vcells 26640762 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 15; OOB error: mean = 0.1522; sd = 0.0374; num. vars = 475&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5042362 269.3    8273852 441.9  8273852 441.9
-Vcells 26640238 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 16; OOB error: mean = 0.1522; sd = 0.0374; num. vars = 380&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5042149 269.3    8273852 441.9  8273852 441.9
-Vcells 26639821 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 17; OOB error: mean = 0.1413; sd = 0.0363; num. vars = 304&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5041979 269.3    8273852 441.9  8273852 441.9
-Vcells 26639488 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 18; OOB error: mean = 0.1413; sd = 0.0363; num. vars = 243&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5041843 269.3    8273852 441.9  8273852 441.9
-Vcells 26639221 203.3   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 19; OOB error: mean = 0.1304; sd = 0.0351; num. vars = 194&quot;
-[1] &quot;gc inside loop of varSelRF&quot;
-           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5041734 269.3    8273852 441.9  8273852 441.9
-Vcells 26653004 203.4   44980718 343.2 44974034 343.2
-[1] &quot;..... iteration 20; OOB error: mean = 0.1522; sd = 0.0374; num. vars = 155&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiaW52YWxpZCBmYWN0b3IgbGV2ZWwsIE5BIGdlbmVyYXRlZGludmFsaWQgZmFjdG9yIGxldmVsLCBOQSBnZW5lcmF0ZWRpbnZhbGlkIGZhY3RvciBsZXZlbCwgTkEgZ2VuZXJhdGVkXG4ifQ== -->
-<pre><code>invalid factor level, NA generatedinvalid factor level, NA generatedinvalid factor level, NA generated</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiU3RhbmRhcmQgZGV2aWF0aW9uIGlzIDAuNVwiXG5bMV0gXCJOdW1iZXIgb2YgZ2VuZXMgaXMgMTk0XCJcbiJ9 -->
-<pre><code>[1] &quot;Standard deviation is 0.5&quot;
-[1] &quot;Number of genes is 194&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29sbmFtZXMoUkZfcmVzdWx0cykgPC0gYyhcInN0ZGRldlwiLFwibnVtLmdlbmVzXCIsXCJnZW5lc1wiKVxuYGBgIn0= -->
-<pre class="r"><code>colnames(RF_results) &lt;- c(&quot;stddev&quot;,&quot;num.genes&quot;,&quot;genes&quot;)</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxua25pdHI6OmthYmxlKFJGX3Jlc3VsdHMpXG5gYGAifQ== -->
+<pre class="r"><code>knitr::kable(RF_results)</code></pre>
 <!-- rnb-source-end -->
+
+<!-- rnb-html-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImtuaXRfYXNpcyJdLCJzaXppbmdQb2xpY3kiOltdfX0= -->
+
+<table>
+<colgroup>
+<col width="1%" />
+<col width="1%" />
+<col width="97%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">stddev</th>
+<th align="left">num.genes</th>
+<th align="left">genes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">PTOV1, GIGYF1</td>
+</tr>
+<tr class="even">
+<td align="left">1.75</td>
+<td align="left">2</td>
+<td align="left">PTOV1, GIGYF1</td>
+</tr>
+<tr class="odd">
+<td align="left">1.5</td>
+<td align="left">2</td>
+<td align="left">FLYWCH1, GIGYF1</td>
+</tr>
+<tr class="even">
+<td align="left">1.25</td>
+<td align="left">5</td>
+<td align="left">FLYWCH1, ARHGAP4, PTOV1, SLC4A10, GIGYF1</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">COL5A3, PTOV1, GIGYF1</td>
+</tr>
+<tr class="even">
+<td align="left">0.75</td>
+<td align="left">5</td>
+<td align="left">FLYWCH1, COL5A3, PTOV1, SLC4A10, GIGYF1</td>
+</tr>
+<tr class="odd">
+<td align="left">0.5</td>
+<td align="left">99</td>
+<td align="left">TSPOAP1, MATK, NISCH, FLYWCH1, ZNF275, SUGP2, PDZD4, RASGRP2, MGAT4A, COL5A3, ARHGAP4, KLHL22, LMF2, ARFGAP1, PIGU, MIB1, CENPT, KLHDC4, CCDC130, PTOV1, TNPO2, ABCA2, EIF3A, EZH1, UST, ZAP70, STAT1, GBP1, CEP89, MTERF4, AGO3, IRF3, MPRIP, RRAS2, PRPF38B, STK26, TUT4, GOLGA1, SYTL2, USP8, MAPK8IP3, RHOT2, SGSM2, TMC6, IFITM3, PGGHG, ADAMTS10, SYTL1, SLC4A10, DDX46, FAM193B, GIGYF1, ADAM12, DGKZ, PLCH2, KLRF1, FCGR1A, DLG5, ZNF256, SCOC, TTC39B, TYSND1, DIP2A, CCDC78, MEGF6, TYW3, SNED1, INTS1, NEMF, TMEM170A, ENGASE, LENG8, TMC8, ABHD15, JMJD7-PLA2G4B, CEL, ZDHHC14, TBC1D10C, ANAPC2, DTX3, MTA1, ANO9, ZBTB37, MYBL1, NPIPB4, CCDC84, ZNF600, ANAPC7, SZT2, TPM2, DIO1, SCART1, CCNL2, AP5Z1, HAUS5, , C19orf84, MYO15B, DGKK</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- rnb-html-end -->
+
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUmFuZG9tIEZvcmVzdCBNb2RlbCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3IgaW5jbHVkZT1GQUxTRX0KbGlicmFyeSh2YXJTZWxSRikKc2V0LnNlZWQoNjQ0Njg1KQpsaWJyYXJ5KG9wZW54bHN4KQpsaWJyYXJ5KHN0cmluZ3IpCmBgYAoKIyNVc2luZyAqdmFyU2VsUkYqIHBhY2thZ2UgZm9yIHZhcmlhYmxlIHNlbGVjdGlvbiB1c2luZyByYW5kb20gZm9yZXN0CgpodHRwczovL2NyYW4uci1wcm9qZWN0Lm9yZy93ZWIvcGFja2FnZXMvdmFyU2VsUkYvdmFyU2VsUkYucGRmCgpJIG5vcm1hbGl6ZWQgdGhlIHByZS1maWx0ZXJlZCBnZW5lIGNvdW50cyBvZiB0aGUgOTIgQUlIIGFuZCBoZWFsdGh5IHBhdGllbnRzIChubyBsaXZlciB0cmFuc3BsYW50cywgbm8gb3V0bGllcnMgYW5kIG5vIGNvbXBsZXggY2FzZXMpIHVzaW5nIGNwbSgpIGZ1bmN0aW9uIG9mIEVkZ2VSLCBsb2cgPSBUUlVFLgoKCgpgYGB7cn0KIyBsb2FkIGluIGdlbmVjb3VudHMgYW5kIG1ldGFkYXRhCmdlbmVjb3VudHNfcmYgPC0gZ2VuZWNvdW50c3BjX2ZpbHQKbWV0YWRhdGFfcmYgPC0gbWV0YWRhdGFfZmlsdAoKIyBub3JtYWxpemUgZ2VuZSBjb3VudHMKZ2VuZWNvdW50c19maWx0X2NwbSA8LSBjcG0oZ2VuZWNvdW50c3BjX2ZpbHQsIGxvZyA9IFRSVUUpCgojIHNldCB1cCB0aGUgY29sdW1uIG9mIGludGVyZXN0LCByZW1vdmUgZW1wdHkgbGV2ZWxzCm1ldGFkYXRhX3JmJGZhY3RvcnMgPC0gZHJvcGxldmVscy5mYWN0b3IobWV0YWRhdGFfZmlsdCRjYXNlX2hsX2R1KQoKI2RlY2xhcmUgdGhlIGZhY3RvcnMgZm9yIHJhbmRvbSBmb3Jlc3QgbW9kZWwKUkZfZmFjdG9ycyA8LSBtZXRhZGF0YV9yZiRmYWN0b3JzCgojaW5pdGlhbGl6ZSBkYXRhIGZyYW1lIGFuZCBzdGFuZGFyZCBkZXZpYXRpb24KUkZfcmVzdWx0cyA8LWRhdGEuZnJhbWUoc3RhbmRhcmRkZXYgPSBpbnRlZ2VyKCksIG51bV9nZW5lcyA9IGludGVnZXIoKSwgZ2VuZXMgPSBjaGFyYWN0ZXIoKSkKUkZfcmVzdWx0cyA8LSByYmluZChSRl9yZXN1bHRzLCBjKHN0ZGRldiwgbnVtLmdlbmVzLCBwYXN0ZSh1bmxpc3QoZ2VuZXMpLCBjb2xsYXBzZT0nLCAnKSkpCgpzdGRkZXYgPSAwLjUKCm51bS5nZW5lcyA9IDAKCndoaWxlIChudW0uZ2VuZXMgPCA1MCkgewojcnVuIHJhbmRvbSBmb3Jlc3QKdmFyc2VsUkYuQUlIIDwtIHZhclNlbFJGKHQoZ2VuZWNvdW50c19maWx0X2NwbSksIGFzLmZhY3RvcihSRl9mYWN0b3JzKSwgYy5zZCA9IHN0ZGRldiwgbXRyeUZhY3RvciA9IDEsIG50cmVlID0gNTAwMCwgbnRyZWVJdGVyYXQgPSAyMDAwLCB2YXJzLmRyb3AubnVtID0gTlVMTCwgdmFycy5kcm9wLmZyYWMgPSAwLjIsIHdob2xlLnJhbmdlID0gRkFMU0UsIHJlY29tcHV0ZS52YXIuaW1wID0gRkFMU0UsIHZlcmJvc2UgPSBUUlVFLCByZXR1cm5GaXJzdEZvcmVzdCA9IFRSVUUsIGZpdHRlZC5yZiA9IE5VTEwsIGtlZXAuZm9yZXN0ID0gVFJVRSkKCiNzdG9yZSBkYXRhIGludG8gZGF0YSBmcmFtZQpnZW5lcyA9IGdlbmVtYXBbbWF0Y2godmFyc2VsUkYuQUlIJHNlbGVjdGVkLnZhcnMsIGdlbmVtYXAkZW5zZW1ibF9nZW5lX2lkKSxdJGhnbmMKbnVtLmdlbmVzID0gdmFyc2VsUkYuQUlIJGJlc3QubW9kZWwubnZhcnMKUkZfcmVzdWx0cyA8LSByYmluZChSRl9yZXN1bHRzLCBjKHN0ZGRldiwgbnVtLmdlbmVzLCBwYXN0ZSh1bmxpc3QoZ2VuZXMpLCBjb2xsYXBzZT0nLCAnKSkpCmNvbG5hbWVzKFJGX3Jlc3VsdHMpIDwtIGMoInN0ZGRldiIsIm51bS5nZW5lcyIsImdlbmVzIikKCnByaW50KHBhc3RlKCJTdGFuZGFyZCBkZXZpYXRpb24gaXMiLCBzdGRkZXYpKQpwcmludChwYXN0ZSgiTnVtYmVyIG9mIGdlbmVzIGlzIixudW0uZ2VuZXMpKQoKI2RpdmlkZSBzdGFuZGFyZCBkZXZpYXRpb24gaW4gaGFsZgpzdGRkZXYgPSBzdGRkZXYgLSAwLjI1Cgp9Cj9yYmluZAoKY29sbmFtZXMoUkZfcmVzdWx0cykgPC0gYygic3RkZGV2IiwibnVtLmdlbmVzIiwiZ2VuZXMiKQoKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUmFuZG9tIEZvcmVzdCBNb2RlbCIKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICBkZl9wcmludDogcGFnZWQKLS0tCgpgYGB7ciBpbmNsdWRlPUZBTFNFfQpsaWJyYXJ5KHZhclNlbFJGKQpzZXQuc2VlZCg2NDQ2ODUpCmxpYnJhcnkob3Blbnhsc3gpCmxpYnJhcnkoc3RyaW5ncikKbGlicmFyeShrbml0cikKbGlicmFyeShlZGdlUikKbG9hZCgifi9Eb2N1bWVudHMvSW5mb3JtYXRpY3MvQUlIL2dpdGh1Yi9BSUgtUHJvamVjdC9BSUgtbWV0YWRhdGEvUmFuZG9tRm9yZXN0RGF0YS5SRGF0YSIpCmBgYAoKIyNVc2luZyAqdmFyU2VsUkYqIHBhY2thZ2UgZm9yIHZhcmlhYmxlIHNlbGVjdGlvbiB1c2luZyByYW5kb20gZm9yZXN0CgpodHRwczovL2NyYW4uci1wcm9qZWN0Lm9yZy93ZWIvcGFja2FnZXMvdmFyU2VsUkYvdmFyU2VsUkYucGRmCgpJIG5vcm1hbGl6ZWQgdGhlIHByZS1maWx0ZXJlZCBnZW5lIGNvdW50cyBvZiB0aGUgOTIgQUlIIGFuZCBoZWFsdGh5IHBhdGllbnRzIChubyBsaXZlciB0cmFuc3BsYW50cywgbm8gb3V0bGllcnMgYW5kIG5vIGNvbXBsZXggY2FzZXMpIHVzaW5nIGNwbSgpIGZ1bmN0aW9uIG9mIEVkZ2VSLCBsb2cgPSBUUlVFLgoKSSBkZWZpbmVkIHRoZSB0d28gZ3JvdXBzIGFzIEFJSCBhbmQgaGVhbHRoeS4gCgpBZnRlciB0aGlzLCBJIHJhbiB0aGUgcmFuZG9tIGZvcmVzdCBtb2RlbCB3aXRoIGRpZmZlcmluZyBzdGFuZGFyZCBkZXZpYXRpb25zLCBzdGFydGluZyBhdCAyIGFuZCBzdWJ0cmFjdGluZyAwLjI1IGluIGV2ZXJ5IGxvb3AuIEFzIHRoZSBzdGFuZGFyZCBkZXZpYXRpb24gYmVjYW1lIGxlc3Mgc3RyaW5nZW50IChsb3dlciksIHRoZSBudW1iZXIgb2YgZ2VuZXMgaW5jcmVhc2VkLiBJIHJlY29yZGVkIHRoZSBnZW5lcyBpbiBhIGRhdGFmcmFtZS4KCmBgYHtyIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGluY2x1ZGU9VFJVRSwgcGFnZWQucHJpbnQ9RkFMU0V9CiMgbG9hZCBpbiBnZW5lY291bnRzIGFuZCBtZXRhZGF0YQpnZW5lY291bnRzX3JmIDwtIGdlbmVjb3VudHNwY19maWx0Cm1ldGFkYXRhX3JmIDwtIG1ldGFkYXRhX2ZpbHQKCiMgbm9ybWFsaXplIGdlbmUgY291bnRzCmdlbmVjb3VudHNfZmlsdF9jcG0gPC0gY3BtKGdlbmVjb3VudHNwY19maWx0LCBsb2cgPSBUUlVFKQoKIyBzZXQgdXAgdGhlIGNvbHVtbiBvZiBpbnRlcmVzdCwgcmVtb3ZlIGVtcHR5IGxldmVscwptZXRhZGF0YV9yZiRmYWN0b3JzIDwtIGRyb3BsZXZlbHMuZmFjdG9yKG1ldGFkYXRhX2ZpbHQkY2FzZV9obF9kdSkKCiNkZWNsYXJlIHRoZSBmYWN0b3JzIGZvciByYW5kb20gZm9yZXN0IG1vZGVsIChBSUggdnMgaGVhbHRoeSkKUkZfZmFjdG9ycyA8LSBtZXRhZGF0YV9yZiRmYWN0b3JzCgojaW5pdGlhbGl6ZSBkYXRhIGZyYW1lLCBzdGFuZGFyZCBkZXZpYXRpb24sIG51bWJlciBvZiBnZW5lcwpSRl9yZXN1bHRzIDwtZGF0YS5mcmFtZShzdGRkZXYgPSBpbnRlZ2VyKCksIG51bS5nZW5lcyA9IGludGVnZXIoKSwgZ2VuZXMgPSBjaGFyYWN0ZXIoKSkKc3RkZGV2ID0gMgpudW0uZ2VuZXMgPSAwCgojcnVuIHJhbmRvbSBmb3Jlc3QgdW50aWwgSSBoYXZlIG1vcmUgdGhhbiA1MCBnZW5lcyBpbiBhIGdyb3VwCndoaWxlIChudW0uZ2VuZXMgPCA1MCkgewoKI3JhbmRvbSBmb3Jlc3QgY29tbWFuZAp2YXJzZWxSRi5BSUggPC0gdmFyU2VsUkYodChnZW5lY291bnRzX2ZpbHRfY3BtKSwgYXMuZmFjdG9yKFJGX2ZhY3RvcnMpLCBjLnNkID0gc3RkZGV2LCBtdHJ5RmFjdG9yID0gMSwgbnRyZWUgPSA1MDAwLCBudHJlZUl0ZXJhdCA9IDIwMDAsIHZhcnMuZHJvcC5udW0gPSBOVUxMLCB2YXJzLmRyb3AuZnJhYyA9IDAuMiwgd2hvbGUucmFuZ2UgPSBGQUxTRSwgcmVjb21wdXRlLnZhci5pbXAgPSBGQUxTRSwgdmVyYm9zZSA9IFRSVUUsIHJldHVybkZpcnN0Rm9yZXN0ID0gVFJVRSwgZml0dGVkLnJmID0gTlVMTCwga2VlcC5mb3Jlc3QgPSBUUlVFKQoKI3N0b3JlIGRhdGEgaW50byBkYXRhIGZyYW1lCmdlbmVzID0gZ2VuZW1hcFttYXRjaCh2YXJzZWxSRi5BSUgkc2VsZWN0ZWQudmFycywgZ2VuZW1hcCRlbnNlbWJsX2dlbmVfaWQpLF0kaGduYwpudW0uZ2VuZXMgPSB2YXJzZWxSRi5BSUgkYmVzdC5tb2RlbC5udmFycwpnZW5lc190IDwtIGRhdGEuZnJhbWUodChjKHN0ZGRldiwgbnVtLmdlbmVzLCBwYXN0ZSh1bmxpc3QoZ2VuZXMpLCBjb2xsYXBzZT0nLCAnKSkpKQpjb2xuYW1lcyhnZW5lc190KSA8LSBjKCJzdGRkZXYiLCJudW0uZ2VuZXMiLCJnZW5lcyIpClJGX3Jlc3VsdHM8LXJiaW5kKFJGX3Jlc3VsdHMsZ2VuZXNfdCkKCiNyZWR1Y2Ugc3RhbmRhcmQgZGV2aWF0aW9uIGJ5IDAuMjUKc3RkZGV2ID0gc3RkZGV2IC0gMC4yNQoKfQoKCmBgYAoKYGBge3J9CmtuaXRyOjprYWJsZShSRl9yZXN1bHRzKQpgYGAKCg==</div>
 
 
 
