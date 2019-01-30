@@ -6,7 +6,7 @@ library("magrittr")
 library("ggplot2")
 
 #Read in comprehensive metadata file (downloaded from RedCap)
-AIH_metadata <- read.csv ("AASLDAutoimmunePilot_DATA_2018-12-17_1525.csv", stringsAsFactors = FALSE)
+AIH_metadata <- read.csv ("AASLDAutoimmunePilot_DATA_2019-01-29_1413.csv", stringsAsFactors = FALSE)
 
 #Filter for selected columns
 AIH_metadata_firstpass <- dplyr::select(AIH_metadata, aasld_id, ind_id, du,spl_plate, dt_isl,  case_hl_du, date_lt, date_coll, sex, race, ethn, aih_type, te_coll, age_coll,  on_tx, diff_treat, igg_coll, ast_coll, alt_coll,  alp_coll, tbili_coll, response, relapse, decomp, lt, liver_death, age_hc, ast_hc, alt_hc, alkphos_hc, tbili_hc, bx_bl_coll)
@@ -24,10 +24,9 @@ for (i in 1:nrow(AIH_metadata_firstpass)){
 
 #Add in data regarding Fib4 and F03_F4
 ##Requires having run the algorithm data separately (code seperately; uploaded from prior file)
-AIH_metadata_QF4_join <- read.csv("18_1219_AIH_cases_QF4_calls.csv", stringsAsFactors = FALSE)
+AIH_metadata_QF4_join <- read.csv("19_0129_AIH_cases_QF4_calls.csv", stringsAsFactors = FALSE)
 AIH_metadata_firstpass <- full_join(AIH_metadata_firstpass, AIH_metadata_QF4_join, "aasld_id")
-colnames(AIH_metadata_firstpass)
-AIH_metadata_firstpass$F03_F4
+
 
 #Merge data for duplicate rows into the data frame
 
@@ -156,7 +155,7 @@ AIH_metadata_firstpass$pegivirus <- ifelse (grepl ("AASLD-095|AASLD-037|AASLD-01
 
 #Writing to a data file
 setwd("../AIH-metadata/")
-write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits_122018.csv", row.names = FALSE)
+write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits_012919.csv", row.names = FALSE)
 
 
 #################Amy runs up to here and cuts metadata in DESeq2 file.
