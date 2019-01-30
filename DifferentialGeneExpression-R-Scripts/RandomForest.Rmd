@@ -1,6 +1,8 @@
 ---
 title: "Random Forest Model"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r include=FALSE}
@@ -8,6 +10,9 @@ library(varSelRF)
 set.seed(644685)
 library(openxlsx)
 library(stringr)
+library(knitr)
+library(edgeR)
+load("~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/RandomForestData.RData")
 ```
 
 ##Using *varSelRF* package for variable selection using random forest
@@ -16,9 +21,11 @@ https://cran.r-project.org/web/packages/varSelRF/varSelRF.pdf
 
 I normalized the pre-filtered gene counts of the 92 AIH and healthy patients (no liver transplants, no outliers and no complex cases) using cpm() function of EdgeR, log = TRUE.
 
+I defined the two groups as AIH and healthy. 
 
+After this, I ran the random forest model with differing standard deviations, starting at 2 and subtracting 0.25 in every loop. As the standard deviation became less stringent (lower), the number of genes increased. I recorded the genes in a dataframe.
 
-```{r}
+```{r message=FALSE, warning=FALSE, include=TRUE, paged.print=FALSE}
 # load in genecounts and metadata
 genecounts_rf <- genecountspc_filt
 metadata_rf <- metadata_filt
@@ -29,37 +36,36 @@ genecounts_filt_cpm <- cpm(genecountspc_filt, log = TRUE)
 # set up the column of interest, remove empty levels
 metadata_rf$factors <- droplevels.factor(metadata_filt$case_hl_du)
 
-#declare the factors for random forest model
+#declare the factors for random forest model (AIH vs healthy)
 RF_factors <- metadata_rf$factors
 
-#initialize data frame and standard deviation
-RF_results <-data.frame(standarddev = integer(), num_genes = integer(), genes = character())
-RF_results <- rbind(RF_results, c(stddev, num.genes, paste(unlist(genes), collapse=', ')))
-
-stddev = 0.5
-
+#initialize data frame, standard deviation, number of genes
+RF_results <-data.frame(stddev = integer(), num.genes = integer(), genes = character())
+stddev = 2
 num.genes = 0
 
+#run random forest until I have more than 50 genes in a group
 while (num.genes < 50) {
-#run random forest
+
+#random forest command
 varselRF.AIH <- varSelRF(t(genecounts_filt_cpm), as.factor(RF_factors), c.sd = stddev, mtryFactor = 1, ntree = 5000, ntreeIterat = 2000, vars.drop.num = NULL, vars.drop.frac = 0.2, whole.range = FALSE, recompute.var.imp = FALSE, verbose = TRUE, returnFirstForest = TRUE, fitted.rf = NULL, keep.forest = TRUE)
 
 #store data into data frame
 genes = genemap[match(varselRF.AIH$selected.vars, genemap$ensembl_gene_id),]$hgnc
 num.genes = varselRF.AIH$best.model.nvars
-RF_results <- rbind(RF_results, c(stddev, num.genes, paste(unlist(genes), collapse=', ')))
-colnames(RF_results) <- c("stddev","num.genes","genes")
+genes_t <- data.frame(t(c(stddev, num.genes, paste(unlist(genes), collapse=', '))))
+colnames(genes_t) <- c("stddev","num.genes","genes")
+RF_results<-rbind(RF_results,genes_t)
 
-print(paste("Standard deviation is", stddev))
-print(paste("Number of genes is",num.genes))
-
-#divide standard deviation in half
+#reduce standard deviation by 0.25
 stddev = stddev - 0.25
 
 }
-?rbind
 
-colnames(RF_results) <- c("stddev","num.genes","genes")
 
+```
+
+```{r}
+knitr::kable(RF_results)
 ```
 
