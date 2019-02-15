@@ -4,14 +4,12 @@ library ("plyr")
 library("dplyr")
 library("magrittr")
 library("ggplot2")
-
 #Read in comprehensive metadata file (downloaded from RedCap)
 AIH_metadata <- read.csv ("AASLDAutoimmunePilot_DATA_2019-01-29_1413.csv", stringsAsFactors = FALSE)
 
 #Filter for selected columns
-AIH_metadata_firstpass <- dplyr::select(AIH_metadata, aasld_id, ind_id, du,spl_plate, dt_isl,  case_hl_du, date_lt, date_coll, sex, race, ethn, aih_type, te_coll, age_coll,  on_tx, diff_treat, igg_coll, ast_coll, alt_coll,  alp_coll, tbili_coll, response, relapse, decomp, lt, liver_death, age_hc, ast_hc, alt_hc, alkphos_hc, tbili_hc, bx_bl_coll)
+AIH_metadata_firstpass <- dplyr::select(AIH_metadata, aasld_id, ind_id, du,spl_plate, dt_isl,  case_hl_du, date_lt, date_coll, sex, race, ethn, aih_type, te_coll, age_coll,  on_tx, diff_treat, igg_coll, ast_coll, alt_coll,  alp_coll, tbili_coll, response, relapse, decomp, lt, liver_death, age_hc, ast_hc, alt_hc, alkphos_hc, tbili_hc, reg_coll___1, reg_coll___2,reg_coll___3,reg_coll___4,reg_coll___5,reg_coll___6,reg_coll___7,reg_coll___8, bx_bl_coll)
 colnames(AIH_metadata_firstpass)
-AIH_metadata_firstpass$response
 
 #assign complex cases as outlined by Craig the number 4
 
@@ -51,7 +49,7 @@ colnames(AIH_metadata_firstpass)
 #Remove duplicate column data from the above 
 AIH_metadata_firstpass %<>% select (aasld_id, ind_id, case_hl_du, du, spl_plate, dt_isl, date_lt, date_coll, sex, 
                                     race, ethn, aih_type, te_coll, on_tx, diff_treat, igg_coll, response, 
-                                    relapse, decomp, lt, liver_death, age, ast, alt, bili, alkp, fib4, F03_F4)
+                                    relapse, decomp, lt, liver_death, age, ast, alt, bili, alkp, fib4, F03_F4, reg_coll___1, reg_coll___2,reg_coll___3,reg_coll___4,reg_coll___5,reg_coll___6,reg_coll___7,reg_coll___8)
                               
 #make du column represent the 'sample' so that we can collapse replicates later
 for (i in 1:nrow(AIH_metadata_firstpass)){
@@ -115,7 +113,6 @@ AIH_metadata_firstpass$aih_type <- ifelse(AIH_metadata_firstpass$case_hl_du == "
                    ifelse (AIH_metadata_firstpass$case_hl_du == "control", print ("healthy_cont"), print ("NA")
   )))))))
 
-AIH_metadata_firstpass$on_tx
 ###on_tx (1 - yes, 0 - no)
 AIH_metadata_firstpass$on_tx <- ifelse(AIH_metadata_firstpass$on_tx == 1, print ("yes"), print ("no"))
                                                   
@@ -139,6 +136,19 @@ AIH_metadata_firstpass$lt <- ifelse(AIH_metadata_firstpass$lt == 1, print ("yes"
 ###liver death (na - no, 1 - yes)
 AIH_metadata_firstpass$liver_death <- ifelse(AIH_metadata_firstpass$liver_death == 1, print ("yes"), print ("no"))
 
+###reg coll (1-prednisone, 2- azathioprine, 3 - 6-mercaptopurine, 4 - budesonide, 5 - mycophenoiate (MMF), 6 - tacrolimus, 7 - prednisonolone, 8 - other)
+
+AIH_metadata_firstpass$steroid <- ifelse(AIH_metadata_firstpass$reg_coll___1 == 1, print("yes"), 
+                                         ifelse(AIH_metadata_firstpass$reg_coll___4 == 1, print("yes"), 
+                                                ifelse(AIH_metadata_firstpass$reg_coll___7 == 1, print("yes"), 
+                                                       ifelse(AIH_metadata_firstpass$reg_coll___8 == 1, print("unknowntx"),
+                                                            ifelse(AIH_metadata_firstpass$reg_coll___2 == 1, print("no"), 
+                                                              ifelse(AIH_metadata_firstpass$reg_coll___3 == 1, print("no"), 
+                                                                     ifelse(AIH_metadata_firstpass$reg_coll___5 == 1, print("no"),
+                                                                            ifelse(AIH_metadata_firstpass$reg_coll___6 == 1, print("no"), 
+                                                                                ifelse(AIH_metadata_firstpass$case_hl_du == "control", print ("healthy"),
+                                                                                       ifelse(AIH_metadata_firstpass$on_tx == "yes", print("unknowntx"),
+                                                                                                      ifelse(AIH_metadata_firstpass$on_tx == "no", print("notx"), print(NA))))))))))))
 
 View(AIH_metadata_firstpass)
 
@@ -154,8 +164,8 @@ AIH_metadata_firstpass$pegivirus <- ifelse (grepl ("AASLD-095|AASLD-037|AASLD-01
                                          
 
 #Writing to a data file
-setwd("../AIH-metadata/")
-write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits_012919.csv", row.names = FALSE)
+
+write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits_021419.csv", row.names = FALSE)
 
 
 #################Amy runs up to here and cuts metadata in DESeq2 file.

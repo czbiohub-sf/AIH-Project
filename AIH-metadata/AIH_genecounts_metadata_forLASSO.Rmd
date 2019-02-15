@@ -1,0 +1,148 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+
+
+metadata_filt_subset <- subset(metadata_filt, select = c("age", "case_hl_du","spl_plate","dt_isl","date_coll","sex","race","ethn","aih_type","te_coll", "on_tx","diff_treat","response","relapse" ,"decomp","lt", "fib4","lt_before_coll","F03_F4_final", "pegivirus", "fibrosis_groups", "alt_groups","on_tx_groups","response_groups"  ))
+
+
+metadata_filt_subset$case_hl_du <- ifelse(metadata_filt_subset$case_hl_du == "case", 1, 99)
+metadata_filt_subset$sex <- ifelse(metadata_filt_subset$sex == "female", 2, 1)
+metadata_filt_subset$race <- ifelse(metadata_filt_subset$race == "white", 1, 
+                                    ifelse(metadata_filt_subset$race == "black", 2, 3))
+metadata_filt_subset$ethn <- ifelse(metadata_filt_subset$ethn == "hisp_latino", 1, 2) 
+metadata_filt_subset$aih_type <- ifelse(metadata_filt_subset$aih_type == "type_1_aih", 1, 
+                                        ifelse(metadata_filt_subset$aih_type == "type_2_aih", 2,
+                                               ifelse(metadata_filt_subset$aih_type == "drug_induced_aih", 3, 
+                                                      ifelse(metadata_filt_subset$aih_type == "other_aih", 4,
+                                                             ifelse(metadata_filt_subset$aih_type == "unknown_aih" , 0,
+                                                                    ifelse(metadata_filt_subset$aih_type == "healthy_cont", 99, NA))))))
+
+
+metadata_filt_subset[is.na(metadata_filt_subset$aih_type),]$aih_type <- 0
+
+metadata_filt_subset$on_tx <- ifelse(metadata_filt_subset$on_tx == "yes", 1, 
+                                    ifelse(metadata_filt_subset$on_tx == "no", 0, NA))
+
+metadata_filt_subset[is.na(metadata_filt_subset$on_tx),]$on_tx <- 98
+
+metadata_filt_subset$diff_treat <- ifelse(metadata_filt_subset$diff_treat == "yes", 1, 
+                                     ifelse(metadata_filt_subset$diff_treat == "no", 0, NA))
+
+metadata_filt_subset[is.na(metadata_filt_subset$diff_treat),]$diff_treat <- 98
+
+
+metadata_filt_subset$response <- ifelse(metadata_filt_subset$response == "complete", 1, 
+                                    ifelse(metadata_filt_subset$response == "partial", 2, 
+                                           ifelse(metadata_filt_subset$response == "non-responsder",3,NA)))
+
+
+metadata_filt_subset[is.na(metadata_filt_subset$response),]$response <- 98
+
+metadata_filt_subset$relapse <- ifelse(metadata_filt_subset$relapse == "yes", 1, 
+                                          ifelse(metadata_filt_subset$relapse == "no", 0, NA))
+
+metadata_filt_subset[is.na(metadata_filt_subset$relapse),]$relapse <- 98
+
+
+
+metadata_filt_subset$decomp <- ifelse(metadata_filt_subset$decomp == "yes", 1, 
+                                       ifelse(metadata_filt_subset$decomp == "no", 0, NA))
+
+metadata_filt_subset[is.na(metadata_filt_subset$decomp),]$decomp <- 98
+
+metadata_filt_subset$lt <- ifelse(metadata_filt_subset$lt == "yes", 1, 
+                                      ifelse(metadata_filt_subset$lt == "no", 0, NA))
+
+metadata_filt_subset[is.na(metadata_filt_subset$lt),]$lt <- 98
+
+metadata_filt_subset$lt_before_coll <- ifelse(metadata_filt_subset$lt_before_coll == "yes", 1, 
+                                  ifelse(metadata_filt_subset$lt_before_coll == "no", 0, NA))
+
+metadata_filt_subset[is.na(metadata_filt_subset$lt_before_coll),]$lt_before_coll <- 98
+
+metadata_filt_subset$F03_F4_final <- ifelse(metadata_filt_subset$F03_F4_final == "F0", 99, 
+                                        ifelse(metadata_filt_subset$F03_F4_final == "F0_F3", 1, 
+                                               ifelse(metadata_filt_subset$F03_F4_final == "F4",2,NA)))
+
+
+metadata_filt_subset$pegivirus <- ifelse(metadata_filt_subset$pegivirus == "yes", 1, 
+                                              ifelse(metadata_filt_subset$pegivirus == "no", 0, NA))
+
+
+metadata_filt_subset$fibrosis_groups <- ifelse(metadata_filt_subset$fibrosis_groups == "healthy", 99, 
+                                            ifelse(metadata_filt_subset$fibrosis_groups == "AIHnocirrhosis", 1, 
+                                                   ifelse(metadata_filt_subset$fibrosis_groups == "AIHcirrhosis",2,NA)))
+
+
+metadata_filt_subset$alt_groups <- ifelse(metadata_filt_subset$alt_groups == "healthy", 99, 
+                                            ifelse(metadata_filt_subset$alt_groups == "AIHnormalALT", 1, 
+                                                   ifelse(metadata_filt_subset$alt_groups == "AIHelevatedALT",2,NA)))
+
+
+
+metadata_filt_subset$on_tx_groups <- ifelse(metadata_filt_subset$on_tx_groups == "yes", 1, 
+                                     ifelse(metadata_filt_subset$on_tx_groups == "no", 0, 
+                                            ifelse(metadata_filt_subset$on_tx_groups == "healthy", 99, NA)))
+
+metadata_filt_subset[is.na(metadata_filt_subset$on_tx_groups),]$on_tx_groups <- 98
+
+
+metadata_filt_subset$response_groups <- ifelse(metadata_filt_subset$response_groups == "complete", 1, 
+                                        ifelse(metadata_filt_subset$response_groups == "partial", 2, 
+                                               ifelse(metadata_filt_subset$response_groups == "non-responsder",3,
+                                                      ifelse(metadata_filt_subset$response_groups == "healthy-notreat", 99, NA))))
+
+metadata_filt_subset[is.na(metadata_filt_subset$response_groups),]$response_groups <- 98
+
+
+metadata_filt_subset <- subset(metadata_filt_subset, select = c("age", "case_hl_du","spl_plate","sex","race","ethn","aih_type",
+                                                               "diff_treat","response","relapse" ,"decomp","lt", "lt_before_coll", 
+                                                               "pegivirus", "fibrosis_groups", "alt_groups","on_tx_groups","response_groups"  ))
+
+#save.image(file = "AIH_genecounts_metadata_forLASSO.RData")
+
+metadata_filt_subset$age <- as.numeric(metadata_filt_subset$age)
+metadata_filt_subset$spl_plate <- as.numeric(metadata_filt_subset$spl_plate)
+```
+
+```{r}
+
+
+class(metadata_filt_subset)
+metadata_filt_subset$age <- as.numeric(metadata_filt_subset$age)
+metadata_filt_subset$spl_plate <- as.numeric(metadata_filt_subset$spl_plate)
+
+
+metadata_filt_subset$case_hl_du <- as.factor(metadata_filt_subset$case_hl_du)
+metadata_filt_subset_case <- metadata_filt_subset
+
+metadata_filt_subset$case_hl_du <- as.numeric(metadata_filt_subset$case_hl_du)
+metadata_filt_subset$fibrosis_groups <- as.factor(metadata_filt_subset$fibrosis_groups)
+metadata_filt_subset_fibrosis <- metadata_filt_subset
+
+metadata_filt_subset$fibrosis_groups <- as.numeric(metadata_filt_subset$fibrosis_groups)
+metadata_filt_subset$response_groups <- as.factor(metadata_filt_subset$response_groups)
+metadata_filt_subset_response <- metadata_filt_subset
+
+metadata_filt_subset$response_groups <- as.numeric(metadata_filt_subset$response_groups)
+metadata_filt_subset$on_tx_groups <- as.factor(metadata_filt_subset$on_tx_groups)
+metadata_filt_subset_treatment <- metadata_filt_subset
+
+metadata_filt_subset$on_tx_groups <- as.numeric(metadata_filt_subset$on_tx_groups)
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
