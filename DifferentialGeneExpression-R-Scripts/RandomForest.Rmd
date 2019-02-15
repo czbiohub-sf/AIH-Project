@@ -7,8 +7,7 @@ output:
 
 ```{r include=FALSE}
 library(varSelRF)
-set.seed(644685)
-library(openxlsx)
+#set.seed(144681)
 library(stringr)
 library(knitr)
 library(edgeR)
@@ -39,27 +38,32 @@ metadata_rf$factors <- droplevels.factor(metadata_filt$case_hl_du)
 #declare the factors for random forest model (AIH vs healthy)
 RF_factors <- metadata_rf$factors
 
+
+RF_results <-data.frame(seed = integer(), stddev = integer(), num.genes = integer(), genes = character(), genes_ensembl = character())
+
+for (i in seq(1,20)) {
+  
 #initialize data frame, standard deviation, number of genes
-RF_results <-data.frame(stddev = integer(), num.genes = integer(), genes = character())
 stddev = 2
-num.genes = 0
-
-#run random forest until I have more than 50 genes in a group
-while (num.genes < 50) {
-
-#random forest command
-varselRF.AIH <- varSelRF(t(genecounts_filt_cpm), as.factor(RF_factors), c.sd = stddev, mtryFactor = 1, ntree = 5000, ntreeIterat = 2000, vars.drop.num = NULL, vars.drop.frac = 0.2, whole.range = FALSE, recompute.var.imp = FALSE, verbose = TRUE, returnFirstForest = TRUE, fitted.rf = NULL, keep.forest = TRUE)
-
-#store data into data frame
-genes = genemap[match(varselRF.AIH$selected.vars, genemap$ensembl_gene_id),]$hgnc
-num.genes = varselRF.AIH$best.model.nvars
-genes_t <- data.frame(t(c(stddev, num.genes, paste(unlist(genes), collapse=', '))))
-colnames(genes_t) <- c("stddev","num.genes","genes")
-RF_results<-rbind(RF_results,genes_t)
-
-#reduce standard deviation by 0.25
-stddev = stddev - 0.25
-
+num.genes = 0  
+  #run random forest until I have more than 50 genes in a group
+  while (num.genes < 50) {
+  
+  #random forest command
+  varselRF.AIH <- varSelRF(t(genecounts_filt_cpm), as.factor(RF_factors), c.sd = stddev, mtryFactor = 1, ntree = 5000, ntreeIterat = 2000, vars.drop.num = NULL, vars.drop.frac = 0.2, whole.range = FALSE, recompute.var.imp = FALSE, verbose = TRUE, returnFirstForest = TRUE, fitted.rf = NULL, keep.forest = TRUE)
+  
+  #store data into data frame
+  genes = genemap[match(varselRF.AIH$selected.vars, genemap$ensembl_gene_id),]$hgnc
+  genes_ensembl = varselRF.AIH$selected.vars
+  num.genes = varselRF.AIH$best.model.nvars
+  genes_t <- data.frame(t(c(i, stddev, num.genes, paste(unlist(genes), collapse=', '),paste(unlist(genes_ensembl), collapse=', '))))
+  colnames(genes_t) <- c("seed","stddev","num.genes","genes")
+  RF_results<-rbind(RF_results,genes_t)
+  
+  #reduce standard deviation by 0.25
+  stddev = stddev - 0.25
+  
+  }
 }
 
 
@@ -67,5 +71,6 @@ stddev = stddev - 0.25
 
 ```{r}
 knitr::kable(RF_results)
+write.csv(RF_results,file = "RandomForest_12seeds_AIHvHealthy_021519")
 ```
 
