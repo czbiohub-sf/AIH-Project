@@ -37,9 +37,9 @@ library("edgeR")
 
 Edit variables
 ```{r}
-design = ~spl_plate+sex+age+steroid
-filename= paste("AIH_021419", "~spl_plate+sex+age+steroid_groups", "AIHsteroid-vs-AIHnotx", sep='_')
-contrast=c("steroid", "yes", "notx")
+design = ~spl_plate+sex+age+case_hl_du
+filename= paste("AIH_031119", "~spl_plate+sex+age+case_hl_du", "AIHcase-vs-control", sep='_')
+contrast=c("case_hl_du", "case", "control")
 ```
 
 Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
@@ -73,7 +73,7 @@ We will bin continuous data in order make it compatible with DESeq2. Arielle cho
 
 ```{r}
 #read in metadata, rename rows so that they match gene counts file
-metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_021419.csv", header=TRUE, row.names = 1)
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_031119.csv", header=TRUE, row.names = 1)
 
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))

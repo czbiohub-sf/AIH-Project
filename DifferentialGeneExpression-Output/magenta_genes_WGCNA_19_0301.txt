@@ -1,0 +1,228 @@
+4820	4883	protein_coding	11619	8721	7
+HES4	hes family bHLH transcription factor 4 [Source:HGNC Symbol;Acc:HGNC:24149]	protein_coding	ENSG00000188290	57801	magenta
+ISG15	ISG15 ubiquitin-like modifier [Source:HGNC Symbol;Acc:HGNC:4053]	protein_coding	ENSG00000187608	9636	magenta
+AGRN	agrin [Source:HGNC Symbol;Acc:HGNC:329]	protein_coding	ENSG00000188157	375790	magenta
+FBXO6	F-box protein 6 [Source:HGNC Symbol;Acc:HGNC:13585]	protein_coding	ENSG00000116663	26270	magenta
+C1QA	complement C1q A chain [Source:HGNC Symbol;Acc:HGNC:1241]	protein_coding	ENSG00000173372	712	magenta
+C1QC	complement C1q C chain [Source:HGNC Symbol;Acc:HGNC:1245]	protein_coding	ENSG00000159189	714	magenta
+C1QB	complement C1q B chain [Source:HGNC Symbol;Acc:HGNC:1242]	protein_coding	ENSG00000173369	713	magenta
+EPHB2	EPH receptor B2 [Source:HGNC Symbol;Acc:HGNC:3393]	protein_coding	ENSG00000133216	2048	magenta
+IFI6	interferon alpha inducible protein 6 [Source:HGNC Symbol;Acc:HGNC:4054]	protein_coding	ENSG00000126709	2537	magenta
+USP33	ubiquitin specific peptidase 33 [Source:HGNC Symbol;Acc:HGNC:20059]	protein_coding	ENSG00000077254	23032	magenta
+IFI44L	interferon induced protein 44 like [Source:HGNC Symbol;Acc:HGNC:17817]	protein_coding	ENSG00000137959	10964	magenta
+IFI44	interferon induced protein 44 [Source:HGNC Symbol;Acc:HGNC:16938]	protein_coding	ENSG00000137965	10561	magenta
+GBP1	guanylate binding protein 1 [Source:HGNC Symbol;Acc:HGNC:4182]	protein_coding	ENSG00000117228	2633	magenta
+GBP2	guanylate binding protein 2 [Source:HGNC Symbol;Acc:HGNC:4183]	protein_coding	ENSG00000162645	2634	magenta
+GBP4	guanylate binding protein 4 [Source:HGNC Symbol;Acc:HGNC:20480]	protein_coding	ENSG00000162654	115361	magenta
+GBP5	guanylate binding protein 5 [Source:HGNC Symbol;Acc:HGNC:19895]	protein_coding	ENSG00000154451	115362	magenta
+MOV10	Mov10 RISC complex RNA helicase [Source:HGNC Symbol;Acc:HGNC:7200]	protein_coding	ENSG00000155363	4343	magenta
+FCGR1A	Fc fragment of IgG receptor Ia [Source:HGNC Symbol;Acc:HGNC:3613]	protein_coding	ENSG00000150337	2209	magenta
+IFI16	interferon gamma inducible protein 16 [Source:HGNC Symbol;Acc:HGNC:5395]	protein_coding	ENSG00000163565	3428	magenta
+AIM2	absent in melanoma 2 [Source:HGNC Symbol;Acc:HGNC:357]	protein_coding	ENSG00000163568	9447	magenta
+MR1	major histocompatibility complex, class I-related [Source:HGNC Symbol;Acc:HGNC:4975]	protein_coding	ENSG00000153029	3140	magenta
+ATF3	activating transcription factor 3 [Source:HGNC Symbol;Acc:HGNC:785]	protein_coding	ENSG00000162772	467	magenta
+ZNF496	zinc finger protein 496 [Source:HGNC Symbol;Acc:HGNC:23713]	protein_coding	ENSG00000162714	84838	magenta
+CMPK2	cytidine/uridine monophosphate kinase 2 [Source:HGNC Symbol;Acc:HGNC:27015]	protein_coding	ENSG00000134326	129607	magenta
+RSAD2	radical S-adenosyl methionine domain containing 2 [Source:HGNC Symbol;Acc:HGNC:30908]	protein_coding	ENSG00000134321	91543	magenta
+OTOF	otoferlin [Source:HGNC Symbol;Acc:HGNC:8515]	protein_coding	ENSG00000115155	9381	magenta
+EIF2AK2	eukaryotic translation initiation factor 2 alpha kinase 2 [Source:HGNC Symbol;Acc:HGNC:9437]	protein_coding	ENSG00000055332	5610	magenta
+NAGK	N-acetylglucosamine kinase [Source:HGNC Symbol;Acc:HGNC:17174]	protein_coding	ENSG00000124357	55577	magenta
+MTHFD2	methylenetetrahydrofolate dehydrogenase (NADP+ dependent) 2, methenyltetrahydrofolate cyclohydrolase [Source:HGNC Symbol;Acc:HGNC:7434]	protein_coding	ENSG00000065911	10797	magenta
+EPB41L5	erythrocyte membrane protein band 4.1 like 5 [Source:HGNC Symbol;Acc:HGNC:19819]	protein_coding	ENSG00000115109	57669	magenta
+TNFAIP6	TNF alpha induced protein 6 [Source:HGNC Symbol;Acc:HGNC:11898]	protein_coding	ENSG00000123610	7130	magenta
+GPD2	glycerol-3-phosphate dehydrogenase 2 [Source:HGNC Symbol;Acc:HGNC:4456]	protein_coding	ENSG00000115159	2820	magenta
+IFIH1	interferon induced with helicase C domain 1 [Source:HGNC Symbol;Acc:HGNC:18873]	protein_coding	ENSG00000115267	64135	magenta
+DHRS9	dehydrogenase/reductase 9 [Source:HGNC Symbol;Acc:HGNC:16888]	protein_coding	ENSG00000073737	10170	magenta
+STAT1	signal transducer and activator of transcription 1 [Source:HGNC Symbol;Acc:HGNC:11362]	protein_coding	ENSG00000115415	6772	magenta
+SPATS2L	spermatogenesis associated serine rich 2 like [Source:HGNC Symbol;Acc:HGNC:24574]	protein_coding	ENSG00000196141	26010	magenta
+CASP10	caspase 10 [Source:HGNC Symbol;Acc:HGNC:1500]	protein_coding	ENSG00000003400	843	magenta
+ZFAND2B	zinc finger AN1-type containing 2B [Source:HGNC Symbol;Acc:HGNC:25206]	protein_coding	ENSG00000158552	130617	magenta
+WDFY1	WD repeat and FYVE domain containing 1 [Source:HGNC Symbol;Acc:HGNC:20451]	protein_coding	ENSG00000085449	57590	magenta
+SP140	SP140 nuclear body protein [Source:HGNC Symbol;Acc:HGNC:17133]	protein_coding	ENSG00000079263	11262	magenta
+SP100	SP100 nuclear antigen [Source:HGNC Symbol;Acc:HGNC:11206]	protein_coding	ENSG00000067066	6672	magenta
+CCR1	C-C motif chemokine receptor 1 [Source:HGNC Symbol;Acc:HGNC:1602]	protein_coding	ENSG00000163823	1230	magenta
+TREX1	three prime repair exonuclease 1 [Source:HGNC Symbol;Acc:HGNC:12269]	protein_coding	ENSG00000213689	11277	magenta
+GPR15	G protein-coupled receptor 15 [Source:HGNC Symbol;Acc:HGNC:4469]	protein_coding	ENSG00000154165	2838	magenta
+ATG3	autophagy related 3 [Source:HGNC Symbol;Acc:HGNC:20962]	protein_coding	ENSG00000144848	64422	magenta
+PARP9	poly(ADP-ribose) polymerase family member 9 [Source:HGNC Symbol;Acc:HGNC:24118]	protein_coding	ENSG00000138496	83666	magenta
+DTX3L	deltex E3 ubiquitin ligase 3L [Source:HGNC Symbol;Acc:HGNC:30323]	protein_coding	ENSG00000163840	151636	magenta
+PARP14	poly(ADP-ribose) polymerase family member 14 [Source:HGNC Symbol;Acc:HGNC:29232]	protein_coding	ENSG00000173193	54625	magenta
+DNAJC13	DnaJ heat shock protein family (Hsp40) member C13 [Source:HGNC Symbol;Acc:HGNC:30343]	protein_coding	ENSG00000138246	23317	magenta
+XRN1	5'-3' exoribonuclease 1 [Source:HGNC Symbol;Acc:HGNC:30654]	protein_coding	ENSG00000114127	54464	magenta
+PLSCR2	phospholipid scramblase 2 [Source:HGNC Symbol;Acc:HGNC:16494]	protein_coding	ENSG00000163746	57047	magenta
+PLSCR1	phospholipid scramblase 1 [Source:HGNC Symbol;Acc:HGNC:9092]	protein_coding	ENSG00000188313	5359	magenta
+P2RY14	purinergic receptor P2Y14 [Source:HGNC Symbol;Acc:HGNC:16442]	protein_coding	ENSG00000174944	9934	magenta
+TNFSF10	TNF superfamily member 10 [Source:HGNC Symbol;Acc:HGNC:11925]	protein_coding	ENSG00000121858	8743	magenta
+GNB4	G protein subunit beta 4 [Source:HGNC Symbol;Acc:HGNC:20731]	protein_coding	ENSG00000114450	59345	magenta
+LAMP3	lysosomal associated membrane protein 3 [Source:HGNC Symbol;Acc:HGNC:14582]	protein_coding	ENSG00000078081	27074	magenta
+YEATS2	YEATS domain containing 2 [Source:HGNC Symbol;Acc:HGNC:25489]	protein_coding	ENSG00000163872	55689	magenta
+RTP4	receptor transporter protein 4 [Source:HGNC Symbol;Acc:HGNC:23992]	protein_coding	ENSG00000136514	64108	magenta
+RUBCN	RUN and cysteine rich domain containing beclin 1 interacting protein [Source:HGNC Symbol;Acc:HGNC:28991]	protein_coding	ENSG00000145016	9711	magenta
+LAP3	leucine aminopeptidase 3 [Source:HGNC Symbol;Acc:HGNC:18449]	protein_coding	ENSG00000002549	51056	magenta
+HERC6	HECT and RLD domain containing E3 ubiquitin protein ligase family member 6 [Source:HGNC Symbol;Acc:HGNC:26072]	protein_coding	ENSG00000138642	55008	magenta
+HERC5	HECT and RLD domain containing E3 ubiquitin protein ligase 5 [Source:HGNC Symbol;Acc:HGNC:24368]	protein_coding	ENSG00000138646	51191	magenta
+DAPP1	dual adaptor of phosphotyrosine and 3-phosphoinositides 1 [Source:HGNC Symbol;Acc:HGNC:16500]	protein_coding	ENSG00000070190	27071	magenta
+FAM241A	family with sequence similarity 241 member A [Source:HGNC Symbol;Acc:HGNC:26813]	protein_coding	ENSG00000174749	132720	magenta
+KIAA1109	KIAA1109 [Source:HGNC Symbol;Acc:HGNC:26953]	protein_coding	ENSG00000138688	84162	magenta
+DDX60	DExD/H-box helicase 60 [Source:HGNC Symbol;Acc:HGNC:25942]	protein_coding	ENSG00000137628	55601	magenta
+DDX60L	DExD/H-box 60 like [Source:HGNC Symbol;Acc:HGNC:26429]	protein_coding	ENSG00000181381	91351	magenta
+LHFPL2	LHFPL tetraspan subfamily member 2 [Source:HGNC Symbol;Acc:HGNC:6588]	protein_coding	ENSG00000145685	10184	magenta
+MCTP1	multiple C2 and transmembrane domain containing 1 [Source:HGNC Symbol;Acc:HGNC:26183]	protein_coding	ENSG00000175471	79772	magenta
+CHD1	chromodomain helicase DNA binding protein 1 [Source:HGNC Symbol;Acc:HGNC:1915]	protein_coding	ENSG00000153922	1105	magenta
+SLC35A4	solute carrier family 35 member A4 [Source:HGNC Symbol;Acc:HGNC:20753]	protein_coding	ENSG00000176087	113829	magenta
+TRIM38	tripartite motif containing 38 [Source:HGNC Symbol;Acc:HGNC:10059]	protein_coding	ENSG00000112343	10475	magenta
+BTN3A2	butyrophilin subfamily 3 member A2 [Source:HGNC Symbol;Acc:HGNC:1139]	protein_coding	ENSG00000186470	11118	magenta
+BTN2A2	butyrophilin subfamily 2 member A2 [Source:HGNC Symbol;Acc:HGNC:1137]	protein_coding	ENSG00000124508	10385	magenta
+BTN3A1	butyrophilin subfamily 3 member A1 [Source:HGNC Symbol;Acc:HGNC:1138]	protein_coding	ENSG00000026950	11119	magenta
+TRIM26	tripartite motif containing 26 [Source:HGNC Symbol;Acc:HGNC:12962]	protein_coding	ENSG00000234127	7726	magenta
+MICB	MHC class I polypeptide-related sequence B [Source:HGNC Symbol;Acc:HGNC:7091]	protein_coding	ENSG00000204516	4277	magenta
+TAP2	transporter 2, ATP binding cassette subfamily B member [Source:HGNC Symbol;Acc:HGNC:44]	protein_coding	ENSG00000204267	6891	magenta
+PSMB9	proteasome subunit beta 9 [Source:HGNC Symbol;Acc:HGNC:9546]	protein_coding	ENSG00000240065	5698	magenta
+TAP1	transporter 1, ATP binding cassette subfamily B member [Source:HGNC Symbol;Acc:HGNC:43]	protein_coding	ENSG00000168394	6890	magenta
+BAK1	BCL2 antagonist/killer 1 [Source:HGNC Symbol;Acc:HGNC:949]	protein_coding	ENSG00000030110	578	magenta
+ETV7	ETS variant 7 [Source:HGNC Symbol;Acc:HGNC:18160]	protein_coding	ENSG00000010030	51513	magenta
+CMTR1	cap methyltransferase 1 [Source:HGNC Symbol;Acc:HGNC:21077]	protein_coding	ENSG00000137200	23070	magenta
+GTPBP2	GTP binding protein 2 [Source:HGNC Symbol;Acc:HGNC:4670]	protein_coding	ENSG00000172432	54676	magenta
+MAD2L1BP	MAD2L1 binding protein [Source:HGNC Symbol;Acc:HGNC:21059]	protein_coding	ENSG00000124688	9587	magenta
+RSPH9	radial spoke head 9 homolog [Source:HGNC Symbol;Acc:HGNC:21057]	protein_coding	ENSG00000172426	221421	magenta
+TENT5A	terminal nucleotidyltransferase 5A [Source:HGNC Symbol;Acc:HGNC:18345]	protein_coding	ENSG00000112773	55603	magenta
+CRYBG1	crystallin beta-gamma domain containing 1 [Source:HGNC Symbol;Acc:HGNC:356]	protein_coding	ENSG00000112297	202	magenta
+SESN1	sestrin 1 [Source:HGNC Symbol;Acc:HGNC:21595]	protein_coding	ENSG00000080546	27244	magenta
+UTRN	utrophin [Source:HGNC Symbol;Acc:HGNC:12635]	protein_coding	ENSG00000152818	7402	magenta
+USP42	ubiquitin specific peptidase 42 [Source:HGNC Symbol;Acc:HGNC:20068]	protein_coding	ENSG00000106346	84132	magenta
+C1GALT1	core 1 synthase, glycoprotein-N-acetylgalactosamine 3-beta-galactosyltransferase 1 [Source:HGNC Symbol;Acc:HGNC:24337]	protein_coding	ENSG00000106392	56913	magenta
+NT5C3A	5'-nucleotidase, cytosolic IIIA [Source:HGNC Symbol;Acc:HGNC:17820]	protein_coding	ENSG00000122643	51251	magenta
+H2AFV	H2A histone family member V [Source:HGNC Symbol;Acc:HGNC:20664]	protein_coding	ENSG00000105968	94239	magenta
+SAMD9	sterile alpha motif domain containing 9 [Source:HGNC Symbol;Acc:HGNC:1348]	protein_coding	ENSG00000205413	54809	magenta
+SAMD9L	sterile alpha motif domain containing 9 like [Source:HGNC Symbol;Acc:HGNC:1349]	protein_coding	ENSG00000177409	219285	magenta
+UFSP1	UFM1 specific peptidase 1 (inactive) [Source:HGNC Symbol;Acc:HGNC:33821]	protein_coding	ENSG00000176125	402682	magenta
+TRIM56	tripartite motif containing 56 [Source:HGNC Symbol;Acc:HGNC:19028]	protein_coding	ENSG00000169871	81844	magenta
+CREB3L2	cAMP responsive element binding protein 3 like 2 [Source:HGNC Symbol;Acc:HGNC:23720]	protein_coding	ENSG00000182158	64764	magenta
+PARP12	poly(ADP-ribose) polymerase family member 12 [Source:HGNC Symbol;Acc:HGNC:21919]	protein_coding	ENSG00000059378	64761	magenta
+NUB1	negative regulator of ubiquitin like proteins 1 [Source:HGNC Symbol;Acc:HGNC:17623]	protein_coding	ENSG00000013374	51667	magenta
+MSR1	macrophage scavenger receptor 1 [Source:HGNC Symbol;Acc:HGNC:7376]	protein_coding	ENSG00000038945	4481	magenta
+POLB	DNA polymerase beta [Source:HGNC Symbol;Acc:HGNC:9174]	protein_coding	ENSG00000070501	5423	magenta
+RIPK2	receptor interacting serine/threonine kinase 2 [Source:HGNC Symbol;Acc:HGNC:10020]	protein_coding	ENSG00000104312	8767	magenta
+CHRAC1	chromatin accessibility complex subunit 1 [Source:HGNC Symbol;Acc:HGNC:13544]	protein_coding	ENSG00000104472	54108	magenta
+LY6E	lymphocyte antigen 6 family member E [Source:HGNC Symbol;Acc:HGNC:6727]	protein_coding	ENSG00000160932	4061	magenta
+PARP10	poly(ADP-ribose) polymerase family member 10 [Source:HGNC Symbol;Acc:HGNC:25895]	protein_coding	ENSG00000178685	84875	magenta
+CD274	CD274 molecule [Source:HGNC Symbol;Acc:HGNC:17635]	protein_coding	ENSG00000120217	29126	magenta
+PDCD1LG2	programmed cell death 1 ligand 2 [Source:HGNC Symbol;Acc:HGNC:18731]	protein_coding	ENSG00000197646	80380	magenta
+ACO1	aconitase 1 [Source:HGNC Symbol;Acc:HGNC:117]	protein_coding	ENSG00000122729	48	magenta
+DDX58	DExD/H-box helicase 58 [Source:HGNC Symbol;Acc:HGNC:19102]	protein_coding	ENSG00000107201	23586	magenta
+CHMP5	charged multivesicular body protein 5 [Source:HGNC Symbol;Acc:HGNC:26942]	protein_coding	ENSG00000086065	51510	magenta
+FRMD3	FERM domain containing 3 [Source:HGNC Symbol;Acc:HGNC:24125]	protein_coding	ENSG00000172159	257019	magenta
+TDRD7	tudor domain containing 7 [Source:HGNC Symbol;Acc:HGNC:30831]	protein_coding	ENSG00000196116	23424	magenta
+NANS	N-acetylneuraminate synthase [Source:HGNC Symbol;Acc:HGNC:19237]	protein_coding	ENSG00000095380	54187	magenta
+TRIM14	tripartite motif containing 14 [Source:HGNC Symbol;Acc:HGNC:16283]	protein_coding	ENSG00000106785	9830	magenta
+KIAA1958	KIAA1958 [Source:HGNC Symbol;Acc:HGNC:23427]	protein_coding	ENSG00000165185	158405	magenta
+DENND1A	DENN domain containing 1A [Source:HGNC Symbol;Acc:HGNC:29324]	protein_coding	ENSG00000119522	57706	magenta
+TOR1B	torsin family 1 member B [Source:HGNC Symbol;Acc:HGNC:11995]	protein_coding	ENSG00000136816	27348	magenta
+UCK1	uridine-cytidine kinase 1 [Source:HGNC Symbol;Acc:HGNC:14859]	protein_coding	ENSG00000130717	83549	magenta
+LIPA	lipase A, lysosomal acid type [Source:HGNC Symbol;Acc:HGNC:6617]	protein_coding	ENSG00000107798	3988	magenta
+IFIT2	interferon induced protein with tetratricopeptide repeats 2 [Source:HGNC Symbol;Acc:HGNC:5409]	protein_coding	ENSG00000119922	3433	magenta
+IFIT3	interferon induced protein with tetratricopeptide repeats 3 [Source:HGNC Symbol;Acc:HGNC:5411]	protein_coding	ENSG00000119917	3437	magenta
+IFIT1	interferon induced protein with tetratricopeptide repeats 1 [Source:HGNC Symbol;Acc:HGNC:5407]	protein_coding	ENSG00000185745	3434	magenta
+IFIT5	interferon induced protein with tetratricopeptide repeats 5 [Source:HGNC Symbol;Acc:HGNC:13328]	protein_coding	ENSG00000152778	24138	magenta
+PIK3AP1	phosphoinositide-3-kinase adaptor protein 1 [Source:HGNC Symbol;Acc:HGNC:30034]	protein_coding	ENSG00000155629	118788	magenta
+ADAM12	ADAM metallopeptidase domain 12 [Source:HGNC Symbol;Acc:HGNC:190]	protein_coding	ENSG00000148848	8038	magenta
+IFITM1	interferon induced transmembrane protein 1 [Source:HGNC Symbol;Acc:HGNC:5412]	protein_coding	ENSG00000185885	8519	magenta
+IFITM3	interferon induced transmembrane protein 3 [Source:HGNC Symbol;Acc:HGNC:5414]	protein_coding	ENSG00000142089	10410	magenta
+IRF7	interferon regulatory factor 7 [Source:HGNC Symbol;Acc:HGNC:6122]	protein_coding	ENSG00000185507	3665	magenta
+TRIM21	tripartite motif containing 21 [Source:HGNC Symbol;Acc:HGNC:11312]	protein_coding	ENSG00000132109	6737	magenta
+OR52K2	olfactory receptor family 52 subfamily K member 2 [Source:HGNC Symbol;Acc:HGNC:15223]	protein_coding	ENSG00000181963	119774	magenta
+OR52K1	olfactory receptor family 52 subfamily K member 1 [Source:HGNC Symbol;Acc:HGNC:15222]	protein_coding	ENSG00000196778	390036	magenta
+TRIM5	tripartite motif containing 5 [Source:HGNC Symbol;Acc:HGNC:16276]	protein_coding	ENSG00000132256	85363	magenta
+TRIM22	tripartite motif containing 22 [Source:HGNC Symbol;Acc:HGNC:16379]	protein_coding	ENSG00000132274	10346	magenta
+HSD17B12	hydroxysteroid 17-beta dehydrogenase 12 [Source:HGNC Symbol;Acc:HGNC:18646]	protein_coding	ENSG00000149084	51144	magenta
+TIMM10	translocase of inner mitochondrial membrane 10 [Source:HGNC Symbol;Acc:HGNC:11814]	protein_coding	ENSG00000134809	26519	magenta
+SMTNL1	smoothelin like 1 [Source:HGNC Symbol;Acc:HGNC:32394]	protein_coding	ENSG00000214872	219537	magenta
+UBE2L6	ubiquitin conjugating enzyme E2 L6 [Source:HGNC Symbol;Acc:HGNC:12490]	protein_coding	ENSG00000156587	9246	magenta
+SERPING1	serpin family G member 1 [Source:HGNC Symbol;Acc:HGNC:1228]	protein_coding	ENSG00000149131	710	magenta
+FAM111A	family with sequence similarity 111 member A [Source:HGNC Symbol;Acc:HGNC:24725]	protein_coding	ENSG00000166801	63901	magenta
+BATF2	basic leucine zipper ATF-like transcription factor 2 [Source:HGNC Symbol;Acc:HGNC:25163]	protein_coding	ENSG00000168062	116071	magenta
+DRAP1	DR1 associated protein 1 [Source:HGNC Symbol;Acc:HGNC:3019]	protein_coding	ENSG00000175550	10589	magenta
+UNC93B1	unc-93 homolog B1, TLR signaling regulator [Source:HGNC Symbol;Acc:HGNC:13481]	protein_coding	ENSG00000110057	81622	magenta
+C2CD3	C2 calcium dependent domain containing 3 [Source:HGNC Symbol;Acc:HGNC:24564]	protein_coding	ENSG00000168014	26005	magenta
+TMEM123	transmembrane protein 123 [Source:HGNC Symbol;Acc:HGNC:30138]	protein_coding	ENSG00000152558	114908	magenta
+CASP1	caspase 1 [Source:HGNC Symbol;Acc:HGNC:1499]	protein_coding	ENSG00000137752	834	magenta
+CARD16	caspase recruitment domain family member 16 [Source:HGNC Symbol;Acc:HGNC:33701]	protein_coding	ENSG00000204397	114769	magenta
+CARD17	caspase recruitment domain family member 17 [Source:HGNC Symbol;Acc:HGNC:33827]	protein_coding	ENSG00000255221	440068	magenta
+GRAMD1B	GRAM domain containing 1B [Source:HGNC Symbol;Acc:HGNC:29214]	protein_coding	ENSG00000023171	100128242	magenta
+ROBO3	roundabout guidance receptor 3 [Source:HGNC Symbol;Acc:HGNC:13433]	protein_coding	ENSG00000154134	64221	magenta
+SLC6A12	solute carrier family 6 member 12 [Source:HGNC Symbol;Acc:HGNC:11045]	protein_coding	ENSG00000111181	6539	magenta
+STAT2	signal transducer and activator of transcription 2 [Source:HGNC Symbol;Acc:HGNC:11363]	protein_coding	ENSG00000170581	6773	magenta
+GNS	glucosamine (N-acetyl)-6-sulfatase [Source:HGNC Symbol;Acc:HGNC:4422]	protein_coding	ENSG00000135677	2799	magenta
+TRAFD1	TRAF-type zinc finger domain containing 1 [Source:HGNC Symbol;Acc:HGNC:24808]	protein_coding	ENSG00000135148	10906	magenta
+OAS1	2'-5'-oligoadenylate synthetase 1 [Source:HGNC Symbol;Acc:HGNC:8086]	protein_coding	ENSG00000089127	4938	magenta
+OAS3	2'-5'-oligoadenylate synthetase 3 [Source:HGNC Symbol;Acc:HGNC:8088]	protein_coding	ENSG00000111331	4940	magenta
+OAS2	2'-5'-oligoadenylate synthetase 2 [Source:HGNC Symbol;Acc:HGNC:8087]	protein_coding	ENSG00000111335	4939	magenta
+OASL	2'-5'-oligoadenylate synthetase like [Source:HGNC Symbol;Acc:HGNC:8090]	protein_coding	ENSG00000135114	8638	magenta
+IFT88	intraflagellar transport 88 [Source:HGNC Symbol;Acc:HGNC:20606]	protein_coding	ENSG00000032742	8100	magenta
+EPSTI1	epithelial stromal interaction 1 [Source:HGNC Symbol;Acc:HGNC:16465]	protein_coding	ENSG00000133106	94240	magenta
+PHF11	PHD finger protein 11 [Source:HGNC Symbol;Acc:HGNC:17024]	protein_coding	ENSG00000136147	51131	magenta
+TNFSF13B	TNF superfamily member 13b [Source:HGNC Symbol;Acc:HGNC:11929]	protein_coding	ENSG00000102524	10673	magenta
+PSME1	proteasome activator subunit 1 [Source:HGNC Symbol;Acc:HGNC:9568]	protein_coding	ENSG00000092010	5720	magenta
+PSME2	proteasome activator subunit 2 [Source:HGNC Symbol;Acc:HGNC:9569]	protein_coding	ENSG00000100911	5721	magenta
+RNF31	ring finger protein 31 [Source:HGNC Symbol;Acc:HGNC:16031]	protein_coding	ENSG00000092098	55072	magenta
+	novel transcript	protein_coding	ENSG00000259529	NA	magenta
+IRF9	interferon regulatory factor 9 [Source:HGNC Symbol;Acc:HGNC:6131]	protein_coding	ENSG00000213928	10379	magenta
+REC8	REC8 meiotic recombination protein [Source:HGNC Symbol;Acc:HGNC:16879]	protein_coding	ENSG00000100918	9985	magenta
+GCH1	GTP cyclohydrolase 1 [Source:HGNC Symbol;Acc:HGNC:4193]	protein_coding	ENSG00000131979	2643	magenta
+NPC2	NPC intracellular cholesterol transporter 2 [Source:HGNC Symbol;Acc:HGNC:14537]	protein_coding	ENSG00000119655	10577	magenta
+GALC	galactosylceramidase [Source:HGNC Symbol;Acc:HGNC:4115]	protein_coding	ENSG00000054983	2581	magenta
+TRIM69	tripartite motif containing 69 [Source:HGNC Symbol;Acc:HGNC:17857]	protein_coding	ENSG00000185880	140691	magenta
+LYSMD2	LysM domain containing 2 [Source:HGNC Symbol;Acc:HGNC:28571]	protein_coding	ENSG00000140280	256586	magenta
+TMOD2	tropomodulin 2 [Source:HGNC Symbol;Acc:HGNC:11872]	protein_coding	ENSG00000128872	29767	magenta
+PML	promyelocytic leukemia [Source:HGNC Symbol;Acc:HGNC:9113]	protein_coding	ENSG00000140464	5371	magenta
+TBC1D2B	TBC1 domain family member 2B [Source:HGNC Symbol;Acc:HGNC:29183]	protein_coding	ENSG00000167202	23102	magenta
+UBE2I	ubiquitin conjugating enzyme E2 I [Source:HGNC Symbol;Acc:HGNC:12485]	protein_coding	ENSG00000103275	7329	magenta
+SMG1	SMG1, nonsense mediated mRNA decay associated PI3K related kinase [Source:HGNC Symbol;Acc:HGNC:30045]	protein_coding	ENSG00000157106	23049	magenta
+SNX20	sorting nexin 20 [Source:HGNC Symbol;Acc:HGNC:30390]	protein_coding	ENSG00000167208	124460	magenta
+CETP	cholesteryl ester transfer protein [Source:HGNC Symbol;Acc:HGNC:1869]	protein_coding	ENSG00000087237	1071	magenta
+NLRC5	NLR family CARD domain containing 5 [Source:HGNC Symbol;Acc:HGNC:29933]	protein_coding	ENSG00000140853	84166	magenta
+EXOC3L1	exocyst complex component 3 like 1 [Source:HGNC Symbol;Acc:HGNC:27540]	protein_coding	ENSG00000179044	283849	magenta
+FANCA	FA complementation group A [Source:HGNC Symbol;Acc:HGNC:3582]	protein_coding	ENSG00000187741	2175	magenta
+ANKFY1	ankyrin repeat and FYVE domain containing 1 [Source:HGNC Symbol;Acc:HGNC:20763]	protein_coding	ENSG00000185722	51479	magenta
+XAF1	XIAP associated factor 1 [Source:HGNC Symbol;Acc:HGNC:30932]	protein_coding	ENSG00000132530	54739	magenta
+FBXO39	F-box protein 39 [Source:HGNC Symbol;Acc:HGNC:28565]	protein_coding	ENSG00000177294	162517	magenta
+LGALS9	galectin 9 [Source:HGNC Symbol;Acc:HGNC:6570]	protein_coding	ENSG00000168961	3965	magenta
+CNP	2',3'-cyclic nucleotide 3' phosphodiesterase [Source:HGNC Symbol;Acc:HGNC:2158]	protein_coding	ENSG00000173786	1267	magenta
+DHX58	DExH-box helicase 58 [Source:HGNC Symbol;Acc:HGNC:29517]	protein_coding	ENSG00000108771	79132	magenta
+IFI35	interferon induced protein 35 [Source:HGNC Symbol;Acc:HGNC:5399]	protein_coding	ENSG00000068079	3430	magenta
+SEPT4	septin 4 [Source:HGNC Symbol;Acc:HGNC:9165]	protein_coding	ENSG00000108387	5414	magenta
+RHBDF2	rhomboid 5 homolog 2 [Source:HGNC Symbol;Acc:HGNC:20788]	protein_coding	ENSG00000129667	79651	magenta
+RNF213	ring finger protein 213 [Source:HGNC Symbol;Acc:HGNC:14539]	protein_coding	ENSG00000173821	57674	magenta
+EPG5	ectopic P-granules autophagy protein 5 homolog [Source:HGNC Symbol;Acc:HGNC:29331]	protein_coding	ENSG00000152223	57724	magenta
+PSTPIP2	proline-serine-threonine phosphatase interacting protein 2 [Source:HGNC Symbol;Acc:HGNC:9581]	protein_coding	ENSG00000152229	9050	magenta
+ZCCHC2	zinc finger CCHC-type containing 2 [Source:HGNC Symbol;Acc:HGNC:22916]	protein_coding	ENSG00000141664	54877	magenta
+CIRBP	cold inducible RNA binding protein [Source:HGNC Symbol;Acc:HGNC:1982]	protein_coding	ENSG00000099622	1153	magenta
+PCP2	Purkinje cell protein 2 [Source:HGNC Symbol;Acc:HGNC:30209]	protein_coding	ENSG00000174788	126006	magenta
+C19orf66	chromosome 19 open reading frame 66 [Source:HGNC Symbol;Acc:HGNC:25649]	protein_coding	ENSG00000130813	55337	magenta
+BST2	bone marrow stromal cell antigen 2 [Source:HGNC Symbol;Acc:HGNC:1119]	protein_coding	ENSG00000130303	684	magenta
+MVB12A	multivesicular body subunit 12A [Source:HGNC Symbol;Acc:HGNC:25153]	protein_coding	ENSG00000141971	93343	magenta
+ZNF616	zinc finger protein 616 [Source:HGNC Symbol;Acc:HGNC:28062]	protein_coding	ENSG00000204611	90317	magenta
+SIGLEC1	sialic acid binding Ig like lectin 1 [Source:HGNC Symbol;Acc:HGNC:11127]	protein_coding	ENSG00000088827	6614	magenta
+TLDC2	TBC/LysM-associated domain containing 2 [Source:HGNC Symbol;Acc:HGNC:16112]	protein_coding	ENSG00000101342	140711	magenta
+SLC35C2	solute carrier family 35 member C2 [Source:HGNC Symbol;Acc:HGNC:17117]	protein_coding	ENSG00000080189	51006	magenta
+ZBP1	Z-DNA binding protein 1 [Source:HGNC Symbol;Acc:HGNC:16176]	protein_coding	ENSG00000124256	81030	magenta
+FNDC11	fibronectin type III domain containing 11 [Source:HGNC Symbol;Acc:HGNC:28764]	protein_coding	ENSG00000125531	79025	magenta
+HELZ2	helicase with zinc finger 2 [Source:HGNC Symbol;Acc:HGNC:30021]	protein_coding	ENSG00000130589	85441	magenta
+PCMTD2	protein-L-isoaspartate (D-aspartate) O-methyltransferase domain containing 2 [Source:HGNC Symbol;Acc:HGNC:15882]	protein_coding	ENSG00000203880	55251	magenta
+USP25	ubiquitin specific peptidase 25 [Source:HGNC Symbol;Acc:HGNC:12624]	protein_coding	ENSG00000155313	29761	magenta
+MX1	MX dynamin like GTPase 1 [Source:HGNC Symbol;Acc:HGNC:7532]	protein_coding	ENSG00000157601	4599	magenta
+USP18	ubiquitin specific peptidase 18 [Source:HGNC Symbol;Acc:HGNC:12616]	protein_coding	ENSG00000184979	11274	magenta
+TCN2	transcobalamin 2 [Source:HGNC Symbol;Acc:HGNC:11653]	protein_coding	ENSG00000185339	6948	magenta
+APOL6	apolipoprotein L6 [Source:HGNC Symbol;Acc:HGNC:14870]	protein_coding	ENSG00000221963	80830	magenta
+APOL2	apolipoprotein L2 [Source:HGNC Symbol;Acc:HGNC:619]	protein_coding	ENSG00000128335	23780	magenta
+APOL1	apolipoprotein L1 [Source:HGNC Symbol;Acc:HGNC:618]	protein_coding	ENSG00000100342	8542	magenta
+MCAT	malonyl-CoA-acyl carrier protein transacylase [Source:HGNC Symbol;Acc:HGNC:29622]	protein_coding	ENSG00000100294	27349	magenta
+SCO2	SCO2, cytochrome c oxidase assembly protein [Source:HGNC Symbol;Acc:HGNC:10604]	protein_coding	ENSG00000130489	9997	magenta
+TYMP	thymidine phosphorylase [Source:HGNC Symbol;Acc:HGNC:3148]	protein_coding	ENSG00000025708	1890	magenta
+ODF3B	outer dense fiber of sperm tails 3B [Source:HGNC Symbol;Acc:HGNC:34388]	protein_coding	ENSG00000177989	440836	magenta
+KLHDC7B	kelch domain containing 7B [Source:HGNC Symbol;Acc:HGNC:25145]	protein_coding	ENSG00000130487	113730	magenta
+ACOT9	acyl-CoA thioesterase 9 [Source:HGNC Symbol;Acc:HGNC:17152]	protein_coding	ENSG00000123130	23597	magenta
+CXorf21	chromosome X open reading frame 21 [Source:HGNC Symbol;Acc:HGNC:25667]	protein_coding	ENSG00000120280	80231	magenta
+PQBP1	polyglutamine binding protein 1 [Source:HGNC Symbol;Acc:HGNC:9330]	protein_coding	ENSG00000102103	10084	magenta
+CYSLTR1	cysteinyl leukotriene receptor 1 [Source:HGNC Symbol;Acc:HGNC:17451]	protein_coding	ENSG00000173198	10800	magenta
+DIAPH2	diaphanous related formin 2 [Source:HGNC Symbol;Acc:HGNC:2877]	protein_coding	ENSG00000147202	1730	magenta
