@@ -5,7 +5,7 @@
 
 #Step 1) Set working directory AIH folder, R projects, project name Determine_if_cirrhotic, and rename columns
 #setwd("~/Documents/AIH/AIH_R_Projects/Determine_if_cirrhotic")
-AIH_cases_QF4 <- read.csv(file = "AASLDAutoimmunePilot_DATA_2019-03-11_1201.csv", stringsAsFactors = FALSE)
+AIH_cases_QF4 <- read.csv(file = "~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/AASLDAutoimmunePilot_DATA_2019-04-03_1202.csv", stringsAsFactors = FALSE)
 colnames(AIH_cases_QF4)[which(colnames(AIH_cases_QF4)=="ast_coll")] <- "AST"
 colnames(AIH_cases_QF4)[which(colnames(AIH_cases_QF4)=="alt_coll")] <- "ALT"
 colnames(AIH_cases_QF4)[which(colnames(AIH_cases_QF4)=="plt_coll")] <- "Plts"
@@ -64,7 +64,7 @@ library(dplyr)
 library(stringr)
 library(magrittr)
 
-overall_fibrosis_review <- read.csv ("AASLDAutoimmunePilot_DATA_2019-03-11_1201.csv")
+overall_fibrosis_review <- read.csv ("~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/AASLDAutoimmunePilot_DATA_2019-04-03_1202.csv")
 
 #Select just the cases for casting overally fibrosis
 ofr_cases <- filter(overall_fibrosis_review, case_hl_du == 1)
@@ -103,7 +103,7 @@ AIH_cases_QF4_calls <- data.frame (aasld_id = AIH_cases_QF4_filter$aasld_id, fib
 
 #Write files for import into main metadata file
 #write.csv(AIH_cases_QF4, file = "18_1005_AIH_metadata.csv", row.names = FALSE)
-write.csv(AIH_cases_QF4_calls, file = "19_0311_AIH_cases_QF4_calls.csv", row.names = FALSE)
+write.csv(AIH_cases_QF4_calls, file = "19_0402_AIH_cases_QF4_calls.csv", row.names = FALSE)
 
 
 
