@@ -92,7 +92,7 @@ colnames(AIH_metadata_firstpass)
 #Remove duplicate column data from the above 
 AIH_metadata_firstpass %<>% select (aasld_id, ind_id, case_hl_du, du, spl_plate, dt_isl, date_lt, date_coll, sex, 
                                     race, ethn, aih_type, te_coll, on_tx, diff_treat, igg_coll, response, 
-                                    relapse, decomp, lt, liver_death, age, ast, alt, bili, alkp, fib4, F03_F4, 
+                                    relapse, decomp, lt, liver_death, age, ast, alt, bili, alkp, fib4, F03_F4, durn_reg
                                     reg_coll___1, reg_coll___2,reg_coll___3,reg_coll___4,reg_coll___5,reg_coll___6,reg_coll___7,reg_coll___8)
                               
 #make du column represent the 'sample' so that we can collapse replicates later
@@ -135,7 +135,8 @@ AIH_metadata_firstpass$case_hl_du <- ifelse (AIH_metadata_firstpass$case_hl_du =
                                              ))
 
 ###sex (1 - male, 2 - female)
-AIH_metadata_firstpass$sex <- ifelse (AIH_metadata_firstpass$sex == 1, print ("male"), print ("female"))
+AIH_metadata_firstpass$sex <- ifelse (AIH_metadata_firstpass$sex == 1, print ("male"), 
+                                      ifelse(AIH_metadata_firstpass$sex == 2, print("female"), print("other")))
 
 ###race (1 - white, 2 - black, 3 - asian)
 AIH_metadata_firstpass$race <- ifelse (AIH_metadata_firstpass$race == 1, print ("white"), 

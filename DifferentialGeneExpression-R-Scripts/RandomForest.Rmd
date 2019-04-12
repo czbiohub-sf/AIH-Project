@@ -77,6 +77,33 @@ num.genes = 0
 
 ```{r}
 knitr::kable(RF_results)
-write.c(RF_results,file = "RandomForest_12seeds_AIHvHealthy_021519")
+write.csv(RF_results,file = "RandomForest_10seeds_AIHvHealthy_031219")
+```
+
+```{r}
+colnames(RF_results)<- c("seed", "stdev","num.genes","hgnc_genes","ensembl_genes")
+c(str_split(RF_results$ensembl_genes, ", ")[[1]], str_split(RF_results$ensembl_genes, ", ")[[2]])
+write.csv(do.call(c,str_split(RF_results$ensembl_genes, ", ")), "randomforest_allgenes_031119.csv")
+
+write.csv(do.call(c,str_split(RF_results$ensembl_genes, ", ")), "randomforest_allgenes_031119.csv")
+
+RF_results$seed[51]
+RF_results$stdev[51]
+RF_results$num.genes[51]
+write.csv(do.call(c,str_split(RF_results$ensembl_genes[51], ", ")),"randomforest_4389genes_seed7_stdev0.5.csv")
+
+
+RF_results$seed[44]
+RF_results$stdev[44]
+RF_results$num.genes[44]
+write.csv(do.call(c,str_split(RF_results$ensembl_genes[44], ", ")),"randomforest_2247genes_seed6_stdev0.5.csv")
+
+
+
+
+RF_results$seed[66]
+RF_results$stdev[66]
+RF_results$num.genes[66]
+write.csv(do.call(c,str_split(RF_results$ensembl_genes[66], ", ")),"randomforest_471genes_seed9_stdev0.5.csv")
 ```
 
