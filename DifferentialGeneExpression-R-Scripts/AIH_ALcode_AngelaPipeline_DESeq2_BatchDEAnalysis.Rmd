@@ -37,9 +37,9 @@ library("edgeR")
 
 Edit variables
 ```{r}
-design = ~spl_plate+sex+age+steroid
-filename= paste("AIH_041119", "~spl_plate+sex+age+steroid", "yes-vs-notx", sep='_')
-contrast=c("steroid", "yes", "notx")
+design = ~spl_plate+sex+age+case_hl_du
+filename= paste("AIH_041119", "~spl_plate+sex+age+case_hl_du", "case-vs-control", sep='_')
+contrast=c("case_hl_du", "case", "control")
 ```
 
 Read in the raw gene counts table, after filtering using PriceSeqFilter and cutting TruSeq adaptors from the reads. The file is a concatenated output of STAR --quantmode, taking the first column of counts (for unstranded data) for each file.
@@ -73,7 +73,7 @@ We will bin continuous data in order make it compatible with DESeq2. Arielle cho
 
 ```{r}
 #read in metadata, rename rows so that they match gene counts file
-metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_040219.csv", header=TRUE, row.names = 1)
+metadata <- read.csv("../AIH-metadata/FINAL_AIH_metadata_firstpass_ALedits_040219.csv", header=TRUE, row.names = 1)
 
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
@@ -128,7 +128,7 @@ metadata_filt <- metadata_filt[!(rownames(metadata_filt) %in% c("AASLD_067", "AA
 metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_filt$lt_before_coll =="no") ,]
 
 #only look at cases with no NA - this was removed but can be added back in if needed for subgroup analyses
-metadata_filt <- metadata_filt[!(is.na(metadata_filt$steroid)), ]
+#metadata_filt <- metadata_filt[!(is.na(metadata_filt$steroid)), ]
 
 #only pick aih elite groups i am interested in
 #metadata_filt<- subset(metadata_filt, status_coll_aihelite %in% c("Elite-controller", "Partially-controlled","Not-controlled", "Healthy"))
@@ -194,17 +194,22 @@ table(metadata_filt$status_coll_aihelite)
 
 #age and alt medians by case vs control
 metadata_filt$aasld_id <- rownames(metadata_filt)
-summarystats <- metadata_filt %>% dplyr::group_by(case_hl_du) %>% dplyr::summarize(medianage = median(age_nobin), maxage = max(age_nobin), minage = min(age_nobin),size = n(), altmedian = median(as.numeric(alt_nobin)), altmax = max (as.numeric(alt_nobin)), altmin=min(as.numeric(alt_nobin))) 
-
+summarystats <- metadata_filt %>% dplyr::group_by(case_hl_du) %>% dplyr::summarize(medianage = median(age_nobin), meanage = mean(age_nobin), sd = sd(age_nobin), maxage = max(age_nobin), minage = min(age_nobin),size = n(), iggmedian = median(igg_coll_nobin, na.rm = TRUE), iggmin = min (igg_coll_nobin, na.rm = TRUE), iggmax = max(igg_coll_nobin,na.rm=TRUE),altmedian = median(as.numeric(alt_nobin)), altmax = max (as.numeric(alt_nobin)), altmin=min(as.numeric(alt_nobin))) 
+summarystats
 #igg median
 metadata_filt %>% filter(case_hl_du == "case" & !(is.na(igg_coll_nobin))) %>% summarise(iggmedian = median(as.numeric(igg_coll_nobin)), iggmax = max(as.numeric(igg_coll_nobin)), iggmin = min(as.numeric(igg_coll_nobin)))
 summarystats
 
 #breakdown of AIH subgroups (race, alt_groups, number decompensated, number on treatment, response to treatment) with percentages
-metadata_filt %>% group_by(case_hl_du,sex,alt_groups) %>% summarise (numGroups = n())     %>% mutate(perc = 100*numGroups/summarystats[summarystats$case_hl_du == case_hl_du,]$size )
-metadata_filt %>% group_by(case_hl_du,race) %>% summarise (num = n())   %>% mutate(perc = 100*num/summarystats[summarystats$case_hl_du == case_hl_du,]$size )
-metadata_filt %>% group_by(case_hl_du,decomp) %>% summarise (numDecomp = n())  %>% mutate(perc = 100*numDecomp/summarystats[summarystats$case_hl_du == case_hl_du,]$size )
-metadata_filt %>% group_by(case_hl_du,on_tx) %>% summarise (numTx = n())  %>% mutate(perc = 100*numTx/summarystats[summarystats$case_hl_du == case_hl_du,]$size )
+metadata_filt %>% dplyr::group_by(case_hl_du, sex) %>% dplyr::summarise (numGroups = n()) %>% mutate(numCases = ifelse(case_hl_du == "case", 67, 25))     %>% mutate(perc = 100*numGroups/numCases )
+metadata_filt %>% dplyr::group_by(case_hl_du,race) %>% dplyr::summarise (num = n())   %>% dplyr::mutate(numCases = ifelse(case_hl_du == "case", 67, 25)) %>% dplyr::mutate(perc = 100*num/numCases )
+metadata_filt %>% dplyr::group_by(case_hl_du,decomp)%>% dplyr::summarise (numDecomp = n())  %>% mutate(numCases = ifelse(case_hl_du == "case", 67, 25))  %>% mutate(perc = 100*numDecomp/numCases)
+metadata_filt %>% dplyr::group_by(case_hl_du,fibrosis_groups)%>% dplyr::summarise (numCirrhosis = n())  %>% mutate(numCases = ifelse(case_hl_du == "case", 67, 25))  %>% mutate(perc = 100*numCirrhosis/numCases)
+
+metadata_filt %>% dplyr::group_by(case_hl_du,diff_treat)%>% dplyr::summarise (numElite = n())  %>% mutate(numCases = ifelse(case_hl_du == "case", 67, 25))  %>% mutate(perc = 100*numElite/numCases)
+metadata_filt %>% dplyr::group_by(case_hl_du,steroid)%>% dplyr::summarise (numSteroid = n())  %>% mutate(numCases = ifelse(case_hl_du == "case", 67, 25))  %>% mutate(perc = 100*numSteroid/numCases)
+
+metadata_filt %>% dplyr::group_by(case_hl_du,status_coll_aihelite)%>% dplyr::summarise (numElite = n())  %>% mutate(numCases = ifelse(case_hl_du == "case", 67, 25))  %>% mutate(perc = 100*numElite/numCases)
 metadata_filt %>% group_by(case_hl_du,diff_treat) %>% summarise (numdiffTx = n())  %>% mutate(perc = 100*numdiffTx/summarystats[summarystats$case_hl_du == case_hl_du,]$size )
 
 metadata_filt %>% group_by(case_hl_du,response) %>% summarise (numResponse = n())  
@@ -374,7 +379,7 @@ results_significant <- results %>% filter (results$padj < 0.05)
 
 length(results$row) - length(results_significant$row)
 
-setwd("../DifferentialGeneExpression-Output/AIH_DESeq2_DEGenes_041119_Steroids/")
+setwd("../DifferentialGeneExpression-Output/DESeq2_DEGenes_041119_Steroids/")
 write.csv(results, paste(filename, "DEgenes_ALL.csv", sep = "_"))
 #setwd("Signifigant_DE_genes/")
 write.csv(results_significant, paste(filename, "DEgenes_FDR0.05.csv", sep = "_"))
@@ -391,7 +396,7 @@ vsd <- varianceStabilizingTransformation(dds, blind=TRUE)
 #rlogdata <- rlog(dds)
 
 #Creating an output file for use in WGCNA and other downstream applications
-setwd("../DifferentialGeneExpression-Output/AIH_DESeq2_DEGenes_041119_Steroids/")
+setwd("../DifferentialGeneExpression-Output/DESeq2_DEGenes_041119_Steroids/")
 matrix_vsd <- assay(vsd)
 t_matrix_vsd <- t(matrix_vsd)
 write.csv (t_matrix_vsd, file = paste("VSTnormalized_genecounts_", filename, ".csv", sep = ""))
@@ -403,19 +408,20 @@ Write an MA plot to a PNG
 results_MA <- results(dds, contrast=contrast, alpha=0.05)
 
 #MA plot with upregulated gene in red and downregulated genes in blue
-setwd("../DifferentialGeneExpression-Output/AIH_DESeq2_DEGenes_041119_Steroids/")
-png(paste(filename, "MAplot.png", sep = "_"), 1024, 512)
+setwd("../DifferentialGeneExpression-Output/DESeq2_DEGenes_041119_Steroids/")
 par(mar=c(5,5,5,5))
 DESeq2::plotMA (results_MA, ylim = c(-4, 4), cex.lab = 2.2, cex.axis = 1.8)
 with(subset(results_MA, padj<.05 & log2FoldChange<0), points(baseMean, log2FoldChange, pch=20, col="blue", cex = 0.4))
 with(subset(results_MA, padj<.05 & log2FoldChange>0), points(baseMean, log2FoldChange, pch=20, col="red", cex = 0.4))
 dev.off()
 
+
 #MA plot with all DE genes in red
 DESeq2::plotMA (results_MA, ylim = c(-4, 4))
 with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=8, col="red"))
 
 
+pdf(paste(filename, "Volcanoplot.pdf", sep = "_"),width=1024,height=512) 
 # Make a basic volcano plot
 with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=20, main=filename, xlim=c(-3,3)))
 
@@ -424,6 +430,9 @@ with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=20, main=filename, xli
 with(subset(results_MA, padj<.05 ), points(log2FoldChange, -log10(pvalue), pch=20, col="gray"))
 with(subset(results_MA, abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
 with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
+dev.off()
+
+
 ```
 
 PCA plots! Change colored variable and titles of plots as necessary
