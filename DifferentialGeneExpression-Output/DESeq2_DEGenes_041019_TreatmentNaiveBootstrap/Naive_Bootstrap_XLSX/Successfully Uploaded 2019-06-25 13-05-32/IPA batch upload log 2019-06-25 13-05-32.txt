@@ -1,0 +1,105 @@
+
+----------------------------------------------------------------------------------Folder contains 10 files
+----------------------------------------------------------------------------------Processing 1/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_895966_DEgenes_ALL.xlsx'
+Parsing complete. File has 13169 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11545 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 2/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_835436_DEgenes_ALL.xlsx'
+Parsing complete. File has 13671 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11852 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 3/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_10815_DEgenes_ALL.xlsx'
+Parsing complete. File has 13088 rows and 8 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11488 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 4/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_446337_DEgenes_ALL.xlsx'
+Parsing complete. File has 13053 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11461 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 5/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_328429_DEgenes_ALL.xlsx'
+Parsing complete. File has 13498 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11723 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 6/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_697694_DEgenes_ALL.xlsx'
+Parsing complete. File has 13428 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11689 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 7/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_993408_DEgenes_ALL.xlsx'
+Parsing complete. File has 12992 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11406 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 8/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_649427_DEgenes_ALL.xlsx'
+Parsing complete. File has 13001 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11415 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 9/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_210899_DEgenes_ALL.xlsx'
+Parsing complete. File has 13317 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11619 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Processing 10/10 files
+Parsing file 'AIH_041019_~spl_plate+sex+age+status_coll_aihelite_AIHTreatment-naive-vs-healthy_449820_DEgenes_ALL.xlsx'
+Parsing complete. File has 13292 rows and 16 columns
+Guessing identifier types
+Guessed identifier types=Entrez Gene
+Validating data in file.
+11620 rows mapped.
+Number of observations=No expression values
+Validation complete. Uploading file.
+Upload complete.
+----------------------------------------------------------------------------------Finished uploading file.
+Total number of files: 10
+Successfully Uploaded: 10
