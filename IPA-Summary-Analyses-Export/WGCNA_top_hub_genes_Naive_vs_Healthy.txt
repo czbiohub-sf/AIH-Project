@@ -1,0 +1,498 @@
+© 2000-2019 QIAGEN. All rights reserved.
+
+Analysis Details for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Workspace	My Projects
+Project	AIH_WGCNA
+Analysis	top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Date	Thu May 09 22:49:44 PDT 2019
+Analysis ID	17791141
+
+Analysis Settings
+Cutoff before duplicate resolution	true
+Reference set	Ingenuity Knowledge Base (Genes Only)
+Relationship to include	Direct and Indirect
+Includes Endogenous Chemicals	No
+Optional Analyses	My Pathways My List
+Filter Summary	
+Consider only relationships where
+confidence = Experimentally Observed
+
+Canonical Pathways for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Ingenuity Canonical Pathways	 -log(p-value)	zScore	Ratio	Molecules
+Axonal Guidance Signaling	6.19E-01	NaN	2.00E-03	CHP1,	
+Cardiac Hypertrophy Signaling (Enhanced)	6.21E-01	NaN	2.01E-03	CHP1,	
+Protein Kinase A Signaling	7.06E-01	NaN	2.50E-03	CHP1,	
+Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis	7.86E-01	NaN	3.06E-03	CHP1,	
+Neuroinflammation Signaling Pathway	8.03E-01	NaN	3.19E-03	CHP1,	
+Xenobiotic Metabolism Signaling	8.16E-01	NaN	3.30E-03	FTL,	
+Phospholipase C Signaling	8.83E-01	NaN	3.89E-03	CHP1,	
+Cardiac Hypertrophy Signaling	8.87E-01	NaN	3.94E-03	CHP1,	
+Role of Osteoblasts, Osteoclasts and Chondrocytes in Rheumatoid Arthritis	9.17E-01	NaN	4.24E-03	CHP1,	
+Role of NFAT in Cardiac Hypertrophy	9.3E-01	NaN	4.37E-03	CHP1,	
+Clathrin-mediated Endocytosis Signaling	9.69E-01	NaN	4.81E-03	CHP1,	
+Calcium Signaling	9.73E-01	NaN	4.85E-03	CHP1,	
+Role of NFAT in Regulation of the Immune Response	9.94E-01	NaN	5.10E-03	CHP1,	
+Acute Phase Response Signaling	1.03E00	NaN	5.59E-03	FTL,	
+Gαq Signaling	1.05E00	NaN	5.78E-03	CHP1,	
+PKCθ Signaling in T Lymphocytes	1.05E00	NaN	5.88E-03	CHP1,	
+Dopamine-DARPP32 Feedback in cAMP Signaling	1.07E00	NaN	6.13E-03	CHP1,	
+Corticotropin Releasing Hormone Signaling	1.13E00	NaN	6.99E-03	JUND,	
+PI3K Signaling in B Lymphocytes	1.14E00	NaN	7.25E-03	CHP1,	
+Iron homeostasis signaling pathway	1.14E00	NaN	7.30E-03	FTL,	
+CD28 Signaling in T Helper Cells	1.15E00	NaN	7.46E-03	CHP1,	
+fMLP Signaling in Neutrophils	1.16E00	NaN	7.58E-03	CHP1,	
+Synaptic Long Term Potentiation	1.17E00	NaN	7.75E-03	CHP1,	
+Endocannabinoid Neuronal Synapse Pathway	1.17E00	NaN	7.81E-03	CHP1,	
+iCOS-iCOSL Signaling in T Helper Cells	1.18E00	NaN	8.00E-03	CHP1,	
+RANK Signaling in Osteoclasts	1.26E00	NaN	9.62E-03	CHP1,	
+IL-3 Signaling	1.31E00	NaN	1.08E-02	CHP1,	
+Regulation of IL-2 Expression in Activated and Anergic T Lymphocytes	1.33E00	NaN	1.12E-02	CHP1,	
+Calcium-induced T Lymphocyte Apoptosis	1.45E00	NaN	1.52E-02	CHP1,	
+Netrin Signaling	1.46E00	NaN	1.54E-02	CHP1,	
+PCP pathway	1.49E00	NaN	1.64E-02	JUND,	
+Nur77 Signaling in T Lymphocytes	1.5E00	NaN	1.69E-02	CHP1,	
+Transcriptional Regulatory Network in Embryonic Stem Cells	1.54E00	NaN	1.85E-02	CDYL,	
+nNOS Signaling in Neurons	1.6E00	NaN	2.13E-02	CHP1,	
+Glucocorticoid Receptor Signaling	1.83E00	NaN	5.71E-03	PBX1,CHP1	
+Tryptophan Degradation III (Eukaryotic)	1.87E00	NaN	4.00E-02	CDYL,	
+Glutaryl-CoA Degradation	2.06E00	NaN	6.25E-02	CDYL,	
+Choline Biosynthesis III	2.09E00	NaN	6.67E-02	CHPT1,	
+NRF2-mediated Oxidative Stress Response	2.27E00	NaN	9.71E-03	JUND,FTL	
+Phosphatidylcholine Biosynthesis I	2.42E00	NaN	1.43E-01	CHPT1,	
+
+Upstream Regulators for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Analysis	ID	Upstream Regulator	Molecule Type	Predicted Activation State	Activation z-score	Notes	Bias Term	Bias-corrected z-score	p-value of overlap	Target molecules in dataset	Mechanistic Network	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	BW-755C	chemical drug	 	 	 	 	 	5.52E-04	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ATF7IP	transcription regulator	 	 	 	 	 	1.65E-03	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	FTMT	enzyme	 	 	 	 	 	1.65E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ACOT13	enzyme	 	 	 	 	 	2.76E-03	PCTP	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ABCB7	transporter	 	 	 	 	 	3.31E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	Cbp/p300-Maf-Nfe2l2	complex	 	 	 	 	 	3.31E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ferric chloride	chemical toxicant	 	 	 	 	 	3.31E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	OCT4-NANOG	complex	 	 	 	 	 	4.41E-03	CDYL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	aplidine	biologic drug	 	 	 	 	 	4.41E-03	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	EGR1	transcription regulator	 	 	 	 	 	4.59E-03	FTL,JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	CD99	other	 	 	 	 	 	4.96E-03	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	bupivacaine	chemical drug	 	 	 	 	 	4.96E-03	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	cholesterol sulfate	chemical - endogenous mammalian	 	 	 	 	 	4.96E-03	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	FTH1	enzyme	 	 	 	 	 	5.50E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	Irp	group	 	 	 	 	 	5.50E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ferric ammonium citrate	chemical drug	 	 	 	 	 	6.05E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ACO1	enzyme	 	 	 	 	 	6.60E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	IREB2	translation regulator	 	 	 	 	 	6.60E-03	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	pentobarbital	chemical drug	 	 	 	 	 	7.70E-03	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	PKNOX1	transcription regulator	 	 	 	 	 	1.04E-02	PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	HSPA9	other	 	 	 	 	 	1.26E-02	PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	MECOM	transcription regulator	 	 	 	 	 	1.32E-02	PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	alpha-tocopherol	chemical drug	 	 	 	 	 	1.37E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	GnRH analog	biologic drug	 	 	 	 	 	1.39E-02	ASNA1,MARF1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	arsenic	chemical toxicant	 	 	 	 	 	1.43E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	CD47	transmembrane receptor	 	 	 	 	 	1.53E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	formaldehyde	chemical - endogenous mammalian	 	 	 	 	 	1.59E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	nitroarginine	chemical reagent	 	 	 	 	 	1.59E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	curcumin	chemical drug	 	 	 	 	 	1.59E-02	FTL,JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	crocidolite asbestos	chemical toxicant	 	 	 	 	 	1.70E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	Stat3-Stat3	complex	 	 	 	 	 	1.75E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	EGFR	kinase	 	 	 	 	 	1.96E-02	JUND,PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	PRMT1	enzyme	 	 	 	 	 	1.97E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	CARM1	transcription regulator	 	 	 	 	 	2.13E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	dexamethasone	chemical drug	 	 	 	 	 	2.13E-02	CDYL,CREG1,FTL,JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	CEBPB	transcription regulator	 	 	 	 	 	2.15E-02	FTL,PCTP	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	NFE2L2	transcription regulator	 	 	 	 	 	2.24E-02	CREG1,FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	D-galactosamine	chemical - endogenous mammalian	 	 	 	 	 	2.35E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	quinolinic acid	chemical - endogenous mammalian	 	 	 	 	 	2.46E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	Hbb-b2	other	 	 	 	 	 	2.51E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	hexamethylene bisacetamide	chemical reagent	 	 	 	 	 	2.51E-02	CREG1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	carrageenan	chemical drug	 	 	 	 	 	2.67E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	fluocinolone acetonide	chemical drug	 	 	 	 	 	2.72E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	valproic acid	chemical drug	 	 	 	 	 	2.76E-02	CHPT1,JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	RTN4	other	 	 	 	 	 	2.83E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	inosine	chemical - endogenous mammalian	 	 	 	 	 	2.83E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	miR-133a-3p (and other miRNAs w/seed UUGGUCC)	mature microrna	 	 	 	 	 	2.89E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	SHC1	other	 	 	 	 	 	2.94E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	colchicine	chemical drug	 	 	 	 	 	2.94E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	iron	chemical - endogenous mammalian	 	 	 	 	 	2.94E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	NOTCH3	transcription regulator	 	 	 	 	 	2.99E-02	PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	benzene	chemical toxicant	 	 	 	 	 	3.15E-02	CHP1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	trichloroethylene	chemical toxicant	 	 	 	 	 	3.15E-02	CHP1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	MEF2D	transcription regulator	 	 	 	 	 	3.37E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	methylprednisolone	chemical drug	 	 	 	 	 	3.42E-02	CREG1,PCTP	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	25-hydroxycholesterol	chemical reagent	 	 	 	 	 	3.48E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	IFNG	cytokine	 	 	 	 	 	3.57E-02	FTL,JUND,PCTP	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	methylmercury	chemical toxicant	 	 	 	 	 	3.58E-02	CHP1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	bromobenzene	chemical toxicant	 	 	 	 	 	3.80E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ZFPM1	transcription regulator	 	 	 	 	 	3.90E-02	PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	(+)-MK-801	chemical drug	 	 	 	 	 	4.01E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	cadmium	chemical toxicant	 	 	 	 	 	4.06E-02	CHPT1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	ROR2	kinase	 	 	 	 	 	4.22E-02	CREG1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	DYSF	other	 	 	 	 	 	4.27E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	PPP3CA	phosphatase	 	 	 	 	 	4.27E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	hemin	chemical - endogenous mammalian	 	 	 	 	 	4.38E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	TFRC	transporter	 	 	 	 	 	4.49E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	trichostatin A	chemical drug	 	 	 	 	 	4.52E-02	JUND,PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	MAPK3	kinase	 	 	 	 	 	4.59E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	KMT2A	transcription regulator	 	 	 	 	 	4.70E-02	PBX1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	NFYA	transcription regulator	 	 	 	 	 	4.70E-02	JUND	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	tert-butyl-hydroquinone	chemical reagent	 	 	 	 	 	4.80E-02	FTL	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	RASSF1	other	 	 	 	 	 	4.86E-02	CREG1	 	
+top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	 	SLC13A1	transporter	 	 	 	 	 	4.96E-02	PBX1	 	
+
+Causal Networks for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Master Regulator	Molecule Type	Depth	Predicted Activation State	Notes	Activation z-score	p-value of overlap	Network bias-corrected p-value	Participating regulators	Target molecules in dataset	Causal network	Target-connected regulators	Relationships Between Master Regulators(Increases/Downstream)	Relationships Between Master Regulators(Decreases/Downstream)	Relationships Between Master Regulators(Affects/Downstream)	Relationships Between Master Regulators(Increases/Upstream)	Relationships Between Master Regulators(Decreases/Upstream)	Relationships Between Master Regulators(Affects/Upstream)	Relationships Between Master Regulators(Increases/Both)	Relationships Between Master Regulators(Decreases/Both)	Relationships Between Master Regulators(Affects/Both)	
+C/EBP	group	2	 	 	0.000	2.70E-04	5.00E-04	C/EBP,CEBPA,CEBPB,EGFR,Jnk	 	5 (5)	4	 	CEBPB	 	EGFR	 	 	 	 	 	
+PMEPA1	other	3	 	 	0.000	3.84E-04	1.20E-03	EGFR,MAF,NFE2L2,PMEPA1,PPARA,R-Smad,Smad,Smad2/3,SMAD3	 	5 (9)	4	 	 	 	 	 	 	 	 	 	
+ATF7IP	transcription regulator	1	 	 	0.000	5.52E-04	2.50E-03	ATF7IP	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+BW-755C	chemical drug	1	 	 	0.000	5.52E-04	2.50E-03	BW-755C	 	1 (1)	1	 	 	 	 	15-hydroxyeicosatetraenoic acid	 	 	 	 	
+2-mercaptoethanol	chemical - endogenous mammalian	2	 	 	0.000	1.51E-03	4.80E-03	2-mercaptoethanol,ERBB2,Jnk,MAPK8,NFE2L2	 	4 (5)	4	 	 	 	 	NFE2L2	 	 	 	 	
+FTMT	enzyme	1	 	 	0.000	1.65E-03	3.80E-03	FTMT	 	1 (1)	1	 	 	 	 	FTH1	 	 	 	 	
+ABCB7	transporter	1	 	 	0.000	2.76E-03	6.80E-03	ABCB7	 	1 (1)	1	 	 	 	ACO1,FTH1	 	 	 	 	 	
+ACOT13	enzyme	1	 	 	0.000	2.76E-03	5.00E-04	ACOT13	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+ferric chloride	chemical toxicant	1	 	 	0.000	2.76E-03	2.20E-03	ferric chloride	 	1 (1)	1	 	 	 	FTH1	 	 	 	 	 	
+ethacrynic acid	chemical drug	2	 	 	0.000	3.16E-03	6.10E-03	ethacrynic acid,Jnk,NFE2L2	 	3 (3)	2	 	 	 	NFE2L2	 	 	 	 	 	
+EGR1	transcription regulator	1	 	 	0.000	3.22E-03	1.90E-03	EGR1	 	2 (1)	1	carrageenan,formaldehyde,MAPK3,NFYA,nitroarginine,quinolinic acid,RARB,RASSF1,valproic acid	(+)-MK-801,benzene,curcumin,methylmercury,SHC1,trichloroethylene	 	 	 	 	 	 	 	
+HNRNPK	transcription regulator	2	 	 	0.000	3.27E-03	7.50E-03	CEBPB,ERK1/2,HNRNPK	 	3 (3)	2	cadmium	PRMT1	 	 	CEBPB	 	 	 	 	
+Cbp/p300-Maf-Nfe2l2	complex	1	 	 	0.000	3.31E-03	3.90E-03	Cbp/p300-Maf-Nfe2l2	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+ACO1	enzyme	1	 	 	0.000	3.86E-03	6.70E-03	ACO1	 	1 (1)	1	ABCB7,curcumin	ferric ammonium citrate	 	 	FTH1	 	 	 	 	
+CD99	other	1	 	 	0.000	3.86E-03	8.10E-03	CD99	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+Cebp	complex	2	 	 	0.000	4.36E-03	1.11E-02	Cebp,CEBPA,CEBPB	 	3 (3)	2	 	 	 	 	 	 	 	 	 	
+GnRH analog	biologic drug	2	 	 	0.000	4.40E-03	7.80E-03	ERK1/2,GnRH analog	 	3 (2)	2	 	 	 	MAPK3,PKNOX1	 	 	 	 	 	
+aplidine	biologic drug	1	 	 	0.000	4.41E-03	2.50E-03	aplidine	 	1 (1)	1	 	 	 	EGFR	 	 	 	 	 	
+bupivacaine	chemical drug	1	 	 	0.000	4.41E-03	7.70E-03	bupivacaine	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+FTH1	enzyme	2	 	 	0.000	4.83E-03	4.80E-03	FTH1,Jnk	 	2 (2)	2	ABCB7,arsenic,bardoxolone,CARM1,curcumin,ferric ammonium citrate,ferric chloride,NFE2L2,NFYA,PRMT1,SHC1	ACO1,FTMT,IREB2	 	 	 	 	 	 	 	
+K252b	chemical - kinase inhibitor	2	 	 	0.000	4.86E-03	1.11E-02	EGFR,K252b,SHC1	 	3 (3)	2	 	 	 	SHC1	EGFR	 	 	 	 	
+HSF1	transcription regulator	2	 	 	0.000	4.94E-03	9.40E-03	CEBPB,ERK1/2,HSF1	 	3 (3)	2	MAPK3,Z-LLL-CHO	staurosporine	 	 	SHC1	 	 	 	 	
+FTH1	enzyme	1	 	 	0.000	4.96E-03	9.70E-03	FTH1	 	1 (1)	1	ABCB7,arsenic,bardoxolone,CARM1,curcumin,ferric ammonium citrate,ferric chloride,NFE2L2,NFYA,PRMT1,SHC1	ACO1,FTMT,IREB2	 	 	 	 	 	 	 	
+IREB2	translation regulator	1	 	 	0.000	4.96E-03	7.30E-03	IREB2	 	1 (1)	1	 	ferric ammonium citrate	 	 	FTH1	 	 	 	 	
+Irp	group	1	 	 	0.000	4.96E-03	9.80E-03	Irp	 	1 (1)	1	curcumin	 	 	 	 	 	 	 	 	
+cholesterol sulfate	chemical - endogenous mammalian	1	 	 	0.000	4.96E-03	8.10E-03	cholesterol sulfate	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+Gata	group	3	 	 	0.000	5.18E-03	2.21E-02	Gata,GATA1,GATA2,GATA3,GATA6,IFNG,MAPK14	 	5 (7)	4	 	 	 	 	 	 	 	 	 	
+MAST2	kinase	3	 	 	0.000	5.42E-03	2.15E-02	CEBPA,EGFR,MAP4K4,MAST2,NFkB (complex),PPARG,PTEN,SHC1,Stat3-Stat3,TRAF6,TSC2	 	6 (11)	8	 	 	 	 	 	 	 	 	 	
+pyocyanin	chemical reagent	2	 	 	0.000	5.71E-03	1.29E-02	ERK1/2,NFE2L2,pyocyanin	 	3 (3)	2	 	 	 	NFE2L2	 	 	 	 	 	
+HIP1	other	3	 	 	0.000	5.87E-03	2.09E-02	AKT1,BDNF,EGFR,ERBB2,HIP1,HTT,PPARG,SPARC,TSC2	 	6 (9)	7	 	 	 	 	 	 	 	 	 	
+mir-149	microRNA	3	 	 	0.000	6.02E-03	2.69E-02	AKT1,EGFR,ERBB2,mir-149,PPARG,PTK2,SHC1,SPARC,TSC2	 	6 (9)	7	 	 	 	 	 	 	 	 	 	
+PKNOX1	transcription regulator	1	 	 	0.000	6.05E-03	1.15E-02	PKNOX1	 	1 (1)	1	GnRH analog,KLF3	 	 	 	 	 	 	 	 	
+ferric ammonium citrate	chemical drug	1	 	 	0.000	6.05E-03	4.80E-03	ferric ammonium citrate	 	1 (1)	1	 	 	 	FTH1,iron	ACO1,IREB2,NFYA	 	 	 	 	
+JUN/JUNB/JUND	group	2	 	 	0.000	6.50E-03	1.87E-02	JUN/JUNB/JUND,MAPK14,NFE2L2	 	3 (3)	2	 	 	 	NFE2L2	 	 	 	 	 	
+KLF3	transcription regulator	3	 	 	0.000	7.01E-03	1.65E-02	CEBPA,CREBBP,KLF3,PPARG	 	4 (4)	4	 	 	 	PKNOX1	RASSF1,RPS6KA5	 	 	 	 	
+benzamidine	chemical - protease inhibitor	3	 	 	0.000	7.25E-03	1.93E-02	ACPP,benzamidine,ERBB2,ERK1/2,GZMK,SHC1	 	3 (6)	3	 	 	 	 	 	 	 	 	 	
+pentobarbital	chemical drug	1	 	 	0.000	7.70E-03	9.40E-03	pentobarbital	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+prostaglandin D2	chemical - endogenous mammalian	2	 	 	0.000	7.76E-03	2.31E-02	MAPK1,MAPK3,NFE2L2,PPARA,PPARG,prostaglandin D2	 	4 (6)	5	carrageenan	 	 	NFE2L2	MAPK3	 	 	 	 	
+MEF2C	transcription regulator	3	 	 	0.000	8.01E-03	3.44E-02	GATA1,GATA2,GATA3,GATA6,IFNG,MAPK14,MEF2C	 	5 (7)	4	CARM1,NFE2L2	 	 	 	miR-133a-3p (and other miRNAs w/seed UUGGUCC)	 	 	 	 	
+MECOM	transcription regulator	1	 	 	0.000	8.25E-03	1.36E-02	MECOM	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+DOCK7	other	3	 	 	0.000	8.85E-03	2.63E-02	DOCK7,EGFR,MAPK8,NFE2L2,PPARG,RAC1,RHOA,SHC1	 	5 (8)	5	 	 	 	 	 	 	 	 	 	
+PHLPP2	enzyme	2	 	 	0.000	9.41E-03	2.20E-02	AKT1,NFE2L2,PHLPP2	 	3 (3)	2	 	 	 	 	NFE2L2	 	 	 	 	
+Z-LLL-CHO	chemical - protease inhibitor	2	 	 	0.000	9.42E-03	4.06E-02	EGFR,ERK1/2,Jnk,MAPK8,MAPK9,NFE2L2,PPARA,Z-LLL-CHO	 	5 (8)	7	 	 	 	CEBPB,EGFR,HSF1,HSPA9,NFE2L2,NOTCH3	 	 	 	 	 	
+ZNF521	transcription regulator	3	 	 	0.000	9.86E-03	3.57E-02	CEBPA,CEBPB,EBF1,ERK1/2,RUNX2,ZNF521	 	4 (6)	3	 	 	 	 	 	 	 	 	 	
+iodoacetamide	chemical reagent	3	 	 	0.000	1.02E-02	3.33E-02	FASN,Hdac,iodoacetamide,NFE2L2,SMAD3	 	4 (5)	3	 	 	 	NFE2L2	 	 	 	 	 	
+DGKD	kinase	2	 	 	0.000	1.03E-02	2.09E-02	AKT1,DGKD,EGFR,PPARG	 	3 (4)	3	 	staurosporine	 	EGFR	 	 	 	 	 	
+nordihydroguaiaretic acid	chemical drug	2	 	 	0.000	1.05E-02	4.15E-02	ERBB2,NFE2L2,nordihydroguaiaretic acid,PPARG	 	4 (4)	3	 	 	 	NFE2L2	15-hydroxyeicosatetraenoic acid	 	 	 	 	
+G-protein gamma	group	2	 	 	0.000	1.08E-02	2.20E-02	EGFR,ERK1/2,G-protein gamma,SHC1	 	3 (4)	3	 	 	 	EGFR,SHC1	 	 	 	 	 	
+bardoxolone	chemical drug	2	 	 	0.000	1.09E-02	2.29E-02	bardoxolone,CEBPA,MAPK8,PPARG	 	3 (4)	3	 	 	 	CEBPB,FTH1,HSPA9	 	 	 	 	 	
+PRMT1	enzyme	1	 	 	0.000	1.10E-02	1.27E-02	PRMT1	 	1 (1)	1	 	 	 	FTH1	HNRNPK	 	 	 	 	
+G-protein beta	group	2	 	 	0.000	1.11E-02	2.22E-02	EGFR,ERK1/2,G-protein beta,SHC1	 	3 (4)	3	 	 	 	EGFR,SHC1	 	 	 	 	 	
+PX-12	chemical drug	2	 	 	0.000	1.15E-02	2.86E-02	MAPK8,NFE2L2,PX-12	 	3 (3)	2	 	 	 	NFE2L2	 	 	 	 	 	
+CD47	transmembrane receptor	1	 	 	0.000	1.21E-02	9.70E-03	CD47	 	1 (1)	1	benzene,methylmercury,trichloroethylene	EGFR	 	 	 	 	 	 	 	
+HSPA9	other	1	 	 	0.000	1.21E-02	1.61E-02	HSPA9	 	1 (1)	1	bardoxolone,NFE2L2,Z-LLL-CHO	 	 	RARB	 	 	 	 	 	
+RARB	ligand-dependent nuclear receptor	2	 	 	0.000	1.24E-02	2.93E-02	CEBPB,ERK1/2,RARB	 	3 (3)	2	HSPA9	 	 	EGR1	CEBPB,EGFR	 	 	 	 	
+arsenic	chemical toxicant	1	 	 	0.000	1.26E-02	1.19E-02	arsenic	 	1 (1)	1	 	 	 	EGFR,FTH1,NFE2L2	 	 	 	 	 	
+formaldehyde	chemical - endogenous mammalian	1	 	 	0.000	1.26E-02	1.26E-02	formaldehyde	 	1 (1)	1	 	 	 	EGR1	 	 	 	 	 	
+nitroarginine	chemical reagent	2	 	 	0.000	1.26E-02	3.24E-02	CEBPB,nitroarginine	 	3 (2)	2	 	 	 	EGR1	CEBPB	 	 	 	 	
+PCGF2	transcription regulator	3	 	 	0.000	1.27E-02	4.26E-02	AKT1,CDK2,CEBPB,EGFR,ERBB2,PCGF2,PPARG,SPARC,TSC2	 	6 (9)	7	 	 	 	 	NOTCH3	 	 	 	 	
+polyamines	chemical - other	3	 	 	0.000	1.29E-02	3.72E-02	Akt,AKT1,CDC42,CEBPB,NFE2L2,polyamines,PPARG,RHOA,SPARC,Stat3-Stat3,TSC2	 	5 (11)	7	 	 	 	 	 	 	 	 	 	
+curcumin	chemical drug	1	 	 	0.000	1.31E-02	1.45E-02	curcumin	 	2 (1)	1	 	 	 	ACO1,FTH1,Irp,NFE2L2	CEBPB,EGFR,EGR1,MAPK3	 	 	 	 	
+CARM1	transcription regulator	1	 	 	0.000	1.32E-02	1.56E-02	CARM1	 	1 (1)	1	valproic acid	 	 	FTH1,MEF2C	 	 	 	 	 	
+vandetanib	chemical drug	2	 	 	0.000	1.32E-02	2.91E-02	EGFR,ERK1/2,SHC1,vandetanib	 	3 (4)	3	 	 	 	 	EGFR,SHC1	 	 	 	 	
+PI 3-kinase inhibitor	chemical drug	2	 	 	0.000	1.33E-02	3.87E-02	AKT1,CEBPB,MAPK1,PI 3-kinase inhibitor	 	3 (4)	3	 	 	 	CEBPB	 	 	 	 	 	
+GnRH analog	biologic drug	1	 	 	0.000	1.33E-02	2.69E-02	GnRH analog	 	2 (1)	1	 	 	 	MAPK3,PKNOX1	 	 	 	 	 	
+alpha-tocopherol	chemical drug	1	 	 	0.000	1.37E-02	1.26E-02	alpha-tocopherol	 	1 (1)	1	 	 	 	 	CEBPB,MAPK3	 	 	 	 	
+15-LOX	group	2	 	 	0.000	1.38E-02	3.04E-02	15-LOX,EGFR,PPARG	 	3 (3)	2	 	 	 	EGFR	 	 	 	 	 	
+RPS6KA5	kinase	2	 	 	0.000	1.39E-02	4.38E-02	CEBPB,CREBBP,RPS6KA5,TSC2	 	4 (4)	3	 	KLF3	 	CEBPB	 	 	 	 	 	
+crocidolite asbestos	chemical toxicant	1	 	 	0.000	1.43E-02	1.75E-02	crocidolite asbestos	 	1 (1)	1	 	 	 	EGFR	 	 	 	 	 	
+CEBPB	transcription regulator	1	 	 	0.000	1.43E-02	2.62E-02	CEBPB	 	2 (1)	1	bardoxolone,EGFR,PI 3-kinase inhibitor,RPS6KA5,Z-LLL-CHO	alpha-tocopherol,curcumin,HNRNPK,nitroarginine,RARB	 	 	C/EBP	 	 	 	 	
+valproic acid	chemical drug	1	 	 	0.000	1.46E-02	2.78E-02	valproic acid	 	2 (1)	1	 	 	 	CARM1,EGR1,MAPK3,NFYA	 	 	 	 	 	
+10-(6'-ubiquinonyl)decyltriphenylphosphonium	chemical drug	2	 	 	0.000	1.47E-02	3.55E-02	10-(6'-ubiquinonyl)decyltriphenylphosphonium,AKT1,MAPK8,NFE2L2	 	3 (4)	3	 	 	 	NFE2L2	EGFR	 	 	 	 	
+EGFR	kinase	1	 	 	0.000	1.55E-02	2.44E-02	EGFR	 	2 (1)	1	15-LOX,aplidine,arsenic,C/EBP,crocidolite asbestos,DGKD,G-protein beta,G-protein gamma,RASSF1,Z-LLL-CHO	10-(6'-ubiquinonyl)decyltriphenylphosphonium,curcumin,K252b,RARB,staurosporine,vandetanib	 	CEBPB,MAPK3	CD47	 	 	 	 	
+nitroarginine	chemical reagent	1	 	 	0.000	1.59E-02	2.39E-02	nitroarginine	 	1 (1)	1	 	 	 	EGR1	CEBPB	 	 	 	 	
+Stat3-Stat3	complex	1	 	 	0.000	1.75E-02	2.27E-02	Stat3-Stat3	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+MAP2K5	kinase	2	 	 	0.000	1.93E-02	4.90E-02	MAP2K5,NFE2L2,PPARG	 	3 (3)	2	 	 	 	NFE2L2	 	 	 	 	 	
+NFE2L2	transcription regulator	1	 	 	0.000	2.02E-02	3.79E-02	NFE2L2	 	2 (1)	1	10-(6'-ubiquinonyl)decyltriphenylphosphonium,arsenic,cadmium,curcumin,ethacrynic acid,iodoacetamide,JUN/JUNB/JUND,MAP2K5,MAPK3,nordihydroguaiaretic acid,prostaglandin D2,PX-12,pyocyanin,Z-LLL-CHO	2-mercaptoethanol,D-galactosamine,PHLPP2	 	FTH1,HSPA9,MEF2C,SHC1	 	 	 	 	 	
+D-galactosamine	chemical - endogenous mammalian	1	 	 	0.000	2.13E-02	1.99E-02	D-galactosamine	 	1 (1)	1	 	 	 	 	NFE2L2	 	 	 	 	
+iron	chemical - endogenous mammalian	1	 	 	0.000	2.19E-02	1.72E-02	iron	 	1 (1)	1	ferric ammonium citrate	 	 	 	NFYA	 	 	 	 	
+quinolinic acid	chemical - endogenous mammalian	1	 	 	0.000	2.24E-02	3.80E-02	quinolinic acid	 	1 (1)	1	 	 	 	EGR1	 	 	 	 	 	
+carrageenan	chemical drug	1	 	 	0.000	2.35E-02	1.79E-02	carrageenan	 	1 (1)	1	 	 	 	EGR1,prostaglandin D2	 	 	 	 	 	
+NOTCH3	transcription regulator	1	 	 	0.000	2.40E-02	3.11E-02	NOTCH3	 	1 (1)	1	Z-LLL-CHO	PCGF2	 	 	 	 	 	 	 	
+15-hydroxyeicosatetraenoic acid	chemical - endogenous mammalian	2	 	 	0.000	2.45E-02	4.04E-02	15-hydroxyeicosatetraenoic acid,MAPK14,PPARG	 	2 (3)	2	 	BW-755C,nordihydroguaiaretic acid	 	 	 	 	 	 	 	
+hexamethylene bisacetamide	chemical reagent	1	 	 	0.000	2.46E-02	3.45E-02	hexamethylene bisacetamide	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+fluocinolone acetonide	chemical drug	1	 	 	0.000	2.56E-02	4.20E-02	fluocinolone acetonide	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+NFYA	transcription regulator	1	 	 	0.000	2.62E-02	3.35E-02	NFYA	 	1 (1)	1	valproic acid	ferric ammonium citrate,iron	 	EGR1,FTH1	 	 	 	 	 	
+colchicine	chemical drug	1	 	 	0.000	2.62E-02	3.57E-02	colchicine	 	1 (1)	1	 	 	 	MAPK3	 	 	 	 	 	
+miR-133a-3p (and other miRNAs w/seed UUGGUCC)	mature microRNA	2	 	 	0.000	2.65E-02	3.60E-02	AKT1,ERK1/2,miR-133a-3p (and other miRNAs w/seed UUGGUCC)	 	2 (3)	3	 	MEF2C	 	 	 	 	 	 	 	
+SHC1	other	1	 	 	0.000	2.78E-02	3.22E-02	SHC1	 	1 (1)	1	G-protein beta,G-protein gamma,K252b,NFE2L2	HSF1,vandetanib	 	FTH1	EGR1	 	 	 	 	
+inosine	chemical - endogenous mammalian	1	 	 	0.000	2.83E-02	4.38E-02	inosine	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+miR-133a-3p (and other miRNAs w/seed UUGGUCC)	mature microRNA	1	 	 	0.000	2.89E-02	3.80E-02	miR-133a-3p (and other miRNAs w/seed UUGGUCC)	 	1 (1)	1	 	MEF2C	 	 	 	 	 	 	 	
+benzene	chemical toxicant	1	 	 	0.000	3.15E-02	4.47E-02	benzene	 	1 (1)	1	 	 	 	CD47	EGR1	 	 	 	 	
+trichloroethylene	chemical toxicant	1	 	 	0.000	3.15E-02	4.53E-02	trichloroethylene	 	1 (1)	1	 	 	 	CD47	EGR1	 	 	 	 	
+25-hydroxycholesterol	chemical reagent	1	 	 	0.000	3.37E-02	4.92E-02	25-hydroxycholesterol	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+methylmercury	chemical toxicant	1	 	 	0.000	3.53E-02	4.68E-02	methylmercury	 	1 (1)	1	 	 	 	CD47	EGR1	 	 	 	 	
+cadmium	chemical toxicant	1	 	 	0.000	3.69E-02	4.83E-02	cadmium	 	1 (1)	1	 	 	 	HNRNPK,NFE2L2	 	 	 	 	 	
+(+)-MK-801	chemical drug	1	 	 	0.000	3.80E-02	4.51E-02	(+)-MK-801	 	1 (1)	1	 	 	 	 	EGR1	 	 	 	 	
+MAPK3	kinase	1	 	 	0.000	3.96E-02	4.13E-02	MAPK3	 	1 (1)	1	colchicine,EGFR,GnRH analog,staurosporine,valproic acid	alpha-tocopherol,curcumin,prostaglandin D2,RASSF1	 	EGR1,HSF1,NFE2L2	 	 	 	 	 	
+RASSF1	other	1	 	 	0.000	4.59E-02	4.98E-02	RASSF1	 	1 (1)	1	 	KLF3	 	EGFR,EGR1	MAPK3	 	 	 	 	
+staurosporine	chemical - kinase inhibitor	1	 	 	0.000	4.91E-02	4.20E-02	staurosporine	 	1 (1)	1	 	 	 	MAPK3	DGKD,EGFR,HSF1	 	 	 	 	
+
+Diseases and Bio Functions for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Categories	Functions	Diseases or Functions Annotation	p-Value	Predicted Activation State	Activation z-score	Notes	Bias-corrected z-score	Molecules	# Molecules	
+Carbohydrate Metabolism, Lipid Metabolism, Small Molecule Biochemistry	synthesis	Synthesis of phosphatidylcholine	2.53E-04	 	 	 	 	PCTP,CHPT1	2	
+Infectious Diseases	attachment	Attachment of hepatitis B virus	5.43E-04	 	 	 	 	FTL	1	
+Developmental Disorder, Hereditary Disorder, Metabolic Disease, Organismal Injury and Abnormalities	autosomal dominant L-ferritin deficiency	Autosomal dominant L-ferritin deficiency	5.43E-04	 	 	 	 	FTL	1	
+Developmental Disorder, Hereditary Disorder, Metabolic Disease, Organismal Injury and Abnormalities	autosomal recessive L-ferritin deficiency	Autosomal recessive L-ferritin deficiency	5.43E-04	 	 	 	 	FTL	1	
+Developmental Disorder, Hereditary Disorder, Organismal Injury and Abnormalities, Renal and Urological Disease	congenital anomalies of kidney and urinary tract syndrome with or without hearing loss abnormal ears or developmental delay	Congenital anomalies of kidney and urinary tract syndrome with or without hearing loss abnormal ears or developmental delay	5.43E-04	 	 	 	 	PBX1	1	
+Cell Cycle	G1/S phase transition	Delay in G1/S phase transition of germ cell tumor cell lines	5.43E-04	 	 	 	 	CREG1	1	
+Cell Cycle	G1/S phase transition	Delay in initiation of G1/S phase transition of carcinoma cell lines	5.43E-04	 	 	 	 	CREG1	1	
+Cellular Assembly and Organization, Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Organ Development, Organismal Development, Reproductive System Development and Function, Tissue Development	development	Development of sperm tail	5.43E-04	 	 	 	 	JUND	1	
+Cellular Assembly and Organization, Cellular Compromise	formation	Formation of ferritin inclusion body	5.43E-04	 	 	 	 	FTL	1	
+Organismal Functions	healing	Healing of vascular endothelial cells	5.43E-04	 	 	 	 	CREG1	1	
+Developmental Disorder, Hematological Disease, Hereditary Disorder, Ophthalmic Disease, Organismal Injury and Abnormalities	hereditary hyperferritinemia cataract syndrome	Hereditary hyperferritinemia cataract syndrome	5.43E-04	 	 	 	 	FTL	1	
+Auditory Disease, Developmental Disorder	hypoplasia	Hypoplasia of pinna	5.43E-04	 	 	 	 	PBX1	1	
+Developmental Disorder, Gastrointestinal Disease, Organismal Injury and Abnormalities	hypoplasia	Hypoplasia of stomach	5.43E-04	 	 	 	 	PBX1	1	
+Cell Morphology	modification	Modification of oocytes	5.43E-04	 	 	 	 	MARF1	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities, Psychological Disorders	neurodegeneration with brain iron accumulation 3	Neurodegeneration with brain iron accumulation 3	5.43E-04	 	 	 	 	FTL	1	
+Cellular Growth and Proliferation	pluripotency	Pluripotency of colony forming multilineage cells	5.43E-04	 	 	 	 	PBX1	1	
+Gene Expression	transactivation	Transactivation	6.32E-04	 	 	 	 	PCTP,JUND,PBX1,CHP1	4	
+Developmental Disorder, Embryonic Development, Organismal Development, Tissue Morphology	abnormal morphology	Abnormal morphology of gonad rudiment	1.09E-03	 	 	 	 	PBX1	1	
+Carbohydrate Metabolism, Molecular Transport, Small Molecule Biochemistry	cycling	Cycling of D-glucose	1.09E-03	 	 	 	 	PCTP	1	
+Cellular Assembly and Organization, Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Organ Development, Organismal Development, Reproductive System Development and Function, Tissue Development	development	Development of sperm head	1.09E-03	 	 	 	 	JUND	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	formation	Formation of megakaryocyte/erythrocyte lineage-restricted progenitor cells	1.09E-03	 	 	 	 	PBX1	1	
+Cellular Development, Cellular Growth and Proliferation	growth	Re-entry into growth of leukemia cell lines	1.09E-03	 	 	 	 	FTL	1	
+Cardiovascular Disease, Organismal Injury and Abnormalities	sporadic abdominal aortic aneurysm	Sporadic abdominal aortic aneurysm	1.09E-03	 	 	 	 	FTL	1	
+Molecular Transport	quantity	Quantity of heavy metal	1.30E-03	 	 	 	 	FTL,JUND	2	
+Connective Tissue Development and Function, Tissue Development	accumulation	Accumulation of chondrocytes	1.63E-03	 	 	 	 	PBX1	1	
+Cardiovascular Disease, Developmental Disorder, Organismal Injury and Abnormalities	congenital malformation	Congenital malformation of aortic valve	1.63E-03	 	 	 	 	PBX1	1	
+Cardiovascular Disease, Developmental Disorder, Organismal Injury and Abnormalities	congenital malformation	Congenital malformation of pulmonary valve	1.63E-03	 	 	 	 	PBX1	1	
+Cell Cycle	S phase	Entry into S phase of hepatoma cell lines	1.63E-03	 	 	 	 	PBX1	1	
+Developmental Disorder, Endocrine System Disorders, Gastrointestinal Disease, Organismal Injury and Abnormalities	hypoplasia	Hypoplasia of exocrine region of pancreas	1.63E-03	 	 	 	 	PBX1	1	
+Cancer, Cellular Development, Organismal Injury and Abnormalities	immortalization	Immortalization of pro-T lymphocytes	1.63E-03	 	 	 	 	PBX1	1	
+Digestive System Development and Function, Endocrine System Disorders, Gastrointestinal Disease, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	lack	Lack of islets of Langerhans	1.63E-03	 	 	 	 	PBX1	1	
+Organismal Development, Reproductive System Development and Function	development	Development of reproductive system	2.00E-03	 	 	 	 	MARF1,JUND,PBX1,CDYL	4	
+Cell Morphology, Digestive System Development and Function, Gastrointestinal Disease, Hepatic System Development and Function, Hepatic System Disease, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Tissue Morphology	abnormal morphology	Abnormal morphology of biliary canaliculi	2.17E-03	 	 	 	 	PCTP	1	
+Connective Tissue Disorders, Developmental Disorder, Embryonic Development, Gastrointestinal Disease, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Tissue Morphology	abnormal morphology	Abnormal morphology of nasal prominence	2.17E-03	 	 	 	 	PBX1	1	
+Metabolic Disease, Organismal Injury and Abnormalities	alkalinization	Alkalinization of cytoplasm	2.17E-03	 	 	 	 	CHP1	1	
+Cell Death and Survival	cell survival	Cell survival of ovarian cancer cell lines	2.17E-03	 	 	 	 	PBX1	1	
+Developmental Disorder, Gastrointestinal Disease	hypoplasia	Hypoplasia of tongue	2.17E-03	 	 	 	 	PBX1	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	secretion	Secretion of bile salt	2.17E-03	 	 	 	 	PCTP	1	
+Organismal Injury and Abnormalities, Renal and Urological Disease	glomerulosclerosis	Severe glomerulosclerosis	2.17E-03	 	 	 	 	JUND	1	
+Carbohydrate Metabolism, Small Molecule Biochemistry	tolerance	Tolerance of D-glucose	2.17E-03	 	 	 	 	PBX1	1	
+Molecular Transport	transport	Transport of metal	2.69E-03	 	 	 	 	JUND,FTL,CHP1	3	
+Organismal Injury and Abnormalities	anasarca	Anasarca	2.71E-03	 	 	 	 	PBX1	1	
+Connective Tissue Disorders, Developmental Disorder, Embryonic Development, Gastrointestinal Disease, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Tissue Morphology	abnormal morphology	Abnormal morphology of maxillary prominence	3.25E-03	 	 	 	 	PBX1	1	
+Auditory Disease, Auditory and Vestibular System Development and Function, Connective Tissue Development and Function, Connective Tissue Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Development	abnormal morphology	Abnormal morphology of styloid process of temporal bone	3.25E-03	 	 	 	 	PBX1	1	
+Cell Cycle, Gene Expression	binding	Binding of Hox binding site	3.25E-03	 	 	 	 	PBX1	1	
+Developmental Disorder	hypoplasia	Hypoplasia of palatal shelf	3.25E-03	 	 	 	 	PBX1	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Organ Development, Organismal Development, Reproductive System Development and Function, Tissue Development	gametogenesis	Gametogenesis	3.61E-03	 	 	 	 	MARF1,JUND,CDYL	3	
+Connective Tissue Development and Function, Connective Tissue Disorders, Organ Morphology, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Development	abnormal morphology	Abnormal morphology of hyoid bone lesser horn	3.80E-03	 	 	 	 	PBX1	1	
+Developmental Disorder, Endocrine System Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	agenesis	Agenesis of adrenal gland	3.80E-03	 	 	 	 	PBX1	1	
+Behavior	hippocampal learning	Hippocampal learning	3.80E-03	 	 	 	 	ASNA1	1	
+Embryonic Development, Organismal Development, Tissue Development	morphogenesis	Morphogenesis of nephrogenic mesenchyme	3.80E-03	 	 	 	 	PBX1	1	
+Connective Tissue Development and Function, Skeletal and Muscular System Development and Function, Tissue Development	ossification	Ossification of cartilage tissue	4.34E-03	 	 	 	 	PBX1	1	
+Developmental Disorder, Embryonic Development, Organismal Development, Tissue Morphology	abnormal morphology	Abnormal morphology of nephrogenic zone	4.88E-03	 	 	 	 	PBX1	1	
+Cardiovascular Disease, Developmental Disorder, Organismal Injury and Abnormalities	bicuspid aortic valve	Bicuspid aortic valve	4.88E-03	 	 	 	 	PBX1	1	
+Organ Development	function	Function of gall bladder	4.88E-03	 	 	 	 	PCTP	1	
+Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Tissue Morphology	quantity	Quantity of megakaryocyte/erythrocyte lineage-restricted progenitor cells	4.88E-03	 	 	 	 	PBX1	1	
+Organismal Development	secretion	Secretion of bile	4.88E-03	 	 	 	 	PCTP	1	
+Digestive System Development and Function, Endocrine System Disorders, Gastrointestinal Disease, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	abnormal morphology	Abnormal morphology of disorganized islets of Langerhans	5.42E-03	 	 	 	 	PBX1	1	
+Cell Death and Survival	cell death	Cell death of neuronal hybrid cells	5.42E-03	 	 	 	 	ASNA1	1	
+Hematological System Development and Function, Immunological Disease, Lymphoid Tissue Structure and Development, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Tissue Morphology	lack	Lack of spleen	5.42E-03	 	 	 	 	PBX1	1	
+Cell Cycle	senescence	Senescence of bone cancer cell lines	5.42E-03	 	 	 	 	CREG1	1	
+Endocrine System Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	abnormal morphology	Abnormal morphology of zona fasciculata	5.96E-03	 	 	 	 	PBX1	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	development	Development of myeloid progenitor cells	5.96E-03	 	 	 	 	PBX1	1	
+Organ Morphology, Renal and Urological System Development and Function	dilation	Dilation of renal tubule	5.96E-03	 	 	 	 	JUND	1	
+Cell Morphology, Hematological Disease, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Tissue Morphology	lack	Lack of myeloid progenitor cells	5.96E-03	 	 	 	 	PBX1	1	
+Gene Expression	transactivation	Transactivation of RNA	6.49E-03	 	 	 	 	PCTP,JUND,PBX1	3	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Development	development	Development of colony-forming erythroid cells	6.50E-03	 	 	 	 	PBX1	1	
+Cancer, Hematological Disease, Immunological Disease, Organismal Injury and Abnormalities	development	Development of diffuse lymphoma	6.50E-03	 	 	 	 	PBX1	1	
+Embryonic Development, Organismal Development, Tissue Development	development	Development of second branchial arch	6.50E-03	 	 	 	 	PBX1	1	
+Developmental Disorder, Endocrine System Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	hypoplasia	Hypoplasia of adrenal gland	6.50E-03	 	 	 	 	PBX1	1	
+Auditory Disease, Auditory and Vestibular System Development and Function, Connective Tissue Development and Function, Connective Tissue Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Development	lack	Lack of stapes	6.50E-03	 	 	 	 	PBX1	1	
+Developmental Disorder, Organismal Injury and Abnormalities, Renal and Urological Disease	developmental delay	Developmental delay of kidney	7.04E-03	 	 	 	 	PBX1	1	
+Carbohydrate Metabolism	glycogenolysis	Glycogenolysis	7.04E-03	 	 	 	 	PCTP	1	
+Connective Tissue Development and Function, Connective Tissue Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Development	abnormal morphology	Abnormal morphology of clavicle	7.58E-03	 	 	 	 	PBX1	1	
+Developmental Disorder, Embryonic Development, Organismal Development, Tissue Morphology	abnormal morphology	Abnormal morphology of metanephros	7.58E-03	 	 	 	 	PBX1	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	abnormal quantity	Abnormal quantity of bile salt	7.58E-03	 	 	 	 	PCTP	1	
+Cell Cycle	senescence	Senescence of sarcoma cell lines	7.58E-03	 	 	 	 	CREG1	1	
+Cellular Development, Cellular Growth and Proliferation	proliferation	Proliferation of germ cell tumor cell lines	8.12E-03	 	 	 	 	CREG1	1	
+Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Tissue Morphology	quantity	Quantity of colony forming multilineage cells	8.12E-03	 	 	 	 	PBX1	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	secretion	Secretion of phospholipid	8.66E-03	 	 	 	 	PCTP	1	
+Organismal Injury and Abnormalities, Respiratory Disease, Skeletal and Muscular Disorders	herniation	Herniation of diaphragm	9.20E-03	 	 	 	 	PBX1	1	
+Cellular Movement	invasion	Invasion of adenocarcinoma cell lines	9.20E-03	 	 	 	 	JUND	1	
+Cancer, Organismal Injury and Abnormalities	transformation	Transformation of hematopoietic progenitor cells	9.20E-03	 	 	 	 	PBX1	1	
+Gastrointestinal Disease, Hepatic System Disease	composition	Abnormal composition of bile	9.73E-03	 	 	 	 	PCTP	1	
+Developmental Disorder, Embryonic Development, Organismal Development, Tissue Morphology	abnormal morphology	Abnormal morphology of metanephric mesenchyme	9.73E-03	 	 	 	 	PBX1	1	
+Carbohydrate Metabolism, Drug Metabolism, Small Molecule Biochemistry	catabolism	Catabolism of hyaluronic acid	9.73E-03	 	 	 	 	CHP1	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	clearance	Clearance of triacylglycerol	9.73E-03	 	 	 	 	PCTP	1	
+Organismal Injury and Abnormalities	fibrosis	Fibrosis of interstitial tissue	9.73E-03	 	 	 	 	JUND	1	
+Gastrointestinal Disease, Hepatic System Disease, Organismal Injury and Abnormalities	formation	Formation of gallstone	9.73E-03	 	 	 	 	PCTP	1	
+Connective Tissue Disorders, Inflammatory Disease, Inflammatory Response, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders	pigmented villonodular synovitis	Pigmented villonodular synovitis	9.73E-03	 	 	 	 	FTL	1	
+Auditory Disease, Auditory and Vestibular System Development and Function, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	abnormal morphology	Abnormal morphology of external ear	1.08E-02	 	 	 	 	PBX1	1	
+Embryonic Development	elongation	Elongation of embryonic tissue	1.08E-02	 	 	 	 	PBX1	1	
+Auditory Disease, Auditory and Vestibular System Development and Function, Connective Tissue Development and Function, Connective Tissue Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Development	abnormal morphology	Abnormal morphology of malleus	1.13E-02	 	 	 	 	PBX1	1	
+Skeletal and Muscular Disorders	torticollis	Torticollis	1.13E-02	 	 	 	 	FTL	1	
+Organ Morphology, Organismal Injury and Abnormalities, Renal and Urological Disease, Renal and Urological System Development and Function	abnormal morphology	Abnormal morphology of renal medulla	1.19E-02	 	 	 	 	PBX1	1	
+Connective Tissue Development and Function, Connective Tissue Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Development	abnormal morphology	Abnormal morphology of scapula	1.19E-02	 	 	 	 	PBX1	1	
+Digestive System Development and Function, Embryonic Development, Endocrine System Development and Function, Organ Development, Organismal Development, Tissue Development	formation	Formation of islets of Langerhans	1.24E-02	 	 	 	 	PBX1	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	secretion	Secretion of cholesterol	1.24E-02	 	 	 	 	PCTP	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	abnormal quantity	Abnormal quantity of phospholipid	1.30E-02	 	 	 	 	PCTP	1	
+Cell Death and Survival, Reproductive System Development and Function	cell viability	Cell viability of gonadal cell lines	1.30E-02	 	 	 	 	PBX1	1	
+Developmental Disorder, Embryonic Development, Organismal Development, Tissue Morphology	abnormal morphology	Abnormal morphology of second branchial arch	1.35E-02	 	 	 	 	PBX1	1	
+Connective Tissue Disorders, Developmental Disorder, Gastrointestinal Disease, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders	cleft lip	Cleft lip	1.35E-02	 	 	 	 	PBX1	1	
+Cellular Function and Maintenance, Molecular Transport, Small Molecule Biochemistry	iron homeostasis	Iron homeostasis	1.35E-02	 	 	 	 	FTL	1	
+Cellular Assembly and Organization, Cellular Function and Maintenance	organization	Organization of cytoplasmic microtubule	1.35E-02	 	 	 	 	CHP1	1	
+Lipid Metabolism, Small Molecule Biochemistry	synthesis	Synthesis of platelet activating factor	1.35E-02	 	 	 	 	CHPT1	1	
+Cell Cycle	cell cycle progression	Arrest in cell cycle progression of bone cancer cell lines	1.40E-02	 	 	 	 	CREG1	1	
+Cellular Function and Maintenance, Molecular Transport	calcium triggered exocytosis	Calcium triggered exocytosis	1.40E-02	 	 	 	 	CHP1	1	
+Cell Death and Survival	cell survival	Cell survival of carcinoma cell lines	1.40E-02	 	 	 	 	PBX1	1	
+Post-Translational Modification, Protein Degradation	oxidation	Oxidation of protein	1.40E-02	 	 	 	 	FTL	1	
+Cell Cycle	cell cycle progression	Arrest in cell cycle progression of sarcoma cell lines	1.46E-02	 	 	 	 	CREG1	1	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Tissue Development	proliferation	Arrest in proliferation of fibroblasts	1.46E-02	 	 	 	 	JUND	1	
+Carbohydrate Metabolism	metabolism	Metabolism of carbohydrate	1.49E-02	 	 	 	 	PCTP,CHP1,CHPT1	3	
+Cellular Growth and Proliferation, Connective Tissue Development and Function	colony formation	Colony formation of fibroblasts	1.51E-02	 	 	 	 	JUND	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	efflux	Efflux of phospholipid	1.51E-02	 	 	 	 	PCTP	1	
+Cardiovascular Disease, Cardiovascular System Development and Function, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	right ventricular hypertrophy	Right ventricular hypertrophy	1.51E-02	 	 	 	 	PBX1	1	
+Connective Tissue Development and Function, Connective Tissue Disorders, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Development	abnormal morphology	Abnormal morphology of craniofacial skeleton	1.56E-02	 	 	 	 	PBX1	1	
+Organismal Development	fat body mass	Fat body mass	1.56E-02	 	 	 	 	PCTP	1	
+Developmental Disorder, Embryonic Development, Organismal Development, Tissue Morphology	abnormal morphology	Abnormal morphology of limb bud	1.67E-02	 	 	 	 	PBX1	1	
+Cellular Assembly and Organization	distribution	Distribution of mitochondria	1.67E-02	 	 	 	 	JUND	1	
+Molecular Transport, Protein Trafficking	nuclear export	Nuclear export of protein	1.67E-02	 	 	 	 	CHP1	1	
+Cancer, Organismal Injury and Abnormalities, Respiratory Disease	non-small cell lung carcinoma	Stage I metastatic non-small cell lung carcinoma	1.72E-02	 	 	 	 	FTL	1	
+Cellular Assembly and Organization	formation	Formation of microtubule bundles	1.78E-02	 	 	 	 	CHP1	1	
+Cellular Function and Maintenance, Molecular Transport	transcytosis	Transcytosis	1.78E-02	 	 	 	 	CHP1	1	
+Connective Tissue Development and Function, Embryonic Development, Organ Development, Organismal Development, Skeletal and Muscular System Development and Function, Tissue Development	formation	Formation of rib	1.83E-02	 	 	 	 	PBX1	1	
+Cell Cycle	senescence	Senescence of cells	1.85E-02	 	 	 	 	CREG1,JUND	2	
+Cardiovascular System Development and Function, Organ Morphology	dilation	Dilation of heart ventricle	1.88E-02	 	 	 	 	JUND	1	
+Cardiovascular Disease, Developmental Disorder, Hereditary Disorder, Organismal Injury and Abnormalities, Respiratory Disease	persistent truncus arteriosus	Persistent truncus arteriosus	1.88E-02	 	 	 	 	PBX1	1	
+Cellular Development	differentiation	Differentiation of exocrine cells	1.99E-02	 	 	 	 	PBX1	1	
+Developmental Disorder, Organismal Injury and Abnormalities, Respiratory Disease	hypoplasia	Hypoplasia of lung	1.99E-02	 	 	 	 	PBX1	1	
+Molecular Transport	export	Export of molecule	2.07E-02	 	 	 	 	PCTP,CHP1	2	
+Endocrine System Disorders, Organismal Injury and Abnormalities	benign thyroid nodule	Benign thyroid nodule	2.10E-02	 	 	 	 	FTL	1	
+Behavior	circling behavior	Circling behavior	2.15E-02	 	 	 	 	FTL	1	
+Organ Morphology, Renal and Urological System Development and Function	quantity	Quantity of renal glomerulus	2.26E-02	 	 	 	 	PBX1	1	
+Neurological Disease	neurodegeneration	Neurodegeneration	2.26E-02	 	 	 	 	FTL,ASNA1	2	
+Cellular Growth and Proliferation, Lymphoid Tissue Structure and Development	proliferation	Proliferation of lymphatic system cells	2.27E-02	 	 	 	 	JUND,FTL,PBX1	3	
+Embryonic Development, Endocrine System Development and Function, Organ Development, Organismal Development, Tissue Development	formation	Formation of adrenal gland	2.31E-02	 	 	 	 	PBX1	1	
+Behavior	posture	Hunched posture	2.36E-02	 	 	 	 	PBX1	1	
+Carbohydrate Metabolism, Molecular Transport, Small Molecule Biochemistry	concentration	Concentration of D-glucose	2.42E-02	 	 	 	 	PCTP,PBX1	2	
+Embryonic Development, Organ Development, Organismal Development, Renal and Urological System Development and Function, Tissue Development	branching morphogenesis	Branching morphogenesis of metanephric bud	2.42E-02	 	 	 	 	PBX1	1	
+Skeletal and Muscular System Development and Function	development	Development of appendicular skeleton	2.52E-02	 	 	 	 	PBX1	1	
+Developmental Disorder, Gastrointestinal Disease, Hepatic System Disease, Organismal Injury and Abnormalities	hypoplasia	Liver Hypoplasia	2.52E-02	 	 	 	 	PBX1	1	
+Cellular Development, Endocrine System Development and Function	differentiation	Differentiation of endocrine cells	2.58E-02	 	 	 	 	PBX1	1	
+Connective Tissue Development and Function, Embryonic Development, Organ Development, Organismal Development, Skeletal and Muscular System Development and Function, Tissue Development	formation	Formation of vertebrae	2.58E-02	 	 	 	 	PBX1	1	
+Cancer, Endocrine System Disorders, Organismal Injury and Abnormalities, Reproductive System Disease	high-grade serous ovarian cancer	High-grade serous ovarian carcinoma	2.58E-02	 	 	 	 	PBX1	1	
+Connective Tissue Disorders, Organismal Development, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function	abnormal morphology	Abnormal morphology of pelvic girdle	2.63E-02	 	 	 	 	PBX1	1	
+Endocrine System Development and Function	insulin sensitivity index	Insulin sensitivity index	2.63E-02	 	 	 	 	PCTP	1	
+Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Tissue Morphology	quantity	Quantity of myeloid progenitor cells	2.68E-02	 	 	 	 	PBX1	1	
+Cancer	transformation	Transformation of epithelial cell lines	2.74E-02	 	 	 	 	PBX1	1	
+Cardiovascular Disease, Developmental Disorder, Hereditary Disorder, Organismal Injury and Abnormalities	double outlet right ventricle	Double outlet right ventricle	2.79E-02	 	 	 	 	PBX1	1	
+Cellular Development, Cellular Growth and Proliferation	proliferation	Proliferation of blood cells	2.83E-02	 	 	 	 	JUND,FTL,PBX1	3	
+Cellular Compromise, Inflammatory Response	degranulation	Degranulation of neutrophils	2.87E-02	 	 	 	 	CREG1,FTL	2	
+Cellular Development	differentiation	Differentiation of germ cell tumor cell lines	2.89E-02	 	 	 	 	CREG1	1	
+Dermatological Diseases and Conditions, Organismal Injury and Abnormalities	edema	Edema of skin	2.89E-02	 	 	 	 	PBX1	1	
+Free Radical Scavenging	production	Production of reactive oxygen species	2.92E-02	 	 	 	 	JUND,FTL	2	
+Hematological System Development and Function, Immunological Disease, Lymphoid Tissue Structure and Development, Organismal Injury and Abnormalities, Tissue Morphology	abnormal morphology	Abnormal morphology of B-cell follicle	2.95E-02	 	 	 	 	PBX1	1	
+Organ Morphology, Organismal Injury and Abnormalities, Renal and Urological Disease, Renal and Urological System Development and Function	abnormal morphology	Abnormal morphology of renal cortex	2.95E-02	 	 	 	 	PBX1	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Organ Development, Organismal Development, Reproductive System Development and Function, Tissue Development	oogenesis	Oogenesis	2.95E-02	 	 	 	 	MARF1	1	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Skeletal and Muscular System Development and Function, Tissue Development	formation	Formation of osteoblasts	3.05E-02	 	 	 	 	JUND	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Organ Development, Organismal Development, Reproductive System Development and Function, Tissue Development	spermatogenesis	Spermatogenesis	3.08E-02	 	 	 	 	JUND,CDYL	2	
+Cellular Assembly and Organization	fusion	Fusion of cellular membrane	3.11E-02	 	 	 	 	CHP1	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Development	hematopoiesis	Hematopoiesis in embryo	3.16E-02	 	 	 	 	PBX1	1	
+Connective Tissue Development and Function, Embryonic Development, Skeletal and Muscular System Development and Function, Tissue Development	patterning	Patterning of axis	3.16E-02	 	 	 	 	PBX1	1	
+Cellular Development, Cellular Growth and Proliferation, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Tissue Development	proliferation	Proliferation of myeloid progenitor cells	3.21E-02	 	 	 	 	PBX1	1	
+Cell Cycle, Cellular Development, Connective Tissue Development and Function	senescence	Senescence of fibroblasts	3.26E-02	 	 	 	 	JUND	1	
+Connective Tissue Disorders, Developmental Disorder, Gastrointestinal Disease, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders	micrognathia	Micrognathia	3.42E-02	 	 	 	 	PBX1	1	
+Embryonic Development, Organismal Development	dorsal-ventral axis patterning	Dorsal-ventral axis patterning	3.47E-02	 	 	 	 	PBX1	1	
+Organismal Development, Respiratory Disease, Respiratory System Development and Function	abnormal morphology	Abnormal morphology of snout	3.53E-02	 	 	 	 	PBX1	1	
+Respiratory System Development and Function	respiratory quotient	Respiratory quotient	3.58E-02	 	 	 	 	PCTP	1	
+Molecular Transport	transport	Transport of molecule	3.60E-02	 	 	 	 	PCTP,FTL,JUND,CHP1	4	
+Cellular Development	differentiation	Differentiation of carcinoma cell lines	3.63E-02	 	 	 	 	CREG1	1	
+Organ Morphology, Organismal Injury and Abnormalities, Renal and Urological Disease, Renal and Urological System Development and Function	abnormal morphology	Abnormal morphology of small kidney	3.68E-02	 	 	 	 	PBX1	1	
+Cellular Compromise, Lipid Metabolism, Small Molecule Biochemistry	peroxidation	Peroxidation of lipid	3.68E-02	 	 	 	 	FTL	1	
+Cell Cycle, Reproductive System Development and Function	meiosis	Meiosis of female germ cells	3.74E-02	 	 	 	 	MARF1	1	
+Cell Cycle	interphase	Interphase of tumor cell lines	3.75E-02	 	 	 	 	CREG1,PBX1	2	
+Cell Morphology, Digestive System Development and Function, Endocrine System Disorders, Gastrointestinal Disease, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	abnormal morphology	Abnormal morphology of islet cells	3.84E-02	 	 	 	 	PBX1	1	
+Cell Signaling	calcium-mediated signaling	Calcium-mediated signaling	3.84E-02	 	 	 	 	CHP1	1	
+Developmental Disorder, Organismal Injury and Abnormalities, Renal and Urological Disease	hypoplasia	Hypoplasia of kidney	3.95E-02	 	 	 	 	PBX1	1	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function	proliferation	Proliferation of fibroblast cell lines	3.98E-02	 	 	 	 	JUND,PBX1	2	
+Cancer	transformation	Cell transformation	4.03E-02	 	 	 	 	JUND,PBX1	2	
+Cell Morphology, Cellular Function and Maintenance, DNA Replication, Recombination, and Repair	double-stranded DNA break repair	Double-stranded DNA break repair of cells	4.16E-02	 	 	 	 	MARF1	1	
+Cell Morphology	morphology	Morphology of blood cells	4.19E-02	 	 	 	 	FTL,PBX1	2	
+Lipid Metabolism, Small Molecule Biochemistry	synthesis	Synthesis of triacylglycerol	4.21E-02	 	 	 	 	PCTP	1	
+Connective Tissue Disorders, Immunological Disease, Inflammatory Disease, Inflammatory Response, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders	systemic juvenile idiopathic arthritis	Systemic juvenile idiopathic arthritis	4.42E-02	 	 	 	 	C6orf62	1	
+Cellular Development, Cellular Growth and Proliferation	cell proliferation	Cell proliferation of tumor cell lines	4.58E-02	 	 	 	 	CREG1,FTL,JUND,PBX1	4	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Tissue Development	proliferation	Proliferation of chondrocytes	4.83E-02	 	 	 	 	PBX1	1	
+Behavior	cognition	Cognition	4.85E-02	 	 	 	 	JUND,ASNA1	2	
+Embryonic Development, Organismal Development, Skeletal and Muscular System Development and Function	morphogenesis	Morphogenesis of embryonic limb	4.99E-02	 	 	 	 	PBX1	1	
+Embryonic Development, Organismal Development	patterning	Patterning of embryo	4.99E-02	 	 	 	 	PBX1	1	
+
+Tox Functions for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Categories	Functions	Diseases or Functions Annotation	p-Value	Predicted Activation State	Activation z-score	Notes	Bias-corrected z-score	Molecules	# Molecules	
+Congenital Heart Anomaly	congenital malformation	Congenital malformation of aortic valve	1.63E-03	 	 	 	 	PBX1	1	
+Congenital Heart Anomaly	congenital malformation	Congenital malformation of pulmonary valve	1.63E-03	 	 	 	 	PBX1	1	
+Liver Cholestasis	secretion	Secretion of bile salt	2.17E-03	 	 	 	 	PCTP	1	
+Glomerular Injury	glomerulosclerosis	Severe glomerulosclerosis	2.17E-03	 	 	 	 	JUND	1	
+Congenital Heart Anomaly	bicuspid aortic valve	Bicuspid aortic valve	4.88E-03	 	 	 	 	PBX1	1	
+Renal Dilation	dilation	Dilation of renal tubule	5.96E-03	 	 	 	 	JUND	1	
+Cardiac Enlargement	right ventricular hypertrophy	Right ventricular hypertrophy	1.51E-02	 	 	 	 	PBX1	1	
+Cardiac Dilation	dilation	Dilation of heart ventricle	1.88E-02	 	 	 	 	JUND	1	
+Congenital Heart Anomaly	persistent truncus arteriosus	Persistent truncus arteriosus	1.88E-02	 	 	 	 	PBX1	1	
+Liver Hypoplasia	hypoplasia	Liver Hypoplasia	2.52E-02	 	 	 	 	PBX1	1	
+Congenital Heart Anomaly	double outlet right ventricle	Double outlet right ventricle	2.79E-02	 	 	 	 	PBX1	1	
+Increased Levels of Alkaline Phosphatase	activation	Increased activation of alkaline phosphatase	3.79E-02	 	 	 	 	JUND	1	
+Renal Hypoplasia	hypoplasia	Hypoplasia of kidney	3.95E-02	 	 	 	 	PBX1	1	
+Increased Levels of Hematocrit	hematocrit	Increased Levels of Hematocrit	5.14E-02	 	 	 	 	PBX1	1	
+Increased Levels of Red Blood Cells	quantity	Increased Levels of Red Blood Cells	5.51E-02	 	 	 	 	PBX1	1	
+Cardiac Dysfunction, Cardiac Enlargement	hypertrophy	Hypertrophy of left ventricle	5.81E-02	 	 	 	 	PBX1	1	
+Cardiac Enlargement	enlargement	Enlargement of heart	5.95E-02	 	 	 	 	JUND,PBX1	2	
+Liver Proliferation	proliferation	Proliferation of hepatocytes	9.55E-02	 	 	 	 	JUND	1	
+Liver Necrosis/Cell Death	apoptosis	Apoptosis of liver cells	9.99E-02	 	 	 	 	JUND	1	
+Cardiac Necrosis/Cell Death	apoptosis	Apoptosis of cardiomyocytes	1.19E-01	 	 	 	 	JUND	1	
+Liver Damage	hepatic injury	Hepatic injury	1.54E-01	 	 	 	 	JUND	1	
+Cardiac Dilation, Cardiac Enlargement	dilated cardiomyopathy	Dilated cardiomyopathy	1.67E-01	 	 	 	 	JUND	1	
+Hepatocellular carcinoma, Liver Hyperplasia/Hyperproliferation	hepatocellular carcinoma	Hepatocellular carcinoma	5.05E-01	 	 	 	 	FTL	1	
+Liver Hyperplasia/Hyperproliferation	liver carcinoma	Liver carcinoma	1.00E00	 	 	 	 	MARF1,FTL,ASNA1	3	
+Liver Hyperplasia/Hyperproliferation	liver tumor	Liver tumor	1.00E00	 	 	 	 	MARF1,PCTP,FTL,ASNA1	4	
+
+Regulator Effects for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+
+Networks for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+ID	Analysis	Molecules in Network	Score	Focus Molecules	Top Diseases and Functions	
+1	top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM	ARAP2,ASNA1,AUNIP,AURKA,C6orf62,CDYL,CHP1,CHPT1,CNEP1R1,CREG1,CSMD3,CTIF,ELAVL1,ELOF1,FAS,FLG-AS1,FTL,GAL3ST4,IFNG,JUND,KLLN,LST1,MARF1,MPV17L,MYH16,PANK1,PBX1,PCTP,RP11_611O23,RP5_1148A213,TMEM127,TP53,WDR63,ZNF79,calpain	36	12	Cancer, Cell Death and Survival, Organismal Injury and Abnormalities	
+
+My Lists for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+My Lists	 -log(p-value)	Ratio	Molecules 
+
+Tox Lists for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+Ingenuity Toxicity Lists	 -log(p-value)	Ratio	Molecules 
+Increases Cardiac Dilation	2.12E00	7.14E-02	JUND
+NRF2-mediated Oxidative Stress Response	2.09E00	7.81E-03	JUND,FTL
+Liver Proliferation	8.99E-01	4.05E-03	JUND
+Cardiac Necrosis/Cell Death	8.23E-01	3.36E-03	JUND
+Liver Necrosis/Cell Death	7.97E-01	3.14E-03	JUND
+Xenobiotic Metabolism Signaling	7.4E-01	2.72E-03	FTL
+Cardiac Hypertrophy	7.4E-01	2.72E-03	PBX1
+
+My Pathways for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+My Pathways	 -log(p-value)	Ratio	Molecules 
+
+Analysis Ready Molecules for My Projects->AIH_WGCNA->top_hub_genes_Naive_vs_Healthy - 2019-05-09 10:49 PM
+ID	Symbol
+ASNA1	ASNA1
+C6orf62	C6orf62
+CDYL	CDYL
+CHP1	CHP1
+CHPT1	CHPT1
+CREG1	CREG1
+ELOF1	ELOF1
+FTL	FTL
+JUND	JUND
+MARF1	MARF1
+PBX1	PBX1
+PCTP	PCTP
+
