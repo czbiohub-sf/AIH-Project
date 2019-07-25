@@ -60,7 +60,7 @@ We will bin continuous data in order make it compatible with DESeq2. Arielle cho
 ```{r}
 
 #read in metadata, rename rows so that they match gene counts file
-metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits.csv", header=TRUE, row.names = 1)
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_040219.csv", header=TRUE, row.names = 1)
 
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
@@ -113,7 +113,7 @@ metadata_filt <- metadata_filt[(is.na(metadata_filt$lt_before_coll) | metadata_f
 
 #only look at cases with no NA
 #age+case_hl_du+sex+on_tx_groups+fibrosis_groups+alt_groups+race+ethn
-metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
+#metadata_filt <- metadata_filt[!(is.na(metadata_filt$alt_groups) | is.na(metadata_filt$age) | is.na(metadata_filt$case_hl_du) | is.na(metadata_filt$sex) | is.na(metadata_filt$on_tx_groups) | is.na(metadata_filt$fibrosis_groups)| is.na(metadata_filt$race) | is.na(metadata_filt$ethn)), ]
 
 #nrow(metadata_filt)
 table(metadata_filt$on_tx_groups)
@@ -420,8 +420,8 @@ pca_df_by_sample$fibrosis_groups <- metadata_filt$fibrosis_groups
 ##Plotting gene expression data by sample
 library(wesanderson)
 library(RColorBrewer)
-setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
-png(filename = "PCA_EdgeR_prcomp_response_groups_110418.png", width = 1024, height = 500)
+setwd("../DifferentialGeneExpression-Output/")
+pdf("PCA_EdgeR_prcomp_response_groups_110418.pdf", width = 10, height = 6)
 ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = response_groups)) +
   geom_point (size = 5) +
   labs(title = "PCA: Response to Treatment",
@@ -429,7 +429,7 @@ ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = response_groups)) +
        y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
-        plot.margin = margin(1, 10, 1, 1, "cm"),
+        #plot.margin = margin(1, 10, 1, 1, "cm"),
         legend.position = c(1.23,0.5),
         axis.title.x = element_text(size=23), 
         axis.title.y = element_text(size=23), 
@@ -438,6 +438,25 @@ ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = response_groups)) +
         legend.text = element_text(size=25),
         legend.title = element_text(size=25, face = "bold") ) +
   scale_color_brewer(palette = "Set1",name = "Response Groups", labels = c("complete response", "healthy, no treatment", "non-responder", "partial response")) #,labels = c("20-39", "40-59", "60-79")
+dev.off()
+
+pdf("PCA_EdgeR_prcomp_case_groups_070119.pdf", width = 10, height = 6)
+ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = case_control)) +
+  geom_point (size = 5, alpha = 0.99) +
+  labs(title = "PCA: AIH Cases and Healthy Controls",
+       x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
+       y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size =25, face ="bold"),
+        plot.margin = margin(0.5, 4, 0.5, 0.5, "in"),
+        legend.position = c(1.5,0.5),
+        axis.title.x = element_text(size=20), 
+        axis.title.y = element_text(size=20), 
+        axis.text.x = element_text(size=17),
+        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=25),
+        legend.title = element_text(size=25, face = "bold") ) +
+  scale_color_brewer(palette = "Set1",name = "Patient Status", labels = c("cases", "healthy")) #,labels = c("20-39", "40-59", "60-79")
 dev.off()
 
 
@@ -451,7 +470,7 @@ ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = alt_groups)) +
        y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
-        plot.margin = margin(1, 10, 1, 1, "cm"),
+        #plot.margin = margin(1, 10, 1, 1, "cm"),
         legend.position = c(1.2,0.5),
         axis.title.x = element_text(size=23), 
         axis.title.y = element_text(size=23), 
@@ -483,7 +502,7 @@ ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = fibrosis_groups)) +
 dev.off()
 
 #setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
-png(filename = "PCA_EdgeR_prcomp_treatment_groups_110418.png", width = 1024, height = 500)
+png(filename = "PCA_EdgeR_prcomp_treatment_groups_070119.png", width = 1024, height = 500)
 ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = tx_groups)) +
   geom_point (size = 5) +
   labs(title = "PCA: On or Off Treatment",
@@ -623,22 +642,22 @@ ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = dt_isl)) +
 dev.off()
 
 #setwd("../DifferentialGeneExpression-Output/Amy_PCAPlots_110418/")
-png(filename = "PCA_EdgeR_prcomp_libraryplate_110418.png", width = 1024, height = 500)
+pdf("PCA_EdgeR_prcomp_libraryplate_110418.pdf", width = 7, height = 5)
 ggplot(data = pca_df_by_sample, aes(x=x, y=y,color = spl_plate)) +
-  geom_point (size = 5) +
+  geom_point (size = 5, alpha = 0.99) +
   labs(title = "PCA: Sequencing Library Preparation Batch",
        x = paste("\nPC1:", pca_var_perc_sample[1], "%"), 
        y = paste("PC2:", pca_var_perc_sample[2], "%\n"))  +
   theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5, size =30, face ="bold"),
-        plot.margin = margin(1, 10, 1, 1, "cm"),
+  theme(plot.title = element_text(hjust = 0.5, size =20, face ="bold"),
+        plot.margin = margin(0.25, 2, 0.25, 0.25, "in"),
         legend.position = c(1.2,0.5),
-        axis.title.x = element_text(size=23), 
-        axis.title.y = element_text(size=23), 
-        axis.text.x = element_text(size=17),
-        axis.text.y = element_text(size=17, angle = 90, hjust = 0.5),
-        legend.text = element_text(size=25),
-        legend.title = element_text(size=25, face = "bold") ) +
+        axis.title.x = element_text(size=15), 
+        axis.title.y = element_text(size=15), 
+        axis.text.x = element_text(size=12),
+        axis.text.y = element_text(size=12, angle = 90, hjust = 0.5),
+        legend.text = element_text(size=15),
+        legend.title = element_text(size=15, face = "bold") ) +
   scale_color_brewer(palette = "Set1",name = "Library Batch", labels = c("Plate 1", "Plate 2")) #,labels = c("20-39", "40-59", "60-79")
 dev.off()
 
