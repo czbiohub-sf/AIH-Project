@@ -79,6 +79,23 @@ num.genes = 0
 knitr::kable(RF_results)
 write.csv(RF_results,file = "RandomForest_10seeds_AIHvHealthy_031219")
 ```
+```{r}
+library(data.table)
+RF_results <- read.csv("../DifferentialGeneExpression-Output/randomforest/random_forest_031219.csv")
+RF_results
+RF_results_melt <- melt(RF_results, c("seed", "stddev","num.genes", "row.number"))
+RF_results_melt$value <- str_remove(RF_results_melt$value, " ")
+
+library(dplyr)
+RF_results_melt_count <- RF_results_melt %>% group_by(stddev, value) %>% summarise (count = n())
+RF_results_melt_count <- RF_results_melt_count %>% filter(stddev>0.9 & count <11)
+RF_results_melt_count$percent = RF_results_melt_count$count*100/10
+RF_results_melt_count$description = paste (RF_results_melt_count$value, " (",RF_results_melt_count$percent,"%)")
+write.csv(RF_results_melt_count, file = "RF_results_melt_count_031219.csv")
+
+
+```
+
 
 ```{r}
 colnames(RF_results)<- c("seed", "stdev","num.genes","hgnc_genes","ensembl_genes")
