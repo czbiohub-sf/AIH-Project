@@ -1,0 +1,948 @@
+© 2000-2019 QIAGEN. All rights reserved.
+
+Analysis Details for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Workspace	My Projects
+Project	AIH_WGCNA
+Analysis	top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Date	Thu May 09 22:09:57 PDT 2019
+Analysis ID	17791075
+
+Analysis Settings
+Cutoff before duplicate resolution	true
+Reference set	Ingenuity Knowledge Base (Genes Only)
+Relationship to include	Direct and Indirect
+Includes Endogenous Chemicals	No
+Optional Analyses	My Pathways My List
+Filter Summary	
+Consider only relationships where
+confidence = Experimentally Observed
+
+Canonical Pathways for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Ingenuity Canonical Pathways	 -log(p-value)	zScore	Ratio	Molecules
+Axonal Guidance Signaling	5.13E-01	NaN	2.00E-03	KEL,	
+Xenobiotic Metabolism Signaling	7.03E-01	NaN	3.30E-03	FTL,	
+Sirtuin Signaling Pathway	7.17E-01	NaN	3.42E-03	SLC2A1,	
+AMPK Signaling	8.19E-01	NaN	4.42E-03	SLC2A1,	
+NRF2-mediated Oxidative Stress Response	8.56E-01	NaN	4.85E-03	FTL,	
+Acute Phase Response Signaling	9.13E-01	NaN	5.59E-03	FTL,	
+Iron homeostasis signaling pathway	1.02E00	NaN	7.30E-03	FTL,	
+HIF1α Signaling	1.05E00	NaN	7.75E-03	SLC2A1,	
+Antioxidant Action of Vitamin C	1.11E00	NaN	9.01E-03	SLC2A1,	
+TR/RXR Activation	1.15E00	NaN	1.00E-02	SLC2A1,	
+IL-7 Signaling Pathway	1.19E00	NaN	1.08E-02	SLC2A1,	
+Renal Cell Carcinoma Signaling	1.19E00	NaN	1.08E-02	SLC2A1,	
+Autophagy	1.36E00	NaN	1.64E-02	CTSB,	
+SPINK1 Pancreatic Cancer Pathway	1.37E00	NaN	1.67E-02	CTSB,	
+PFKFB4 Signaling Pathway	1.48E00	NaN	2.17E-02	HK1,	
+BAG2 Signaling Pathway	1.51E00	NaN	2.33E-02	CTSB,	
+Inflammasome pathway	1.84E00	NaN	5.00E-02	CTSB,	
+Vitamin-C Transport	1.94E00	NaN	6.25E-02	SLC2A1,	
+Glucose and Glucose-1-phosphate Degradation	2.1E00	NaN	9.09E-02	HK1,	
+UDP-N-acetyl-D-galactosamine Biosynthesis II	2.1E00	NaN	9.09E-02	HK1,	
+GDP-glucose Biosynthesis	2.14E00	NaN	1.00E-01	HK1,	
+Phagosome Maturation	2.3E00	NaN	1.35E-02	RILP,CTSB	
+Trehalose Degradation II (Trehalase)	2.44E00	NaN	2.00E-01	HK1,	
+
+Upstream Regulators for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Analysis	ID	Upstream Regulator	Molecule Type	Predicted Activation State	Activation z-score	Notes	Bias Term	Bias-corrected z-score	p-value of overlap	Target molecules in dataset	Mechanistic Network	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MLIP	other	 	 	 	 	 	5.07E-07	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	KLF1	transcription regulator	 	 	 	 	 	4.86E-06	BSG,KEL,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ATG7	enzyme	 	 	 	 	 	1.59E-05	CTSB,HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PIK3CB	kinase	 	 	 	 	 	3.33E-05	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	RBBP7	transcription regulator	 	 	 	 	 	3.94E-05	KLF1,LYL1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CD46	other	 	 	 	 	 	7.71E-05	SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	L-dopa	chemical - endogenous mammalian	 	 	 	 	 	9.32E-05	CTSB,FTL,RILP,SLC2A1,TMCC2	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IDO1	enzyme	 	 	 	 	 	1.06E-04	SLC1A5,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SYVN1	transporter	 	 	 	 	 	1.26E-04	SLC1A5,SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TCR	complex	 	 	 	 	 	1.33E-04	BSG,CTSB,SLC1A5,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MTA2	transcription regulator	 	 	 	 	 	1.63E-04	KLF1,LYL1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PRKCI	kinase	 	 	 	 	 	2.18E-04	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PRKAG3	other	 	 	 	 	 	2.27E-04	FTL,SLC2A1,TMCC2	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PRMT1	enzyme	 	 	 	 	 	3.15E-04	FTL,KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CSF2	cytokine	 	 	 	 	 	3.59E-04	BSG,KLF1,SLC1A5,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ABCB6	transporter	 	 	 	 	 	4.50E-04	HK1,KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CSF1	cytokine	 	 	 	 	 	5.05E-04	SLC1A5,SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	BAG2	other	 	 	 	 	 	7.36E-04	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CDC42BPB	kinase	 	 	 	 	 	7.36E-04	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	GSE1	other	 	 	 	 	 	7.36E-04	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Ggt	group	 	 	 	 	 	7.36E-04	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NBR2	other	 	 	 	 	 	7.36E-04	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SLC2A12	transporter	 	 	 	 	 	7.36E-04	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	azide	chemical reagent	 	 	 	 	 	7.36E-04	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IL5	cytokine	 	 	 	 	 	1.13E-03	SLC1A5,SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TGFB1	growth factor	 	 	 	 	 	1.25E-03	BSG,CTSB,FTL,HK1,SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	GCG	other	 	 	 	 	 	1.36E-03	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	8-aminoadenosine	chemical reagent	 	 	 	 	 	1.47E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Alpha 1 antitrypsin	group	 	 	 	 	 	1.47E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TXNDC5	enzyme	 	 	 	 	 	1.47E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	dimethyl succinate	chemical - endogenous mammalian	 	 	 	 	 	1.47E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	gliclazide	chemical drug	 	 	 	 	 	1.47E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	glucose oxidase	group	 	 	 	 	 	1.47E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	hemin	chemical - endogenous mammalian	 	 	 	 	 	1.59E-03	FTL,KEL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TFRC	transporter	 	 	 	 	 	1.67E-03	FTL,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IL3	cytokine	 	 	 	 	 	1.85E-03	HK1,KLF1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CTNS	transporter	 	 	 	 	 	2.21E-03	RILP	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FTMT	enzyme	 	 	 	 	 	2.21E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	GLUD1	enzyme	 	 	 	 	 	2.21E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PPP1R3C	phosphatase	 	 	 	 	 	2.21E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SLC48A1	transporter	 	 	 	 	 	2.21E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ethyl-3-trifluoromethylbenzyl-alpha-ketoglutarate	chemical reagent	 	 	 	 	 	2.21E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	interferon beta-1b	biologic drug	 	 	 	 	 	2.21E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	glutamine	chemical - endogenous mammalian	 	 	 	 	 	2.36E-03	BSG,HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IFNG	cytokine	 	 	 	 	 	2.39E-03	CTSB,FTL,KLF1,SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	dexamethasone	chemical drug	 	 	 	 	 	2.48E-03	BSG,CTSB,FTL,OSBP2,SLC2A1,SPECC1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	caffeic acid phenethyl ester	chemical drug	 	 	 	 	 	2.60E-03	CTSB,FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	GATA2	transcription regulator	 	 	 	 	 	2.87E-03	KEL,KLF1,LYL1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ABCC9	ion channel	 	 	 	 	 	2.94E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	HCAR1	g-protein coupled receptor	 	 	 	 	 	2.94E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PAK4	kinase	 	 	 	 	 	2.94E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	RPRD1A	other	 	 	 	 	 	2.94E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	firtecan pegol	chemical drug	 	 	 	 	 	2.94E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	methylamine	chemical - endogenous mammalian	 	 	 	 	 	2.94E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	phenformin	chemical drug	 	 	 	 	 	2.94E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PI3K (family)	group	 	 	 	 	 	3.01E-03	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SRC	kinase	 	 	 	 	 	3.11E-03	CTSB,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CDR2	other	 	 	 	 	 	3.67E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PINK1	kinase	 	 	 	 	 	3.67E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	temsirolimus	chemical drug	 	 	 	 	 	3.67E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	VHL	transcription regulator	 	 	 	 	 	4.27E-03	FTL,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ABCB7	transporter	 	 	 	 	 	4.41E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	APBA3	transporter	 	 	 	 	 	4.41E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Cbp/p300-Maf-Nfe2l2	complex	 	 	 	 	 	4.41E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Plin2	other	 	 	 	 	 	4.41E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SLC16A1	transporter	 	 	 	 	 	4.41E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SSPN	other	 	 	 	 	 	4.41E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	WDFY2	other	 	 	 	 	 	4.41E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ferric chloride	chemical toxicant	 	 	 	 	 	4.41E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	histidinol	chemical - endogenous mammalian	 	 	 	 	 	4.41E-03	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	2-mercaptoethanol	chemical - endogenous mammalian	 	 	 	 	 	5.14E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ABL2	kinase	 	 	 	 	 	5.14E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CTSE	peptidase	 	 	 	 	 	5.14E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	LRP2	transporter	 	 	 	 	 	5.14E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SDHA	enzyme	 	 	 	 	 	5.14E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SNED1	other	 	 	 	 	 	5.14E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TDO2	enzyme	 	 	 	 	 	5.14E-03	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	pictilisib	chemical drug	 	 	 	 	 	5.14E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	AQP4	transporter	 	 	 	 	 	5.87E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NELFCD	other	 	 	 	 	 	5.87E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	collagen	group	 	 	 	 	 	5.87E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	glimepiride	chemical drug	 	 	 	 	 	5.87E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ATF4	transcription regulator	 	 	 	 	 	5.96E-03	SLC1A5,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CD38	enzyme	 	 	 	 	 	6.10E-03	SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	HBP1	transcription regulator	 	 	 	 	 	6.60E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MPL	transmembrane receptor	 	 	 	 	 	6.60E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NELFA	other	 	 	 	 	 	6.60E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NELFE	other	 	 	 	 	 	6.60E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SLC2A1	transporter	 	 	 	 	 	6.60E-03	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ST6GAL1	enzyme	 	 	 	 	 	6.60E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	cysteamine	chemical drug	 	 	 	 	 	6.60E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FFAR1	g-protein coupled receptor	 	 	 	 	 	7.33E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FTH1	enzyme	 	 	 	 	 	7.33E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Irp	group	 	 	 	 	 	7.33E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	KDM8	enzyme	 	 	 	 	 	7.33E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	VLDLR	transporter	 	 	 	 	 	7.33E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	astressin 2B	biologic drug	 	 	 	 	 	7.33E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	dihydrotestosterone	chemical - endogenous mammalian	 	 	 	 	 	7.40E-03	FTL,SLC1A5,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	topotecan	chemical drug	 	 	 	 	 	7.82E-03	SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	AIMP2	other	 	 	 	 	 	8.06E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CA074-methyl ester	chemical reagent	 	 	 	 	 	8.06E-03	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CCNT1	transcription regulator	 	 	 	 	 	8.06E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NLRX1	other	 	 	 	 	 	8.06E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TAS1R3	g-protein coupled receptor	 	 	 	 	 	8.06E-03	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ferric ammonium citrate	chemical drug	 	 	 	 	 	8.06E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	teriflunomide	chemical drug	 	 	 	 	 	8.06E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MYC	transcription regulator	 	 	 	 	 	8.13E-03	CTSB,SLC1A5,SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PDX1	transcription regulator	 	 	 	 	 	8.24E-03	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ACO1	enzyme	 	 	 	 	 	8.79E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IREB2	translation regulator	 	 	 	 	 	8.79E-03	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SORT1	g-protein coupled receptor	 	 	 	 	 	8.79E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	etoposide	chemical drug	 	 	 	 	 	8.84E-03	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	HIF3A	transcription regulator	 	 	 	 	 	9.52E-03	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PPIA	enzyme	 	 	 	 	 	9.52E-03	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	progesterone	chemical - endogenous mammalian	 	 	 	 	 	9.66E-03	BSG,SLC1A5,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FN1	enzyme	 	 	 	 	 	9.91E-03	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	BET	group	 	 	 	 	 	1.03E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	HIRA	transcription regulator	 	 	 	 	 	1.03E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NFkB (family)	group	 	 	 	 	 	1.03E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NPFF	other	 	 	 	 	 	1.03E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SMPD1	enzyme	 	 	 	 	 	1.03E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	xanthine	chemical - endogenous mammalian	 	 	 	 	 	1.03E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	EPAS1	transcription regulator	 	 	 	 	 	1.07E-02	SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	beta-estradiol	chemical - endogenous mammalian	 	 	 	 	 	1.08E-02	BSG,CTSB,LYL1,SLC2A1,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ADP	chemical - endogenous mammalian	 	 	 	 	 	1.10E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CLCN5	ion channel	 	 	 	 	 	1.10E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ENPP2	enzyme	 	 	 	 	 	1.10E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PNN	other	 	 	 	 	 	1.10E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	pomalidomide	chemical drug	 	 	 	 	 	1.10E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	selumetinib	chemical drug	 	 	 	 	 	1.10E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	D-glucose	chemical - endogenous mammalian	 	 	 	 	 	1.11E-02	CTSB,HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	cholesterol	chemical - endogenous mammalian	 	 	 	 	 	1.14E-02	BSG,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	HIF1AN	enzyme	 	 	 	 	 	1.17E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	mir-194	microrna	 	 	 	 	 	1.17E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SMAD6	transcription regulator	 	 	 	 	 	1.24E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	batimastat	chemical - protease inhibitor	 	 	 	 	 	1.24E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	glyburide	chemical drug	 	 	 	 	 	1.24E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ADCYAP1	other	 	 	 	 	 	1.27E-02	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	actinomycin D	biologic drug	 	 	 	 	 	1.31E-02	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CRHR1	g-protein coupled receptor	 	 	 	 	 	1.32E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	indomethacin	chemical drug	 	 	 	 	 	1.36E-02	BSG,SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	DAG1	transmembrane receptor	 	 	 	 	 	1.39E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FLNA	other	 	 	 	 	 	1.39E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SCP2	transporter	 	 	 	 	 	1.39E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	isoprenaline	chemical drug	 	 	 	 	 	1.39E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	mir-143	microrna	 	 	 	 	 	1.39E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	BID	other	 	 	 	 	 	1.46E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PPP1R13L	transcription regulator	 	 	 	 	 	1.46E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TFAM	transcription regulator	 	 	 	 	 	1.46E-02	HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ammonium chloride	chemical drug	 	 	 	 	 	1.46E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	cigarette smoke	chemical toxicant	 	 	 	 	 	1.47E-02	FTL,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NTN1	other	 	 	 	 	 	1.53E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SLC2A4	transporter	 	 	 	 	 	1.53E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	dichloroacetic acid	chemical drug	 	 	 	 	 	1.53E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TNFSF11	cytokine	 	 	 	 	 	1.57E-02	BSG,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CRHR2	g-protein coupled receptor	 	 	 	 	 	1.61E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	L-tryptophan	chemical - endogenous mammalian	 	 	 	 	 	1.61E-02	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ketamine	chemical drug	 	 	 	 	 	1.61E-02	HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ALDH2	enzyme	 	 	 	 	 	1.68E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NFE2	transcription regulator	 	 	 	 	 	1.68E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SEMA7A	transmembrane receptor	 	 	 	 	 	1.68E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MAPT	other	 	 	 	 	 	1.70E-02	BSG,HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	cisplatin	chemical drug	 	 	 	 	 	1.79E-02	CTSB,HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Calcineurin A	group	 	 	 	 	 	1.82E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	HEXIM1	transcription regulator	 	 	 	 	 	1.82E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	BMPR1B	kinase	 	 	 	 	 	1.90E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	EIF4EBP1	translation regulator	 	 	 	 	 	1.90E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NOS1	enzyme	 	 	 	 	 	1.90E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SKP2	enzyme	 	 	 	 	 	1.90E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	arsenic	chemical toxicant	 	 	 	 	 	1.90E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	GATA1	transcription regulator	 	 	 	 	 	1.93E-02	KLF1,LYL1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	RXRA	ligand-dependent nuclear receptor	 	 	 	 	 	1.97E-02	CTSB,FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	hydroxypropyl-beta-cyclodextrin	chemical drug	 	 	 	 	 	1.97E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	VEGFA	growth factor	 	 	 	 	 	1.98E-02	CTSB,HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CD47	transmembrane receptor	 	 	 	 	 	2.04E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CA4	enzyme	 	 	 	 	 	2.11E-02	KEL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NPC2	transporter	 	 	 	 	 	2.11E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SMAD5	transcription regulator	 	 	 	 	 	2.11E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	UBE2I	enzyme	 	 	 	 	 	2.11E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	indican	chemical - endogenous mammalian	 	 	 	 	 	2.19E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IFRD1	other	 	 	 	 	 	2.26E-02	HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TG	other	 	 	 	 	 	2.26E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TRPM2	ion channel	 	 	 	 	 	2.26E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NOX4	enzyme	 	 	 	 	 	2.33E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Stat3-Stat3	complex	 	 	 	 	 	2.33E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	everolimus	chemical drug	 	 	 	 	 	2.33E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SLC16A2	transporter	 	 	 	 	 	2.40E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	lactic acid	chemical - endogenous mammalian	 	 	 	 	 	2.40E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	mir-150	microrna	 	 	 	 	 	2.40E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ABCG1	transporter	 	 	 	 	 	2.47E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Secretase gamma	complex	 	 	 	 	 	2.47E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	arginine	chemical - endogenous mammalian	 	 	 	 	 	2.47E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IL1	group	 	 	 	 	 	2.59E-02	CTSB,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MTOR	kinase	 	 	 	 	 	2.64E-02	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	APP	other	 	 	 	 	 	2.64E-02	BSG,CTSB,HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ELANE	peptidase	 	 	 	 	 	2.69E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	XDH	enzyme	 	 	 	 	 	2.69E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	APR-246	chemical drug	 	 	 	 	 	2.76E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NR1D1	ligand-dependent nuclear receptor	 	 	 	 	 	2.76E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SPRY2	other	 	 	 	 	 	2.76E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	nitrofen	chemical toxicant	 	 	 	 	 	2.76E-02	HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CARM1	transcription regulator	 	 	 	 	 	2.83E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Cdc42	enzyme	 	 	 	 	 	2.83E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NEDD9	other	 	 	 	 	 	2.83E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TFEB	transcription regulator	 	 	 	 	 	2.83E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	bromocriptine	chemical drug	 	 	 	 	 	2.83E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ABL1	kinase	 	 	 	 	 	2.90E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FLT3	kinase	 	 	 	 	 	2.90E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PLAUR	transmembrane receptor	 	 	 	 	 	2.90E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IRS2	enzyme	 	 	 	 	 	2.97E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	KCNK9	ion channel	 	 	 	 	 	2.97E-02	KEL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	T3-TR-RXR	complex	 	 	 	 	 	2.97E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	nonylphenol	chemical toxicant	 	 	 	 	 	2.97E-02	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IFNE	cytokine	 	 	 	 	 	3.05E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PCGEM1	other	 	 	 	 	 	3.05E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PKM	kinase	 	 	 	 	 	3.05E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	troglitazone	chemical drug	 	 	 	 	 	3.08E-02	OSBP2,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	4-hydroxynonenal	chemical toxicant	 	 	 	 	 	3.12E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	D-galactosamine	chemical - endogenous mammalian	 	 	 	 	 	3.12E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ibuprofen	chemical drug	 	 	 	 	 	3.12E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	APLN	other	 	 	 	 	 	3.19E-02	LYL1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SKIL	transcription regulator	 	 	 	 	 	3.19E-02	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	advanced glycation end-products	chemical - endogenous mammalian	 	 	 	 	 	3.19E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	A2M	transporter	 	 	 	 	 	3.26E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IDH1	enzyme	 	 	 	 	 	3.26E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	LPL	enzyme	 	 	 	 	 	3.26E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PSEN1	peptidase	 	 	 	 	 	3.31E-02	BSG,HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ABCA1	transporter	 	 	 	 	 	3.33E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Hbb-b2	other	 	 	 	 	 	3.33E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MYBL2	transcription regulator	 	 	 	 	 	3.33E-02	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SPHK1	kinase	 	 	 	 	 	3.33E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IL13	cytokine	 	 	 	 	 	3.37E-02	CTSB,HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Insulin	group	 	 	 	 	 	3.37E-02	FTL,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	INSR	kinase	 	 	 	 	 	3.40E-02	CTSB,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FGF21	growth factor	 	 	 	 	 	3.40E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SIRT3	enzyme	 	 	 	 	 	3.40E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	genistein	chemical drug	 	 	 	 	 	3.43E-02	CTSB,SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TAF7L	transcription regulator	 	 	 	 	 	3.55E-02	HK1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	APOA1	transporter	 	 	 	 	 	3.69E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MSTN	growth factor	 	 	 	 	 	3.76E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	MTORC1	complex	 	 	 	 	 	3.76E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	inosine	chemical - endogenous mammalian	 	 	 	 	 	3.76E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	BAX	transporter	 	 	 	 	 	3.83E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CD3 group	group	 	 	 	 	 	3.83E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	miR-133a-3p (and other miRNAs w/seed UUGGUCC)	mature microrna	 	 	 	 	 	3.83E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	salirasib	chemical drug	 	 	 	 	 	3.83E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NFE2L2	transcription regulator	 	 	 	 	 	3.86E-02	FTL,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NKX3-1	transcription regulator	 	 	 	 	 	3.90E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SHC1	other	 	 	 	 	 	3.90E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	iron	chemical - endogenous mammalian	 	 	 	 	 	3.90E-02	FTL	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Ccl2	cytokine	 	 	 	 	 	3.97E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	FGF10	growth factor	 	 	 	 	 	3.97E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ELK1	transcription regulator	 	 	 	 	 	4.04E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	H2AFY	other	 	 	 	 	 	4.04E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	di(2-ethylhexyl) phthalate	chemical toxicant	 	 	 	 	 	4.04E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	pirinixic acid	chemical toxicant	 	 	 	 	 	4.10E-02	BSG,CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	NCOR2	transcription regulator	 	 	 	 	 	4.11E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SCD	enzyme	 	 	 	 	 	4.18E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	rotenone	chemical toxicant	 	 	 	 	 	4.18E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	butyric acid	chemical - endogenous mammalian	 	 	 	 	 	4.20E-02	HK1,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CSHL1	growth factor	 	 	 	 	 	4.25E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CHD4	enzyme	 	 	 	 	 	4.33E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TYROBP	transmembrane receptor	 	 	 	 	 	4.33E-02	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SNAI2	transcription regulator	 	 	 	 	 	4.40E-02	BSG	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	EGLN1	enzyme	 	 	 	 	 	4.47E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	Hif1	complex	 	 	 	 	 	4.47E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PDCD1	phosphatase	 	 	 	 	 	4.47E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	TSH	complex	 	 	 	 	 	4.68E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	IGF1	growth factor	 	 	 	 	 	4.72E-02	BSG,SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CRH	cytokine	 	 	 	 	 	4.75E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	SGK1	kinase	 	 	 	 	 	4.75E-02	SLC1A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	caffeine	chemical drug	 	 	 	 	 	4.75E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	infliximab	biologic drug	 	 	 	 	 	4.75E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	HIPK2	kinase	 	 	 	 	 	4.82E-02	KLF1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	PLAU	peptidase	 	 	 	 	 	4.89E-02	SLC2A1	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	ANXA7	ion channel	 	 	 	 	 	4.96E-02	CTSB	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	CTLA4	transmembrane receptor	 	 	 	 	 	4.96E-02	SLC7A5	 	
+top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	 	GDNF	growth factor	 	 	 	 	 	4.96E-02	CTSB	 	
+
+Causal Networks for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Master Regulator	Molecule Type	Depth	Predicted Activation State	Notes	Activation z-score	p-value of overlap	Network bias-corrected p-value	Participating regulators	Target molecules in dataset	Causal network	Target-connected regulators	Relationships Between Master Regulators(Increases/Downstream)	Relationships Between Master Regulators(Decreases/Downstream)	Relationships Between Master Regulators(Affects/Downstream)	Relationships Between Master Regulators(Increases/Upstream)	Relationships Between Master Regulators(Decreases/Upstream)	Relationships Between Master Regulators(Affects/Upstream)	Relationships Between Master Regulators(Increases/Both)	Relationships Between Master Regulators(Decreases/Both)	Relationships Between Master Regulators(Affects/Both)	
+MLIP	other	1	 	 	0.000	5.07E-07	1.00E-04	MLIP	 	2 (1)	1	 	 	 	SLC2A1	EIF4EBP1	 	 	 	 	
+sialic acids	chemical - other	3	 	 	0.000	6.78E-06	2.90E-03	CDH5,EGFR,ERK1/2,LYN,NFkB (complex),PI3K (complex),Sfk,SHC1,sialic acids,SRC,STAT3,TCR	 	8 (12)	9	 	 	 	 	 	 	 	 	 	
+ATG7	enzyme	1	 	 	0.000	1.15E-05	2.00E-04	ATG7	 	3 (1)	1	TRPM2	PI3K (family)	 	SLC2A1	ATF4	 	 	 	 	
+resimmune	biologic drug	3	 	 	0.000	1.16E-05	3.70E-03	AMPK,CD247,ERK1/2,HRAS,ITK,LAT,MAPK1,NFkB (complex),PI3K (complex),resimmune,SHC1,TCR,ZAP70	 	8 (13)	9	 	 	 	ZAP70	 	 	 	 	 	
+SIGLEC7	transmembrane receptor	3	 	 	0.000	1.23E-05	4.60E-03	CSF2,ERK1/2,Nfat (family),NFkB (complex),PI3K (complex),SHC1,SIGLEC7,TCR,ZAP70	 	8 (9)	6	TCR	 	 	 	ZAP70	 	 	 	 	
+SMAD2	transcription regulator	2	 	 	0.000	1.95E-05	5.50E-03	ERK1/2,MTOR,SKIL,SMAD2,SP1,STAT3,TGFB1	 	8 (7)	6	IL5,SDC2	NEDD4L,NOS1,SMAD6	 	 	 	 	 	 	 	
+PIK3CB	kinase	1	 	 	0.000	2.28E-05	2.00E-04	PIK3CB	 	2 (1)	1	SRC,TCR	pictilisib	 	PI3K (family),SLC2A1	 	 	 	 	 	
+ZAP70	kinase	2	 	 	0.000	2.56E-05	8.70E-03	ERK1/2,NFkB (complex),PI3K (complex),SHC1,TCR,ZAP70	 	7 (6)	5	resimmune,SRC	SIGLEC7	 	NFE2	 	 	 	 	 	
+TCR	complex	1	 	 	0.000	3.05E-05	6.00E-04	TCR	 	4 (1)	1	 	FN1	 	CSF2,GATA3,IL5,PIK3CB,PRMT1,SIGLEC7,SLC2A1,STAT4,TGFB1	BAD,SDHA	 	 	 	 	
+abatacept	biologic drug	3	 	 	0.000	3.55E-05	9.00E-03	abatacept,CD80,CD86,IDO1,IFNG,IL4,PI3K (complex)	 	8 (7)	4	 	 	 	IDO1	 	 	 	 	 	
+CD46	other	1	 	 	0.000	6.86E-05	8.00E-04	CD46	 	2 (1)	1	SRC,SYVN1	TGFB1	 	SLC2A1	 	 	 	 	 	
+L-dopa	chemical - endogenous mammalian	1	 	 	0.000	9.19E-05	5.00E-04	L-dopa	 	5 (1)	1	 	 	 	C1QTNF12,IDO1,NEDD4L,SLC2A1	PRKD3,SKP2	 	 	 	 	
+NEDD4L	enzyme	2	 	 	0.000	9.21E-05	1.62E-02	NEDD4L,PIK3R1,SGK1,SKIL,TGFB1	 	7 (5)	4	L-dopa	 	 	 	SMAD2,TGFB1	 	 	 	 	
+IDO1	enzyme	1	 	 	0.000	9.57E-05	4.00E-04	IDO1	 	2 (1)	1	abatacept,CSF2,hemin,L-dopa	2-mercaptoethanol	 	 	FCGR1A,GATA3,mir-143	 	 	 	 	
+PRMT1	enzyme	1	 	 	0.000	9.57E-05	7.00E-04	PRMT1	 	2 (1)	1	TCR	 	 	FTH1,KLF1,NFE2	 	 	 	 	 	
+FURIN	peptidase	2	 	 	0.000	1.08E-04	1.86E-02	AKT1,BMP4,ERK1/2,FURIN,MMP9,TGFB1	 	7 (6)	5	STAT4	 	 	ADAM12	 	 	 	 	 	
+SDC2	other	2	 	 	0.000	1.10E-04	1.28E-02	CSF2,MAPK1,PI3K (complex),SDC2	 	6 (4)	3	 	 	 	SMAD2	 	 	 	 	 	
+BAD	other	2	 	 	0.000	1.11E-04	5.90E-03	BAD,BAX,CSF2	 	5 (3)	2	dichloroacetic acid,STAT4	IL3,PAK4,PI3K (family),PRKCI,TCR,TGFB1	 	 	 	 	 	 	 	
+SYVN1	transporter	1	 	 	0.000	1.26E-04	8.00E-04	SYVN1	 	3 (1)	1	 	 	 	CD46,DAG1,SLC2A1	HMGCR	 	 	 	 	
+CLC	enzyme	3	 	 	0.000	1.35E-04	9.80E-03	CEBPA,CLC,HRAS,IL6ST,JAK1,JAK2,MITF,NOS2,PI3K (complex),SHC1,SP1,STAT1,STAT3,STAT4,TYK2	 	9 (15)	9	 	 	 	 	 	 	 	 	 	
+CRLF1	other	3	 	 	0.000	1.38E-04	1.03E-02	CEBPA,CRLF1,HRAS,IL6ST,JAK1,JAK2,MITF,NOS2,PI3K (complex),SHC1,SP1,STAT,STAT1,STAT3,STAT4,TYK2	 	9 (16)	9	 	 	 	 	 	 	 	 	 	
+IL5	cytokine	2	 	 	0.000	1.54E-04	2.62E-02	ERK1/2,HRAS,IL5,LYN,MAPK1,PI3K (complex)	 	7 (6)	6	GATA3,TCR	dichloroacetic acid,ganglioside GD1b,hemin,PPIA	 	ATF4,CA4,CSF2RB,EIF4EBP1,Ggt,HMGCR,NFE2,SLC2A1,SMAD2	 	 	 	 	 	
+8-epi-prostaglandin F2alpha	chemical - endogenous mammalian	3	 	 	0.000	1.56E-04	3.70E-03	8-epi-prostaglandin F2alpha,EDN1,HRAS,MITF,MMP9,MYC,SHC1,SP1,TGFB1,VEGFA	 	9 (10)	9	 	hemin	 	 	 	 	 	 	 	
+WSB1	enzyme	2	 	 	0.000	1.86E-04	3.50E-03	HIPK2,VHL,WSB1	 	3 (3)	2	 	 	 	 	VHL	 	 	 	 	
+CSF2	cytokine	1	 	 	0.000	1.96E-04	5.20E-03	CSF2	 	4 (1)	1	ELANE,FN1,IL3,RET,SRC,TCR	caffeic acid phenethyl ester,hemin	 	CD38,collagen,CSF1,CSF2RB,EIF4EBP1,Ggt,HMGCR,IDO1,NFE2,SLC2A1,SLC2A4	FCGR1A,KLF1	 	 	 	 	
+FCGR1A	transmembrane receptor	2	 	 	0.000	2.21E-04	1.59E-02	ERK1/2,FCGR1A,LYN,PI3K (family),SHC1	 	5 (5)	4	 	CSF2,IDO1,TGFB1	 	PI3K (family)	 	 	 	 	 	
+nintedanib	chemical drug	2	 	 	0.000	2.33E-04	6.40E-03	FLT1,LYN,nintedanib,SRC	 	4 (4)	3	 	 	 	 	SRC	 	 	 	 	
+TGFB1	growth factor	1	 	 	0.000	2.45E-04	2.16E-02	TGFB1	 	6 (1)	1	4-hydroxynonenal,caffeic acid phenethyl ester,ferric chloride,TCR	MMP8,NEDD4L,SMPD1	 	ADAM12,Alpha 1 antitrypsin,collagen,CSF1,EIF4EBP1,FLNA,mir-143,NOX4,PINK1,SLC2A1,SRC	APOC2,BAD,CD46,FCGR1A,FTH1,GATA3,HEXIM1,STAT4	 	 	 	 	
+CER1	cytokine	3	 	 	0.000	2.76E-04	2.38E-02	BMP,BMP2,BMP4,CER1,ERK1/2,FLT1,NFkB (complex),Wnt	 	6 (8)	5	 	 	 	 	 	 	 	 	 	
+CSF2RB	transmembrane receptor	2	 	 	0.000	3.51E-04	4.15E-02	AKT1,CSF2RB,IRS2,LYN,MAPK1,NFkB (complex),PI3K (complex),SHC1,STAT3,STAT5A	 	6 (10)	9	CD38,CSF2,IL3,IL5,SRC	 	 	 	 	 	 	 	 	
+CDH16	enzyme	3	 	 	0.000	3.57E-04	4.70E-03	AKT1,CDH16,CEBPA,CEBPB,EGR1,ERK1/2,ESR1,GATA1,HRAS,MAP2K1/2,MITF,MTOR,MYC,NFE2L2,NFkB (complex),PGR,PI3K (complex),RAF1,RICTOR,RPS6KA1,SGK1,SHC1,Stat3-Stat3,TNFSF11	 	10 (24)	20	 	 	 	 	 	 	 	 	 	
+Stat3-Stat3	complex	3	 	 	0.000	4.12E-04	2.12E-02	CDKN1A,CEBPA,F2,HIRA,MYC,PI3K (complex),SP1,STAT3,Stat3-Stat3	 	9 (9)	9	 	 	 	 	 	 	 	 	 	
+USP37	peptidase	3	 	 	0.000	4.19E-04	2.57E-02	CDKN1B,CEBPB,F2,HRAS,MYC,RARA,SP1,tretinoin,USP37	 	9 (9)	6	 	 	 	 	 	 	 	 	 	
+PI 3-kinase inhibitor	chemical drug	2	 	 	0.000	4.42E-04	2.38E-02	AKT1,CEBPB,MAPK1,NOS2,PI 3-kinase inhibitor,PI3K (family)	 	5 (6)	5	 	 	 	 	PI3K (family)	 	 	 	 	
+ABCB6	transporter	1	 	 	0.000	4.50E-04	2.80E-03	ABCB6	 	2 (1)	1	hemin	 	 	 	KLF1	 	 	 	 	
+aldesleukin	biologic drug	3	 	 	0.000	5.03E-04	4.96E-02	aldesleukin,ERK1/2,HRAS,IL2,IL2RA,IL2RB,IL2RG,PI3K (complex),SHC1,STAT3,STAT5A,STAT6	 	6 (12)	8	 	 	 	IFNGR2	 	 	 	 	 	
+Z-Asp-2,6-dichlorobenzoyl-oxymethylketone	chemical toxicant	3	 	 	0.000	5.25E-04	4.29E-02	BAX,BID,CASP3,DICER1,IL18,LPL,NFkB (complex),PI3K (complex),PRKCD,Z-Asp-2,6-dichlorobenzoyl-oxymethylketone	 	6 (10)	8	 	 	 	 	 	 	 	 	 	
+MMP8	peptidase	3	 	 	0.000	5.59E-04	5.00E-03	CEBPA,CEBPB,CXCL8,EGFR,EGR1,ERK1/2,ESR1,GATA1,HRAS,hydrogen peroxide,Interferon alpha,MITF,MMP8,MYC,NFE2L2,NFkB (complex),PGR,PI3K (complex),PI3K (family),SGK1,SHC1,Stat3-Stat3	 	10 (22)	20	 	 	 	 	TGFB1	 	 	 	 	
+STAT4	transcription regulator	2	 	 	0.000	5.61E-04	4.69E-02	IFNG,STAT3,STAT4	 	6 (3)	3	TCR	TGFB1	 	ATF4,BAD,FURIN,MATK,PPP1R13L	 	 	 	 	 	
+GATA3	transcription regulator	2	 	 	0.000	5.75E-04	4.50E-02	GATA3,IFNG,IL10,STAT4	 	6 (4)	3	TCR	IDO1,TGFB1	 	IL3,IL5	 	 	 	 	 	
+CD47	transmembrane receptor	2	 	 	0.000	5.90E-04	9.30E-03	CD47,Cdc42,LYN	 	3 (3)	3	 	 	 	CSF1	 	 	 	 	 	
+IFNGR2	transmembrane receptor	3	 	 	0.000	6.31E-04	3.42E-02	CEBPA,HRAS,IFNGR2,JAK1,JAK2,NOS2,PI3K (complex),SHC1,SP1,STAT1,STAT3,STAT4	 	8 (12)	8	aldesleukin	 	 	 	 	 	 	 	 	
+Ifnz (includes others)	cytokine	3	 	 	0.000	6.59E-04	3.52E-02	CEBPA,HRAS,Ifnz (includes others),JAK1,JAK2,NOS2,PI3K (complex),SHC1,SP1,STAT1,STAT3,STAT4,TYK2	 	8 (13)	8	 	 	 	 	 	 	 	 	 	
+CSF1	cytokine	2	 	 	0.000	6.77E-04	3.52E-02	CSF1,ERK1/2,HRAS,LYN,MAP2K1,MAPK1,MITF,NFkB (complex),PI3K (complex),SHC1,SMPD1,SRC,TNF	 	8 (13)	13	CD47,CSF2,IL3,Pdgfra-Pdgfrb,RET,TGFB1	 	 	EIF4EBP1,FN1,HMGCR,SLC2A1,SRC	SMPD1	 	 	 	 	
+RET	kinase	2	 	 	0.000	6.97E-04	4.26E-02	AKT1,ATF4,ELK1,ESR1,HRAS,MTOR,PI3K (complex),RET,SHC1,SRC,STAT3	 	7 (11)	10	 	 	 	ATF4,CSF1,CSF2	 	 	 	 	 	
+BAG2	other	1	 	 	0.000	7.36E-04	1.50E-03	BAG2	 	1 (1)	1	 	 	 	PINK1	 	 	 	 	 	
+CDC42BPB	kinase	1	 	 	0.000	7.36E-04	1.50E-03	CDC42BPB	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+GSE1	other	1	 	 	0.000	7.36E-04	4.90E-03	GSE1	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+Ggt	group	1	 	 	0.000	7.36E-04	4.90E-03	Ggt	 	1 (1)	1	CSF2,IL5	 	 	 	 	 	 	 	 	
+NBR2	other	1	 	 	0.000	7.36E-04	5.40E-03	NBR2	 	1 (1)	1	phenformin	 	 	SLC2A1	 	 	 	 	 	
+SLC2A12	transporter	1	 	 	0.000	7.36E-04	7.00E-04	SLC2A12	 	1 (1)	1	 	SLC2A4	 	 	 	 	 	 	 	
+azide	chemical reagent	1	 	 	0.000	7.36E-04	5.40E-03	azide	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+SERPINC1	enzyme	2	 	 	0.000	7.39E-04	4.92E-02	F2,NFkB (complex),NFKBIA,NOS2,SERPINC1	 	5 (5)	4	 	 	 	 	 	 	 	 	 	
+ganglioside GD1b	chemical - endogenous mammalian	3	 	 	0.000	7.53E-04	8.00E-03	CASP3,CEBPA,CEBPB,EGR1,ERK1/2,ESR1,FGF2,ganglioside GD1b,GATA1,HRAS,IL18,MITF,MYC,NFE2L2,NFkB (complex),P38 MAPK,PGR,PI3K (complex),SGK1,SHC1,Stat3-Stat3	 	10 (21)	18	 	 	 	 	IL5	 	 	 	 	
+hispidulin	chemical drug	2	 	 	0.000	7.76E-04	2.78E-02	advanced glycation end-products,ERK1/2,hispidulin,MTOR,PI3K (complex)	 	4 (5)	4	 	 	 	 	 	 	 	 	 	
+bumetanide	chemical drug	3	 	 	0.000	7.84E-04	8.40E-03	bumetanide,CASP3,CEBPA,CEBPB,EGFR,EGR1,ERK1/2,ESR1,GATA1,HRAS,IL18,MITF,MYC,NFE2L2,NFkB (complex),PGR,PI3K (complex),PI3K (family),SGK1,SHC1,Stat3-Stat3	 	10 (21)	19	 	 	 	 	 	 	 	 	 	
+PINK1	kinase	3	 	 	0.000	8.42E-04	2.57E-02	APLN,BAX,CASP3,DICER1,HIF1A,IL18,NOS2,PARP1,PINK1,VEGFA,VHL	 	8 (11)	8	BAG2,TGFB1	 	 	SLC2A1	EIF4EBP1	 	 	 	 	
+SP1-c-Myc	complex	2	 	 	0.000	8.50E-04	3.45E-02	MYC,SP1,SP1-c-Myc	 	5 (3)	2	 	 	 	 	 	 	 	 	 	
+pranlukast	chemical drug	3	 	 	0.000	8.53E-04	2.94E-02	AMPK,BAX,BID,CASP3,DICER1,ERK1/2,HNF4A,HRAS,IL18,Insulin,MAPK1,PGR,PI3K (complex),pranlukast,PRKCD,TP53	 	8 (16)	14	 	 	 	 	 	 	 	 	 	
+methazolamide	chemical drug	3	 	 	0.000	9.00E-04	2.08E-02	CA3,CA4,CA9,methazolamide,NFkB (complex),SRC	 	4 (6)	3	 	 	 	 	CA4	 	 	 	 	
+sulfacetamide	chemical drug	3	 	 	0.000	9.00E-04	2.08E-02	CA3,CA4,CA9,NFkB (complex),SRC,sulfacetamide	 	4 (6)	3	 	 	 	 	CA4	 	 	 	 	
+HDL-cholesterol	complex	2	 	 	0.000	9.00E-04	1.40E-02	cholesterol,EIF4EBP1,HDL-cholesterol	 	3 (3)	2	HIF1AN,nicotinic acid	SMPD1	 	 	EIF4EBP1	 	 	 	 	
+benzthiazide	chemical drug	3	 	 	0.000	9.06E-04	2.09E-02	benzthiazide,CA3,CA4,CA9,NFkB (complex),SRC	 	4 (6)	3	 	 	 	 	CA4	 	 	 	 	
+chlorthalidone	chemical drug	3	 	 	0.000	9.06E-04	2.09E-02	CA3,CA4,CA9,chlorthalidone,NFkB (complex),SRC	 	4 (6)	3	 	 	 	 	CA4	 	 	 	 	
+chlorothiazide	chemical drug	3	 	 	0.000	9.22E-04	2.13E-02	CA3,CA4,CA9,chlorothiazide,NFkB (complex),SRC	 	4 (6)	3	 	 	 	 	CA4	 	 	 	 	
+IL5	cytokine	1	 	 	0.000	1.10E-03	1.29E-02	IL5	 	3 (1)	1	GATA3,TCR	dichloroacetic acid,ganglioside GD1b,hemin,PPIA	 	ATF4,CA4,CSF2RB,EIF4EBP1,Ggt,HMGCR,NFE2,SLC2A1,SMAD2	 	 	 	 	 	
+VHL	transcription regulator	1	 	 	0.000	1.12E-03	9.60E-03	VHL	 	2 (1)	1	TRPM2	WSB1	 	FN1,FTH1	ACO1,EPAS1,HIF3A,IREB2,NOX4,PRKCI,SKP2,SLC2A1	 	 	 	 	
+nicotinic acid	chemical - endogenous mammalian	2	 	 	0.000	1.16E-03	4.03E-02	ERK1/2,NFkB (complex),nicotinic acid,TDO2	 	4 (4)	3	 	 	 	HDL-cholesterol,TDO2	 	 	 	 	 	
+(-)-isoproterenol	chemical drug	3	 	 	0.000	1.18E-03	1.03E-02	(-)-isoproterenol,CEBPA,CEBPB,EGFR,EGR1,ERK1/2,ESR1,GATA1,HRAS,MAPK1,MAPK3,MITF,MYC,NFE2L2,NFkB (complex),PGR,PI3K (complex),PI3K (family),SGK1,SHC1,SNAI2,Stat3-Stat3	 	10 (22)	20	 	 	 	 	 	 	 	 	 	
+vatalanib	chemical drug	3	 	 	0.000	1.20E-03	8.00E-03	Akt,AKT1,CASP3,CEBPA,CEBPB,EGR1,ERK1/2,ESR1,GATA1,HRAS,IL18,KDR,MITF,MYC,NFE2L2,NFkB (complex),Pdgf (complex),PGR,SGK1,SHC1,SLC2A1,Stat3-Stat3,TNFSF11,vatalanib	 	9 (24)	19	 	 	 	 	 	 	 	 	 	
+C1QTNF12	other	3	 	 	0.000	1.21E-03	8.50E-03	AKT1,C1QTNF12,CEBPA,CEBPB,EGR1,ERK1/2,ESR1,GATA1,Insulin,IRS1,MITF,MYC,NFE2L2,NFkB (complex),PGR,PI3K (complex),SGK1,SHC1,Stat3-Stat3,TNFSF11	 	9 (20)	18	L-dopa	 	 	 	 	 	 	 	 	
+PD 173958	chemical - kinase inhibitor	2	 	 	0.000	1.24E-03	1.58E-02	LYN,PD 173958,PRKCD,SRC	 	3 (4)	3	 	 	 	 	SRC	 	 	 	 	
+N-(3-(aminomethyl)benzyl)acetamidine	chemical reagent	2	 	 	0.000	1.27E-03	2.55E-02	IREB2,N-(3-(aminomethyl)benzyl)acetamidine,NOS1,NOS2	 	3 (4)	3	 	 	 	IREB2	NOS1	 	 	 	 	
+GCG	other	1	 	 	0.000	1.36E-03	9.00E-03	GCG	 	2 (1)	1	 	 	 	ADP,PDX1,PPP1R3C,SLC2A1,SLC2A4,SRC	EIF4EBP1	 	 	 	 	
+hemin	chemical - endogenous mammalian	1	 	 	0.000	1.40E-03	7.20E-03	hemin	 	2 (1)	1	 	 	 	ABCB6,FTH1,IDO1,SLC2A4	8-epi-prostaglandin F2alpha,ACO1,CSF2,IL5	 	 	 	 	
+bazedoxifene	chemical drug	3	 	 	0.000	1.43E-03	1.91E-02	AKT1,bazedoxifene,CEBPA,ERK1/2,ESR1,estrogen receptor,GATA1,MITF,MYC,PI3K (complex),SGK1,TNFSF11	 	9 (12)	10	 	 	 	 	 	 	 	 	 	
+bosutinib	chemical drug	2	 	 	0.000	1.45E-03	2.14E-02	ABL1,bosutinib,LYN,SRC	 	3 (4)	3	 	 	 	 	SRC	 	 	 	 	
+8-aminoadenosine	chemical reagent	1	 	 	0.000	1.47E-03	9.10E-03	8-aminoadenosine	 	1 (1)	1	 	 	 	 	EIF4EBP1,SLC2A1,SLC2A4	 	 	 	 	
+Alpha 1 antitrypsin	group	1	 	 	0.000	1.47E-03	1.50E-03	Alpha 1 antitrypsin	 	1 (1)	1	TGFB1	 	 	 	ELANE	 	 	 	 	
+SNED1	other	1	 	 	0.000	1.47E-03	9.10E-03	SNED1	 	1 (1)	1	 	 	 	SLC2A1,SLC2A4	 	 	 	 	 	
+TXNDC5	enzyme	1	 	 	0.000	1.47E-03	1.50E-03	TXNDC5	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+dimethyl succinate	chemical - endogenous mammalian	1	 	 	0.000	1.47E-03	1.06E-02	dimethyl succinate	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+gliclazide	chemical drug	1	 	 	0.000	1.47E-03	7.30E-03	gliclazide	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+glucose oxidase	group	1	 	 	0.000	1.47E-03	1.07E-02	glucose oxidase	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+Il18r	complex	2	 	 	0.000	1.53E-03	1.45E-02	Il18r,PI3K (complex),SRC	 	3 (3)	2	 	 	 	SRC	 	 	 	 	 	
+ADAM12	peptidase	2	 	 	0.000	1.63E-03	1.81E-02	ADAM12,PI3K (complex),SRC	 	3 (3)	2	FURIN,TGFB1	 	 	SRC	 	 	 	 	 	
+TTK	kinase	3	 	 	0.000	1.66E-03	4.74E-02	CDK2,CEBPA,CEBPB,L-threonine,L-tyrosine,MYC,PGR,PI3K (complex),RICTOR,SNAI2,SP1,TP53,TTK	 	9 (13)	9	 	 	 	 	 	 	 	 	 	
+glycosphingolipid	chemical - other	2	 	 	0.000	1.71E-03	1.29E-02	glycosphingolipid,LYN,Secretase gamma	 	2 (3)	2	 	 	 	 	 	 	 	 	 	
+GP130 dimer	complex	3	 	 	0.000	1.84E-03	4.87E-02	AKT1,CEBPB,ELK1,ESR1,GP130 dimer,HRAS,IL6ST,MITF,MTOR,MYC,NFkB (complex),PI3K (complex),RAS,SRF,STAT3,STAT5A,TSC2	 	8 (17)	14	 	 	 	 	 	 	 	 	 	
+MATK	kinase	2	 	 	0.000	1.87E-03	4.41E-02	LYN,MATK,SRC	 	3 (3)	2	STAT4	 	 	 	SRC	 	 	 	 	
+benzamidine	chemical - protease inhibitor	3	 	 	0.000	1.88E-03	4.46E-02	ACPP,benzamidine,ERBB2,ERK1/2,GZMK,KLK3,PI3K (complex),PLAU,SHC1	 	4 (9)	5	 	 	 	 	 	 	 	 	 	
+PTGER3	G-protein coupled receptor	3	 	 	0.000	1.90E-03	2.29E-02	CEBPA,CEBPB,EGR1,ERK1/2,GATA1,HRAS,MAPK1,MAPK3,MITF,MYC,NFE2L2,PI3K (complex),PTGER3,RHOA,SGK1,SHC1,SNAI2,SP1,Stat3-Stat3	 	9 (19)	16	PDX1	 	 	 	 	 	 	 	 	
+nonylphenol	chemical toxicant	3	 	 	0.000	1.98E-03	2.57E-02	Akt,ESR1,GATA1,Jnk,Mapk,MAPK1,MITF,nonylphenol,PDX1,RICTOR,SNAI2	 	8 (11)	8	 	 	 	 	 	 	 	 	 	
+Pdgfra-Pdgfrb	complex	2	 	 	0.000	2.20E-03	2.52E-02	Pdgfra-Pdgfrb,PI3K (complex),SPHK1,SRC	 	3 (4)	3	 	 	 	CSF1,SRC	 	 	 	 	 	
+PRKD3	kinase	3	 	 	0.000	2.20E-03	1.59E-02	Akt,CEBPA,CEBPB,EGR1,ERK,ERK1/2,ESR1,GATA1,MITF,MTORC1,MYC,NFE2L2,NFkB (complex),NOS2,PDX1,PGR,PI3K (complex),PRKD3,RICTOR,RPS6KB1,RTKN,SGK1,SHC1,SLC2A1,Stat3-Stat3	 	9 (25)	20	 	L-dopa	 	 	 	 	 	 	 	
+CTNS	transporter	1	 	 	0.000	2.21E-03	2.60E-03	CTNS	 	1 (1)	1	 	 	 	TFEB	 	 	 	 	 	
+FTMT	enzyme	1	 	 	0.000	2.21E-03	8.50E-03	FTMT	 	1 (1)	1	 	 	 	 	FTH1	 	 	 	 	
+PPP1R3C	phosphatase	1	 	 	0.000	2.21E-03	5.40E-03	PPP1R3C	 	1 (1)	1	GCG	 	 	 	SLC2A1	 	 	 	 	
+SDHA	enzyme	1	 	 	0.000	2.21E-03	9.10E-03	SDHA	 	1 (1)	1	 	PDX1,TCR	 	 	SLC2A1,SLC2A4	 	 	 	 	
+SLC48A1	transporter	1	 	 	0.000	2.21E-03	1.38E-02	SLC48A1	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+ethyl-3-trifluoromethylbenzyl-alpha-ketoglutarate	chemical reagent	1	 	 	0.000	2.21E-03	1.05E-02	ethyl-3-trifluoromethylbenzyl-alpha-ketoglutarate	 	1 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+interferon beta-1b	biologic drug	1	 	 	0.000	2.21E-03	4.70E-03	interferon beta-1b	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+RAPGEF2	other	3	 	 	0.000	2.23E-03	2.40E-02	CEBPA,CEBPB,EGR1,ELK1,ERK1/2,ESR1,GATA1,HRAS,MITF,MYC,NFE2L2,NFkB (complex),PGR,PI3K (complex),RAPGEF2,RAS,SGK1,SHC1,Stat3-Stat3	 	9 (19)	17	 	 	 	 	 	 	 	 	 	
+SRC	kinase	1	 	 	0.000	2.31E-03	8.80E-03	SRC	 	2 (1)	1	ADAM12,CSF1,GCG,Il18r,IL3,NOX4,Pdgfra-Pdgfrb,TGFB1,xanthine	bosutinib,MATK,nintedanib,PD 173958	 	CD46,CSF2,CSF2RB,DAG1,PIK3CB,SLC2A1,ZAP70	NOS1	 	 	 	 	
+L-tryptophan	chemical - endogenous mammalian	2	 	 	0.000	2.34E-03	3.22E-02	L-tryptophan,MTOR,PI3K (complex)	 	3 (3)	3	 	TDO2	 	 	 	 	 	 	 	
+caffeic acid phenethyl ester	chemical drug	1	 	 	0.000	2.36E-03	1.43E-02	caffeic acid phenethyl ester	 	2 (1)	1	 	 	 	FTH1,TGFB1	CSF2	 	 	 	 	
+nitroglycerin	chemical drug	2	 	 	0.000	2.39E-03	3.79E-02	ALDH2,MMP9,nitroglycerin,NOS1,XDH	 	3 (5)	4	 	 	 	 	NOS1	 	 	 	 	
+HMGCR	enzyme	3	 	 	0.000	2.59E-03	3.98E-02	CASP3,CEBPA,ERK1/2,F2,GATA1,HMGCR,HRAS,IL18,MYC,PI3K (complex),RAS	 	7 (11)	7	CSF1,CSF2,IL5	hydroxypropyl-beta-cyclodextrin,SYVN1	 	 	 	 	 	 	 	
+NKX2-5	transcription regulator	2	 	 	0.000	2.73E-03	3.34E-02	GATA1,NKX2-5,SRF	 	3 (3)	2	 	 	 	 	 	 	 	 	 	
+DISC1	other	2	 	 	0.000	2.85E-03	3.52E-02	ATF4,DISC1,ERK1/2	 	3 (3)	2	 	 	 	 	ATF4	 	 	 	 	
+HCAR1	G-protein coupled receptor	1	 	 	0.000	2.94E-03	1.62E-02	HCAR1	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+PAK4	kinase	1	 	 	0.000	2.94E-03	8.90E-03	PAK4	 	1 (1)	1	 	 	 	 	BAD	 	 	 	 	
+TDO2	enzyme	1	 	 	0.000	2.94E-03	6.20E-03	TDO2	 	1 (1)	1	nicotinic acid	 	 	 	L-tryptophan	 	 	 	 	
+firtecan pegol	chemical drug	1	 	 	0.000	2.94E-03	1.18E-02	firtecan pegol	 	1 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+methylamine	chemical - endogenous mammalian	1	 	 	0.000	2.94E-03	5.40E-03	methylamine	 	1 (1)	1	 	 	 	FN1,SLC2A1	 	 	 	 	 	
+phenformin	chemical drug	1	 	 	0.000	2.94E-03	1.43E-02	phenformin	 	1 (1)	1	 	 	 	NBR2,SLC2A1	ATF4	 	 	 	 	
+PI3K (family)	group	1	 	 	0.000	2.96E-03	1.29E-02	PI3K (family)	 	2 (1)	1	FCGR1A,PIK3CB	PI 3-kinase inhibitor	 	FTH1,SLC2A1	ATG7,BAD	 	 	 	 	
+PDX1	transcription regulator	1	 	 	0.000	3.67E-03	2.34E-02	PDX1	 	2 (1)	1	GCG	 	 	ATF4,PTGER3,SLC2A1,TFAM	SDHA	 	 	 	 	
+rebastinib	chemical drug	2	 	 	0.000	3.67E-03	2.47E-02	ABL1,LYN,rebastinib	 	2 (3)	2	 	 	 	 	 	 	 	 	 	
+ABCB7	transporter	1	 	 	0.000	3.67E-03	1.08E-02	ABCB7	 	1 (1)	1	 	 	 	ACO1,FTH1	 	 	 	 	 	
+CDR2	other	1	 	 	0.000	3.67E-03	1.78E-02	CDR2	 	1 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+PINK1	kinase	1	 	 	0.000	3.67E-03	1.15E-02	PINK1	 	1 (1)	1	BAG2,TGFB1	 	 	SLC2A1	EIF4EBP1	 	 	 	 	
+ferric chloride	chemical toxicant	1	 	 	0.000	3.67E-03	1.20E-02	ferric chloride	 	1 (1)	1	 	 	 	FTH1,TGFB1	 	 	 	 	 	
+glimepiride	chemical drug	1	 	 	0.000	3.67E-03	1.78E-02	glimepiride	 	1 (1)	1	 	 	 	SLC2A1,SLC2A4	 	 	 	 	 	
+histidinol	chemical - endogenous mammalian	1	 	 	0.000	3.67E-03	1.51E-02	histidinol	 	1 (1)	1	 	 	 	ATF4	 	 	 	 	 	
+temsirolimus	chemical drug	1	 	 	0.000	3.67E-03	1.10E-02	temsirolimus	 	1 (1)	1	 	 	 	 	EIF4EBP1,SLC2A1	 	 	 	 	
+ATF4	transcription regulator	1	 	 	0.000	4.15E-03	2.26E-02	ATF4	 	2 (1)	1	histidinol,IL5,PDX1,RET,STAT4	ATG7,DISC1,phenformin	 	APBA3,EIF4EBP1,NOX4	 	 	 	 	 	
+HDAC5	transcription regulator	2	 	 	0.000	4.16E-03	4.73E-02	GATA1,HDAC5,MYOD1	 	3 (3)	2	TRPM2	 	 	 	SLC2A4	 	 	 	 	
+EPAS1	transcription regulator	1	 	 	0.000	4.27E-03	3.38E-02	EPAS1	 	2 (1)	1	NOX4	HIF3A,Irp,TRPM2,VHL	 	FN1,SLC2A1	SLC2A4	 	 	 	 	
+TPOR dimer	complex	2	 	 	0.000	4.40E-03	2.10E-02	IRS2,SHC1,TPOR dimer	 	2 (3)	2	 	 	 	 	 	 	 	 	 	
+APBA3	transporter	1	 	 	0.000	4.41E-03	9.90E-03	APBA3	 	1 (1)	1	ATF4	 	 	SLC2A1	 	 	 	 	 	
+Cbp/p300-Maf-Nfe2l2	complex	1	 	 	0.000	4.41E-03	1.09E-02	Cbp/p300-Maf-Nfe2l2	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+WDFY2	other	1	 	 	0.000	4.41E-03	1.69E-02	WDFY2	 	1 (1)	1	 	 	 	SLC2A1,SLC2A4	 	 	 	 	 	
+miR-133a-3p (and other miRNAs w/seed UUGGUCC)	mature microRNA	2	 	 	0.000	4.53E-03	4.43E-02	AKT1,ERK1/2,miR-133a-3p (and other miRNAs w/seed UUGGUCC)	 	3 (3)	3	 	 	 	 	SLC2A4	 	 	 	 	
+5'-guanylylimidodiphosphate	chemical reagent	2	 	 	0.000	4.59E-03	2.94E-02	5'-guanylylimidodiphosphate,ACO1,ANXA7	 	2 (3)	2	 	 	 	 	ACO1	 	 	 	 	
+vinorelbine	chemical drug	3	 	 	0.000	5.03E-03	4.54E-02	AMPK,CASP3,DICER1,ESR1,HRAS,IL18,Insulin,PGR,PI3K (complex),STK11,vinorelbine	 	7 (11)	8	 	 	 	 	 	 	 	 	 	
+2-mercaptoethanol	chemical - endogenous mammalian	1	 	 	0.000	5.14E-03	1.26E-02	2-mercaptoethanol	 	1 (1)	1	 	 	 	SLC2A1	IDO1	 	 	 	 	
+ABL2	kinase	1	 	 	0.000	5.14E-03	1.43E-02	ABL2	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+ACO1	enzyme	1	 	 	0.000	5.14E-03	1.31E-02	ACO1	 	1 (1)	1	ABCB7	5'-guanylylimidodiphosphate,ferric ammonium citrate,hemin,VHL	 	 	FTH1	 	 	 	 	
+CCNT1	transcription regulator	1	 	 	0.000	5.14E-03	1.44E-02	CCNT1	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+CTSE	peptidase	1	 	 	0.000	5.14E-03	1.02E-02	CTSE	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+LRP2	transporter	1	 	 	0.000	5.14E-03	2.14E-02	LRP2	 	1 (1)	1	CLCN5	 	 	 	 	 	 	 	 	
+pictilisib	chemical drug	1	 	 	0.000	5.14E-03	1.52E-02	pictilisib	 	1 (1)	1	 	 	 	TFEB	PIK3CB,SLC2A1	 	 	 	 	
+CD38	enzyme	1	 	 	0.000	5.39E-03	2.35E-02	CD38	 	2 (1)	1	CSF2	 	 	CSF2RB,EIF4EBP1,SLC2A1	 	 	 	 	 	
+IL3	cytokine	1	 	 	0.000	5.81E-03	3.53E-02	IL3	 	2 (1)	1	GATA3	 	 	CSF1,CSF2,CSF2RB,EIF4EBP1,SLC2A1,SRC	ADP,BAD	 	 	 	 	
+collagen	group	1	 	 	0.000	5.87E-03	1.56E-02	collagen	 	1 (1)	1	CSF2,FLNA,TGFB1	 	 	 	 	 	 	 	 	
+APOC2	transporter	2	 	 	0.000	6.48E-03	3.33E-02	APOC2,LPL,MAP2K1	 	2 (3)	2	 	TGFB1	 	 	 	 	 	 	 	
+FN1	enzyme	1	 	 	0.000	6.48E-03	3.64E-02	FN1	 	2 (1)	1	CSF1,EPAS1,methylamine,NOX4,VHL	 	 	CSF2,SKP2	FLNA,TCR	 	 	 	 	
+FTH1	enzyme	1	 	 	0.000	6.60E-03	1.65E-02	FTH1	 	1 (1)	1	ABCB7,caffeic acid phenethyl ester,CARM1,etoposide,ferric ammonium citrate,ferric chloride,hemin,PI3K (family),PRMT1,VHL	ACO1,FTMT,IREB2,TGFB1	 	 	 	 	 	 	 	
+HBP1	transcription regulator	1	 	 	0.000	6.60E-03	2.13E-02	HBP1	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+IREB2	translation regulator	1	 	 	0.000	6.60E-03	2.31E-02	IREB2	 	1 (1)	1	N-(3-(aminomethyl)benzyl)acetamidine	ferric ammonium citrate,VHL	 	 	FTH1	 	 	 	 	
+Irp	group	1	 	 	0.000	6.60E-03	2.43E-02	Irp	 	1 (1)	1	 	 	 	 	EPAS1	 	 	 	 	
+SLC2A1	transporter	1	 	 	0.000	6.60E-03	1.39E-02	SLC2A1	 	1 (1)	1	2-mercaptoethanol,AIMP2,APBA3,astressin 2B,ATG7,azide,Calcineurin A,CCNT1,CD38,CD46,CRHR1,CSF1,CSF2,DAG1,EPAS1,GCG,gliclazide,glimepiride,glucose oxidase,glyburide,IL3,IL5,isoprenaline,KDM8,L-dopa,methylamine,MLIP,NBR2,NOS1,NOX4,PDX1,phenformin,PI3K (family),PIK3CB,PINK1,SKP2,SLC48A1,SNED1,SRC,ST6GAL1,SYVN1,TCR,TGFB1,TRPM2,WDFY2,xanthine	8-aminoadenosine,batimastat,CDR2,CRHR2,dichloroacetic acid,EIF4EBP1,ENPP2,ethyl-3-trifluoromethylbenzyl-alpha-ketoglutarate,etoposide,firtecan pegol,HEXIM1,HIF1AN,HIF3A,indican,mir-143,pictilisib,PPP1R13L,PPP1R3C,SDHA,selumetinib,SLC2A4,SORT1,temsirolimus,topotecan,VHL	 	 	 	 	 	 	 	
+ST6GAL1	enzyme	1	 	 	0.000	6.60E-03	1.85E-02	ST6GAL1	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+astressin 2B	biologic drug	1	 	 	0.000	6.60E-03	1.38E-02	astressin 2B	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+cysteamine	chemical drug	1	 	 	0.000	6.60E-03	1.43E-02	cysteamine	 	1 (1)	1	 	 	 	CA4	 	 	 	 	 	
+etoposide	chemical drug	1	 	 	0.000	7.09E-03	4.29E-02	etoposide	 	2 (1)	1	 	 	 	BID,FTH1	EIF4EBP1,SLC2A1	 	 	 	 	
+KDM8	enzyme	1	 	 	0.000	7.33E-03	3.13E-02	KDM8	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+topotecan	chemical drug	1	 	 	0.000	7.41E-03	2.67E-02	topotecan	 	2 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+AIMP2	other	1	 	 	0.000	8.06E-03	3.20E-02	AIMP2	 	1 (1)	1	 	 	 	SLC2A1,SLC2A4	 	 	 	 	 	
+CA074-methyl ester	chemical reagent	1	 	 	0.000	8.06E-03	2.30E-02	CA074-methyl ester	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+PPIA	enzyme	1	 	 	0.000	8.06E-03	3.39E-02	PPIA	 	1 (1)	1	 	 	 	 	IL5	 	 	 	 	
+SORT1	G-protein coupled receptor	1	 	 	0.000	8.06E-03	2.45E-02	SORT1	 	1 (1)	1	 	 	 	SLC2A4	SLC2A1	 	 	 	 	
+TAS1R3	G-protein coupled receptor	1	 	 	0.000	8.06E-03	2.04E-02	TAS1R3	 	1 (1)	1	 	 	 	EIF4EBP1	 	 	 	 	 	
+ferric ammonium citrate	chemical drug	1	 	 	0.000	8.06E-03	2.16E-02	ferric ammonium citrate	 	1 (1)	1	 	 	 	FTH1	ACO1,IREB2	 	 	 	 	
+teriflunomide	chemical drug	1	 	 	0.000	8.06E-03	1.95E-02	teriflunomide	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+NFE2	transcription regulator	1	 	 	0.000	8.79E-03	3.12E-02	NFE2	 	1 (1)	1	BET,CSF2,IL5,PRMT1,ZAP70	 	 	KLF1	 	 	 	 	 	
+DAG1	transmembrane receptor	1	 	 	0.000	9.52E-03	3.18E-02	DAG1	 	1 (1)	1	SRC,SYVN1	 	 	NOS1,SLC2A1	 	 	 	 	 	
+HIF3A	transcription regulator	1	 	 	0.000	9.52E-03	3.25E-02	HIF3A	 	1 (1)	1	 	VHL	 	 	EPAS1,SLC2A1	 	 	 	 	
+SMPD1	enzyme	1	 	 	0.000	9.52E-03	1.68E-02	SMPD1	 	1 (1)	1	 	CSF1	 	 	HDL-cholesterol,TGFB1	 	 	 	 	
+ADP	chemical - endogenous mammalian	1	 	 	0.000	1.03E-02	2.10E-02	ADP	 	1 (1)	1	GCG	ammonium chloride,IL3	 	 	 	 	 	 	 	
+BET	group	1	 	 	0.000	1.03E-02	3.45E-02	BET	 	1 (1)	1	 	 	 	KLF1,NFE2	 	 	 	 	 	
+CLCN5	ion channel	1	 	 	0.000	1.03E-02	1.76E-02	CLCN5	 	1 (1)	1	 	 	 	LRP2	 	 	 	 	 	
+ENPP2	enzyme	1	 	 	0.000	1.03E-02	2.20E-02	ENPP2	 	1 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+HIRA	transcription regulator	1	 	 	0.000	1.03E-02	3.32E-02	HIRA	 	1 (1)	1	 	 	 	KLF1	 	 	 	 	 	
+PNN	other	1	 	 	0.000	1.03E-02	2.59E-02	PNN	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+xanthine	chemical - endogenous mammalian	1	 	 	0.000	1.03E-02	3.58E-02	xanthine	 	1 (1)	1	 	 	 	SLC2A1,SRC	 	 	 	 	 	
+CRHR1	G-protein coupled receptor	1	 	 	0.000	1.10E-02	3.32E-02	CRHR1	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+HEXIM1	transcription regulator	1	 	 	0.000	1.10E-02	2.48E-02	HEXIM1	 	1 (1)	1	 	TGFB1	 	 	SLC2A1	 	 	 	 	
+SMAD6	transcription regulator	1	 	 	0.000	1.10E-02	3.11E-02	SMAD6	 	1 (1)	1	 	 	 	 	KLF1,SMAD2	 	 	 	 	
+glyburide	chemical drug	1	 	 	0.000	1.10E-02	3.23E-02	glyburide	 	1 (1)	1	 	 	 	SLC2A1	 	 	 	 	 	
+isoprenaline	chemical drug	1	 	 	0.000	1.10E-02	2.30E-02	isoprenaline	 	1 (1)	1	 	 	 	SLC2A1	SLC2A4	 	 	 	 	
+pomalidomide	chemical drug	1	 	 	0.000	1.10E-02	3.92E-02	pomalidomide	 	1 (1)	1	 	 	 	 	KLF1	 	 	 	 	
+selumetinib	chemical drug	1	 	 	0.000	1.10E-02	1.59E-02	selumetinib	 	1 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+Calcineurin A	group	1	 	 	0.000	1.17E-02	4.13E-02	Calcineurin A	 	1 (1)	1	 	 	 	SLC2A1,SLC2A4	 	 	 	 	 	
+HIF1AN	enzyme	1	 	 	0.000	1.17E-02	3.60E-02	HIF1AN	 	1 (1)	1	 	 	 	HDL-cholesterol	SLC2A1	 	 	 	 	
+batimastat	chemical - protease inhibitor	1	 	 	0.000	1.17E-02	3.84E-02	batimastat	 	1 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+KLF1	transcription regulator	1	 	 	0.000	1.24E-02	3.83E-02	KLF1	 	1 (1)	1	BET,BMPR1B,HIRA,NFE2,PRMT1	ABCB6,CSF2,pomalidomide,SMAD6	 	 	 	 	 	 	 	
+BID	other	1	 	 	0.000	1.32E-02	4.06E-02	BID	 	1 (1)	1	etoposide	 	 	 	 	 	 	 	 	
+FLNA	other	1	 	 	0.000	1.32E-02	4.19E-02	FLNA	 	1 (1)	1	TGFB1	FN1	 	collagen	 	 	 	 	 	
+NTN1	other	1	 	 	0.000	1.32E-02	2.02E-02	NTN1	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+SKP2	enzyme	1	 	 	0.000	1.32E-02	3.87E-02	SKP2	 	1 (1)	1	FN1	L-dopa,VHL	 	SLC2A1	 	 	 	 	 	
+mir-143	microRNA	1	 	 	0.000	1.32E-02	4.18E-02	mir-143	 	1 (1)	1	TGFB1	IDO1	 	 	SLC2A1	 	 	 	 	
+CRHR2	G-protein coupled receptor	1	 	 	0.000	1.39E-02	4.63E-02	CRHR2	 	1 (1)	1	 	 	 	 	SLC2A1	 	 	 	 	
+NOS1	enzyme	1	 	 	0.000	1.39E-02	3.73E-02	NOS1	 	1 (1)	1	DAG1	N-(3-(aminomethyl)benzyl)acetamidine,nitroglycerin,SRC	 	SLC2A1	SMAD2	 	 	 	 	
+BMPR1B	kinase	1	 	 	0.000	1.46E-02	4.49E-02	BMPR1B	 	1 (1)	1	 	 	 	KLF1	 	 	 	 	 	
+EIF4EBP1	translation regulator	1	 	 	0.000	1.46E-02	4.41E-02	EIF4EBP1	 	1 (1)	1	ATF4,CD38,CSF1,CSF2,IL3,IL5,NOX4,TAS1R3,TGFB1	8-aminoadenosine,etoposide,GCG,HDL-cholesterol,MLIP,PINK1,temsirolimus	 	 	SLC2A1	 	 	 	 	
+L-tryptophan	chemical - endogenous mammalian	1	 	 	0.000	1.46E-02	4.63E-02	L-tryptophan	 	1 (1)	1	 	TDO2	 	 	 	 	 	 	 	
+PPP1R13L	transcription regulator	1	 	 	0.000	1.46E-02	4.82E-02	PPP1R13L	 	1 (1)	1	STAT4	 	 	 	SLC2A1	 	 	 	 	
+PRKCI	kinase	1	 	 	0.000	1.46E-02	2.89E-02	PRKCI	 	1 (1)	1	 	VHL	 	 	BAD	 	 	 	 	
+SLC2A4	transporter	1	 	 	0.000	1.46E-02	4.25E-02	SLC2A4	 	1 (1)	1	AIMP2,Calcineurin A,CSF2,GCG,glimepiride,hemin,SNED1,SORT1,WDFY2	8-aminoadenosine,dichloroacetic acid,EPAS1,HDAC5,isoprenaline,miR-133a-3p (and other miRNAs w/seed UUGGUCC),SDHA	 	 	SLC2A1,SLC2A12	 	 	 	 	
+TFAM	transcription regulator	1	 	 	0.000	1.46E-02	4.74E-02	TFAM	 	1 (1)	1	PDX1	NOX4	 	 	 	 	 	 	 	
+ammonium chloride	chemical drug	1	 	 	0.000	1.46E-02	3.93E-02	ammonium chloride	 	1 (1)	1	 	 	 	 	ADP	 	 	 	 	
+dichloroacetic acid	chemical drug	1	 	 	0.000	1.53E-02	4.13E-02	dichloroacetic acid	 	1 (1)	1	 	 	 	BAD	IL5,SLC2A1,SLC2A4	 	 	 	 	
+CARM1	transcription regulator	1	 	 	0.000	1.75E-02	4.38E-02	CARM1	 	1 (1)	1	 	 	 	FTH1	 	 	 	 	 	
+CA4	enzyme	1	 	 	0.000	1.82E-02	2.43E-02	CA4	 	1 (1)	1	cysteamine,IL5	benzthiazide,chlorothiazide,chlorthalidone,methazolamide,sulfacetamide	 	 	 	 	 	 	 	
+indican	chemical - endogenous mammalian	1	 	 	0.000	1.90E-02	4.38E-02	indican	 	1 (1)	1	 	 	 	NOX4	SLC2A1	 	 	 	 	
+hydroxypropyl-beta-cyclodextrin	chemical drug	1	 	 	0.000	1.97E-02	3.46E-02	hydroxypropyl-beta-cyclodextrin	 	1 (1)	1	 	 	 	 	HMGCR	 	 	 	 	
+NOX4	enzyme	1	 	 	0.000	2.04E-02	4.29E-02	NOX4	 	1 (1)	1	ATF4,indican,TGFB1	VHL	 	EIF4EBP1,EPAS1,FN1,SLC2A1,SRC	TFAM	 	 	 	 	
+TRPM2	ion channel	1	 	 	0.000	2.04E-02	4.12E-02	TRPM2	 	1 (1)	1	 	 	 	ATG7,HDAC5,SLC2A1,VHL	EPAS1	 	 	 	 	
+ELANE	peptidase	1	 	 	0.000	2.47E-02	4.81E-02	ELANE	 	1 (1)	1	 	Alpha 1 antitrypsin	 	CSF2	 	 	 	 	 	
+TFEB	transcription regulator	1	 	 	0.000	2.76E-02	3.43E-02	TFEB	 	1 (1)	1	CTNS,pictilisib	 	 	 	 	 	 	 	 	
+4-hydroxynonenal	chemical toxicant	1	 	 	0.000	2.97E-02	4.99E-02	4-hydroxynonenal	 	1 (1)	1	 	 	 	TGFB1	 	 	 	 	 	
+TAF7L	transcription regulator	1	 	 	0.000	3.47E-02	4.95E-02	TAF7L	 	1 (1)	1	 	 	 	 	 	 	 	 	 	
+
+Diseases and Bio Functions for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Categories	Functions	Diseases or Functions Annotation	p-Value	Predicted Activation State	Activation z-score	Notes	Bias-corrected z-score	Molecules	# Molecules	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of L-tryptophan	2.95E-06	 	 	 	 	SLC7A5,SLC1A5	2	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	efflux	Efflux of L-amino acid	1.03E-05	 	 	 	 	SLC7A5,SLC1A5	2	
+Carbohydrate Metabolism, Cellular Function and Maintenance	glycolysis	Glycolysis of leukocyte cell lines	2.69E-05	 	 	 	 	SLC2A1,HK1	2	
+Cell-To-Cell Signaling and Interaction	adhesion	Adhesion of squamous cell carcinoma cell lines	6.64E-05	 	 	 	 	CTSB,BSG	2	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of neutral amino acid	1.34E-04	 	 	 	 	SLC7A5,SLC1A5	2	
+Carbohydrate Metabolism	glycolysis	Glycolysis of cells	1.95E-04	 	 	 	 	SLC2A1,HK1,BSG	3	
+Cancer, Organismal Injury and Abnormalities	growth	Growth of tumor	2.24E-04	 	 	 	 	SLC7A5,CTSB,SLC1A5,SLC2A1,LYL1,BSG	6	
+Endocrine System Disorders, Organismal Injury and Abnormalities	benign thyroid nodule	Benign thyroid nodule	3.59E-04	 	 	 	 	FTL,CTSB	2	
+Cellular Movement	invasion	Invasion of sarcoma cell lines	5.67E-04	 	 	 	 	CTSB,SLC2A1	2	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Development	differentiation	Arrest in differentiation of erythroid cells	7.24E-04	 	 	 	 	LYL1	1	
+Infectious Diseases	attachment	Attachment of hepatitis B virus	7.24E-04	 	 	 	 	FTL	1	
+Developmental Disorder, Hereditary Disorder, Metabolic Disease, Organismal Injury and Abnormalities	autosomal dominant L-ferritin deficiency	Autosomal dominant L-ferritin deficiency	7.24E-04	 	 	 	 	FTL	1	
+Developmental Disorder, Hereditary Disorder, Metabolic Disease, Neurological Disease, Organismal Injury and Abnormalities	autosomal recessive GLUT1 deficiency syndrome type 1	Autosomal recessive GLUT1 deficiency syndrome type 1	7.24E-04	 	 	 	 	SLC2A1	1	
+Developmental Disorder, Hereditary Disorder, Metabolic Disease, Organismal Injury and Abnormalities	autosomal recessive L-ferritin deficiency	Autosomal recessive L-ferritin deficiency	7.24E-04	 	 	 	 	FTL	1	
+Connective Tissue Disorders, Hematological Disease, Organismal Injury and Abnormalities	borderline hemoglobin A2	Borderline hemoglobin A2	7.24E-04	 	 	 	 	KLF1	1	
+Cell Death and Survival	cell death	Cell death of type 1 macrophages	7.24E-04	 	 	 	 	CTSB	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders	Charcot-Marie-Tooth disease type 4G	Charcot-Marie-Tooth disease type 4G	7.24E-04	 	 	 	 	HK1	1	
+Cardiovascular Disease, Developmental Disorder, Hematological Disease, Hereditary Disorder, Organismal Injury and Abnormalities	dyserythropoietic congenital anemia type IV	Dyserythropoietic congenital anemia type IV	7.24E-04	 	 	 	 	KLF1	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	efflux	Efflux of L-lysine	7.24E-04	 	 	 	 	SLC7A5	1	
+Carbohydrate Metabolism, Molecular Transport, Small Molecule Biochemistry	efflux	Efflux of lactic acid	7.24E-04	 	 	 	 	BSG	1	
+Cellular Compromise, Hematological System Development and Function	enucleation	Enucleation of orthochromic normoblasts	7.24E-04	 	 	 	 	KLF1	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities, Psychological Disorders	episodic choreoathetosis/spasticity	Episodic choreoathetosis/spasticity	7.24E-04	 	 	 	 	SLC2A1	1	
+Lipid Metabolism, Small Molecule Biochemistry	extraction	Extraction of cholesterol	7.24E-04	 	 	 	 	OSBP2	1	
+Cellular Assembly and Organization, Cellular Compromise	formation	Formation of ferritin inclusion body	7.24E-04	 	 	 	 	FTL	1	
+Developmental Disorder, Hereditary Disorder, Metabolic Disease, Neurological Disease, Organismal Injury and Abnormalities	glut1 deficiency syndrome type 2	Glut1 deficiency syndrome type 2	7.24E-04	 	 	 	 	SLC2A1	1	
+Infectious Diseases, Organismal Development	growth	Growth of Reoviridae	7.24E-04	 	 	 	 	CTSB	1	
+Cellular Function and Maintenance, Cellular Growth and Proliferation, Hematological System Development and Function	hemoglobinization	Hemoglobinization of erythroid cell lines	7.24E-04	 	 	 	 	KLF1	1	
+Developmental Disorder, Hematological Disease, Hereditary Disorder, Ophthalmic Disease, Organismal Injury and Abnormalities	hereditary hyperferritinemia cataract syndrome	Hereditary hyperferritinemia cataract syndrome	7.24E-04	 	 	 	 	FTL	1	
+Hematological Disease, Hereditary Disorder, Organismal Injury and Abnormalities	KLF1-related hereditary persistence of fetal hemoglobin	KLF1-related hereditary persistence of fetal hemoglobin	7.24E-04	 	 	 	 	KLF1	1	
+Cell Death and Survival, Endocrine System Disorders, Gastrointestinal Disease, Organismal Injury and Abnormalities	necrosis	Necrosis of pancreatic acinus	7.24E-04	 	 	 	 	CTSB	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities, Psychological Disorders	neurodegeneration with brain iron accumulation 3	Neurodegeneration with brain iron accumulation 3	7.24E-04	 	 	 	 	FTL	1	
+Hematological Disease, Immunological Disease, Organismal Injury and Abnormalities, Respiratory Disease	neutrophilia	Neutrophilia of lung tissue	7.24E-04	 	 	 	 	BSG	1	
+Cardiovascular Disease, Cell Death and Survival, Connective Tissue Disorders, Developmental Disorder, Hematological Disease, Hereditary Disorder, Metabolic Disease, Organismal Injury and Abnormalities	nonspherocytic hemolytic anemia due to hexokinase deficiency	Nonspherocytic hemolytic anemia due to hexokinase deficiency	7.24E-04	 	 	 	 	HK1	1	
+Cellular Assembly and Organization, Cellular Function and Maintenance	quantity	Quantity of actin-rich protrusion	7.24E-04	 	 	 	 	BSG	1	
+Cancer, Cellular Development, Cellular Growth and Proliferation, Organismal Injury and Abnormalities, Tissue Morphology, Tumor Morphology	quantity	Quantity of non-small-cell lung cancer cells	7.24E-04	 	 	 	 	CTSB	1	
+Cell Death and Survival, Hematological System Development and Function, Hematopoiesis	repopulation	Repopulation of erythroid cells	7.24E-04	 	 	 	 	LYL1	1	
+Hereditary Disorder, Ophthalmic Disease, Organismal Injury and Abnormalities	retinitis pigmentosa type 79	Retinitis pigmentosa type 79	7.24E-04	 	 	 	 	HK1	1	
+Cardiovascular Disease, Developmental Disorder, Hematological Disease, Hereditary Disorder, Metabolic Disease, Neurological Disease, Organismal Injury and Abnormalities	stomatin-deficient cryohydrocytosis	Stomatin-deficient cryohydrocytosis	7.24E-04	 	 	 	 	SLC2A1	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities	susceptibility to idiopathic generalized epilepsy type 12	Susceptibility to idiopathic generalized epilepsy type 12	7.24E-04	 	 	 	 	SLC2A1	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of leucine	7.24E-04	 	 	 	 	SLC7A5	1	
+Inflammatory Response	inflammatory response	Inflammatory response of cells	7.94E-04	 	 	 	 	CTSB,SLC1A5	2	
+Molecular Transport	transport	Transport of molecule	9.47E-04	 	 	 	 	SLC7A5,FTL,RILP,SLC1A5,SLC2A1,HK1,BSG	7	
+Cellular Development, Cellular Growth and Proliferation	cell proliferation	Cell proliferation of cervical cancer cell lines	1.08E-03	 	 	 	 	FTL,OSBP2,BSG	3	
+Cellular Movement	invasion	Invasion of squamous cell carcinoma cell lines	1.15E-03	 	 	 	 	CTSB,BSG	2	
+Hematological Disease, Immunological Disease, Infectious Diseases	infection	Infection of leukocytes	1.19E-03	 	 	 	 	CTSB,SLC2A1	2	
+Infectious Diseases	entrance	Entrance of virus	1.39E-03	 	 	 	 	CTSB,BSG	2	
+Post-Translational Modification	activation	Activation of glycoprotein	1.45E-03	 	 	 	 	CTSB	1	
+Cancer, Endocrine System Disorders, Gastrointestinal Disease, Organismal Injury and Abnormalities	angiogenesis	Angiogenesis of pancreatic endocrine tumor	1.45E-03	 	 	 	 	CTSB	1	
+Drug Metabolism	cleavage	Cleavage of coumarin	1.45E-03	 	 	 	 	CTSB	1	
+Cellular Development	dedifferentiation	Dedifferentiation of hepatoma cell lines	1.45E-03	 	 	 	 	BSG	1	
+Cellular Development	differentiation	Delay in initiation of differentiation of lung cell lines	1.45E-03	 	 	 	 	CTSB	1	
+Cardiovascular System Development and Function	development	Development of microvasculature	1.45E-03	 	 	 	 	CTSB	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	efflux	Efflux of L-aspartic acid	1.45E-03	 	 	 	 	SLC1A5	1	
+Cellular Compromise	injury	Injury of mitochondrial membrane	1.45E-03	 	 	 	 	HK1	1	
+Cellular Movement	migration	Migration of glioblastoma cells	1.45E-03	 	 	 	 	CTSB	1	
+Cardiovascular System Development and Function, Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Digestive System Development and Function, Hepatic System Development and Function, Organ Development, Organismal Development, Skeletal and Muscular System Development and Function, Tissue Development	proliferation	Proliferation of hepatic stellate cells/myofibroblasts	1.45E-03	 	 	 	 	CTSB	1	
+Cancer, Cellular Development, Cellular Growth and Proliferation, Endocrine System Disorders, Gastrointestinal Disease, Organismal Injury and Abnormalities, Tumor Morphology	proliferation	Proliferation of pancreatic endocrine tumor	1.45E-03	 	 	 	 	CTSB	1	
+Carbohydrate Metabolism	quantity	Quantity of ribose	1.45E-03	 	 	 	 	SLC2A1	1	
+Cellular Development, Cellular Growth and Proliferation	growth	Re-entry into growth of leukemia cell lines	1.45E-03	 	 	 	 	FTL	1	
+Cardiovascular Disease, Organismal Injury and Abnormalities	sporadic abdominal aortic aneurysm	Sporadic abdominal aortic aneurysm	1.45E-03	 	 	 	 	FTL	1	
+Immunological Disease, Inflammatory Disease, Inflammatory Response, Neurological Disease, Organismal Injury and Abnormalities	experimental autoimmune encephalomyelitis	Symptomatic experimental autoimmune encephalomyelitis	1.45E-03	 	 	 	 	BSG	1	
+Carbohydrate Metabolism, Cellular Function and Maintenance, Molecular Transport, Small Molecule Biochemistry	transmembrane transport	Transmembrane transport of D-glucose	1.45E-03	 	 	 	 	HK1	1	
+Amino Acid Metabolism, Drug Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of L-dopa	1.45E-03	 	 	 	 	SLC7A5	1	
+Carbohydrate Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of mannose	1.45E-03	 	 	 	 	SLC2A1	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of L-leucine	1.45E-03	 	 	 	 	SLC7A5	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of L-tyrosine	1.45E-03	 	 	 	 	SLC7A5	1	
+Cancer, Gastrointestinal Disease, Hepatic System Disease, Organismal Injury and Abnormalities	cancer	Liver cancer	1.46E-03	 	 	 	 	SLC7A5,FTL,FAM104A,TMCC2,CTSB,SLC1A5,SPECC1,SLC2A1,HK1,KEL,BSG	11	
+Cellular Development, Cellular Growth and Proliferation	cell proliferation	Cell proliferation of tumor cell lines	1.48E-03	 	 	 	 	SLC7A5,FTL,CTSB,SLC2A1,HK1,OSBP2,BSG	7	
+Cellular Movement	migration	Migration of squamous cell carcinoma cell lines	1.58E-03	 	 	 	 	CTSB,BSG	2	
+Cardiovascular Disease, Developmental Disorder, Hematological Disease, Organismal Injury and Abnormalities	congenital anemia	Congenital anemia	1.77E-03	 	 	 	 	HK1,KLF1	2	
+Cellular Compromise, Reproductive System Development and Function	acidification	Acidification of gonadal cell lines	2.17E-03	 	 	 	 	SLC7A5	1	
+Cancer, Cellular Development, Cellular Growth and Proliferation, Organismal Injury and Abnormalities, Tumor Morphology	colony formation	Colony formation of leukemia stem cells	2.17E-03	 	 	 	 	CTSB	1	
+Cancer, Organismal Injury and Abnormalities, Reproductive System Disease	formation	Delay in formation of breast carcinoma	2.17E-03	 	 	 	 	CTSB	1	
+Infectious Diseases	disassembly	Disassembly of Reoviridae	2.17E-03	 	 	 	 	CTSB	1	
+Cell Cycle	G0/G1 phase transition	Entry into G0/G1 phase transition of extensively self-renewing erythroblasts	2.17E-03	 	 	 	 	KLF1	1	
+Cellular Movement	invasion	Invasion of rhabdomyosarcoma cell lines	2.17E-03	 	 	 	 	SLC2A1	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	quantity	Quantity of lysobisphosphatidic acid	2.17E-03	 	 	 	 	RILP	1	
+Cellular Assembly and Organization	rearrangement	Rearrangement of endocytotic vesicle	2.17E-03	 	 	 	 	CTSB	1	
+Cellular Assembly and Organization, Cellular Function and Maintenance, Cellular Movement	scattering	Scattering of lysosome	2.17E-03	 	 	 	 	RILP	1	
+Cellular Assembly and Organization, Cellular Compromise	formation	Formation of cellular inclusion bodies	2.33E-03	 	 	 	 	FTL,CTSB	2	
+Cardiovascular System Development and Function, Cellular Movement	migration	Migration of endothelial cell lines	2.62E-03	 	 	 	 	CTSB,BSG	2	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Development	differentiation	Differentiation of erythroid precursor cells	2.82E-03	 	 	 	 	KLF1,LYL1	2	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	efflux	Efflux of L-glutamic acid	2.89E-03	 	 	 	 	SLC1A5	1	
+Hematological Disease, Infectious Diseases	infection	Infection by Reston ebolavirus	2.89E-03	 	 	 	 	CTSB	1	
+Cancer, Endocrine System Disorders, Gastrointestinal Disease, Organismal Injury and Abnormalities, Tumor Morphology	invasion	Invasion of pancreatic endocrine tumor	2.89E-03	 	 	 	 	CTSB	1	
+Cell Morphology, Hematological System Development and Function, Hematopoiesis, Tissue Morphology	morphology	Morphology of erythroid cells	2.89E-03	 	 	 	 	KLF1	1	
+Cell Cycle, Cellular Assembly and Organization, Cellular Function and Maintenance, DNA Replication, Recombination, and Repair	reorganization	Reorganization of chromatin	2.89E-03	 	 	 	 	KLF1	1	
+Carbohydrate Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of galactose	2.89E-03	 	 	 	 	SLC2A1	1	
+Lipid Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of butyric acid	2.89E-03	 	 	 	 	BSG	1	
+Cell Death and Survival, Connective Tissue Disorders, Hematological Disease, Organismal Injury and Abnormalities	hemolysis	Hemolysis	2.97E-03	 	 	 	 	HK1,KLF1	2	
+Molecular Transport	export	Export of molecule	3.11E-03	 	 	 	 	SLC7A5,SLC1A5,BSG	3	
+Cell Death and Survival	cell viability	Cell viability of myeloma cell lines	3.12E-03	 	 	 	 	SLC1A5,HK1	2	
+Neurological Disease	neurological disorder	Progressive neurological disorder	3.58E-03	 	 	 	 	FTL,CTSB,SLC2A1,BSG	4	
+Cell Morphology, Endocrine System Development and Function, Endocrine System Disorders, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	abnormal morphology	Abnormal morphology of thyroid follicle cells	3.62E-03	 	 	 	 	CTSB	1	
+Cellular Assembly and Organization	aggregation	Aggregation of intermediate filaments	3.62E-03	 	 	 	 	OSBP2	1	
+Cardiovascular System Development and Function, Cellular Development, Cellular Growth and Proliferation, Organismal Development	angiogenesis	Angiogenesis of tumor cell lines	3.62E-03	 	 	 	 	CTSB	1	
+Tissue Morphology	degeneration	Degeneration of extracellular matrix	3.62E-03	 	 	 	 	CTSB	1	
+Cellular Compromise	degradation	Degradation of autophagosomes	3.62E-03	 	 	 	 	CTSB	1	
+Cell-mediated Immune Response, Cellular Development, Cellular Function and Maintenance, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	differentiation	Differentiation of central memory T lymphocyte	3.62E-03	 	 	 	 	SLC2A1	1	
+Cell-To-Cell Signaling and Interaction, Hematological System Development and Function, Inflammatory Response	inflammatory response	Inflammatory response of T lymphocytes	3.62E-03	 	 	 	 	SLC1A5	1	
+Cell Morphology, Endocrine System Disorders, Organ Morphology, Organismal Injury and Abnormalities, Reproductive System Development and Function, Reproductive System Disease	lack	Lack of mitochondrial sheath	3.62E-03	 	 	 	 	OSBP2	1	
+Carbohydrate Metabolism, Small Molecule Biochemistry	synthesis	Synthesis of lactose	3.62E-03	 	 	 	 	SLC2A1	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of L-glutamine	3.62E-03	 	 	 	 	SLC1A5	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of L-serine	3.62E-03	 	 	 	 	SLC1A5	1	
+Carbohydrate Metabolism, Molecular Transport	transport	Transport of dehydroascorbic acid	3.62E-03	 	 	 	 	SLC2A1	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of L-phenylalanine	3.62E-03	 	 	 	 	SLC7A5	1	
+Amino Acid Metabolism, Drug Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of levothyroxine	3.62E-03	 	 	 	 	SLC7A5	1	
+Molecular Transport	transport	Transport of carboxylic acid	3.79E-03	 	 	 	 	SLC2A1,BSG	2	
+Cellular Development, Cellular Growth and Proliferation, Renal and Urological System Development and Function	growth	Arrest in growth of kidney cell lines	4.34E-03	 	 	 	 	OSBP2	1	
+Carbohydrate Metabolism, Small Molecule Biochemistry	modulation	Modulation of D-glucose	4.34E-03	 	 	 	 	SLC2A1	1	
+Cellular Development, Cellular Growth and Proliferation, Reproductive System Development and Function	outgrowth	Outgrowth of breast cell lines	4.34E-03	 	 	 	 	SLC2A1	1	
+Tissue Morphology	remodeling	Remodeling of extracellular matrix	4.34E-03	 	 	 	 	CTSB	1	
+Cellular Compromise	stress response	Stress response of bone cancer cell lines	4.34E-03	 	 	 	 	SLC1A5	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of L-triiodothyronine	4.34E-03	 	 	 	 	SLC7A5	1	
+Cell Death and Survival	cell death	Cell death of carcinoma cell lines	4.54E-03	 	 	 	 	CTSB,SPECC1,HK1	3	
+Cell Death and Survival	apoptosis	Apoptosis of B-lymphocyte derived cell lines	4.58E-03	 	 	 	 	SLC2A1,HK1	2	
+Cellular Development, Cellular Growth and Proliferation	proliferation	Arrest in proliferation of tumor cell lines	4.77E-03	 	 	 	 	SLC7A5,OSBP2	2	
+Cell Death and Survival	cell death	Cell death of blood cells	4.87E-03	 	 	 	 	CTSB,SLC2A1,HK1,LYL1	4	
+Cell-To-Cell Signaling and Interaction	aggregation	Aggregation of lymphoma cell lines	5.06E-03	 	 	 	 	BSG	1	
+Hair and Skin Development and Function	appearance	Appearance of hair	5.06E-03	 	 	 	 	CTSB	1	
+Cellular Development, Cellular Growth and Proliferation	proliferation	Arrest in proliferation of cervical cancer cell lines	5.06E-03	 	 	 	 	OSBP2	1	
+Cancer, Cell Death and Survival, Organismal Injury and Abnormalities, Tumor Morphology	cell death	Cell death of non-small-cell lung cancer cells	5.06E-03	 	 	 	 	CTSB	1	
+Cell-To-Cell Signaling and Interaction, Cellular Growth and Proliferation, Hematological System Development and Function	induction	Induction of Th1 cells	5.06E-03	 	 	 	 	SLC1A5	1	
+Infectious Diseases	infection	Infection by measles virus	5.06E-03	 	 	 	 	BSG	1	
+Cell-To-Cell Signaling and Interaction, Inflammatory Response	inflammatory response	Inflammatory response of tumor cell lines	5.06E-03	 	 	 	 	CTSB	1	
+Connective Tissue Disorders, Endocrine System Disorders, Organ Morphology, Organismal Injury and Abnormalities, Reproductive System Development and Function, Reproductive System Disease, Tissue Morphology	loss	Loss of epididymal fat	5.06E-03	 	 	 	 	SLC2A1	1	
+Cellular Development, Cellular Growth and Proliferation, Hematological System Development and Function	proliferation	Proliferation of erythroid cell lines	5.06E-03	 	 	 	 	KLF1	1	
+Hematological System Development and Function, Humoral Immune Response, Lymphoid Tissue Structure and Development, Tissue Morphology	quantity	Quantity of B lymphocytes	5.06E-03	 	 	 	 	CTSB,SLC2A1,LYL1	3	
+Cell Morphology, Nervous System Development and Function, Tissue Morphology	morphology	Morphology of axons	5.09E-03	 	 	 	 	CTSB,KEL	2	
+Free Radical Scavenging	production	Production of reactive oxygen species	5.24E-03	 	 	 	 	FTL,SLC2A1,HK1	3	
+Cancer, Organismal Injury and Abnormalities	angiogenesis	Angiogenesis of tumor	5.36E-03	 	 	 	 	CTSB,LYL1	2	
+Cellular Development, Cellular Growth and Proliferation, Hematological System Development and Function, Hematopoiesis, Tissue Development	differentiation	Differentiation of hematopoietic progenitor cells	5.62E-03	 	 	 	 	KLF1,LYL1,BSG	3	
+Cellular Function and Maintenance	homeostasis	Cellular homeostasis	5.68E-03	 	 	 	 	FTL,CTSB,SLC2A1,LYL1,KEL,BSG	6	
+Cellular Development, Cellular Growth and Proliferation	growth	Arrest in growth of colorectal cancer cell lines	5.78E-03	 	 	 	 	SLC7A5	1	
+Humoral Immune Response, Protein Synthesis	generation	Generation of antibody	5.78E-03	 	 	 	 	CTSB	1	
+Carbohydrate Metabolism, Cellular Function and Maintenance	glycolysis	Glycolysis of lung cancer cell lines	5.78E-03	 	 	 	 	SLC2A1	1	
+Hematological System Development and Function	hemoglobin concentration distribution width	Hemoglobin concentration distribution width	5.78E-03	 	 	 	 	KEL	1	
+Cell-To-Cell Signaling and Interaction, Cellular Function and Maintenance, Inflammatory Response	phagocytosis	Phagocytosis by Sertoli cells	5.78E-03	 	 	 	 	OSBP2	1	
+Infectious Diseases, Inflammatory Disease, Inflammatory Response, Neurological Disease	pneumococcal meningitis	Pneumococcal meningitis	5.78E-03	 	 	 	 	CTSB	1	
+Lipid Metabolism, Small Molecule Biochemistry	transmission	Transmission of cholesterol	5.78E-03	 	 	 	 	OSBP2	1	
+Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Morphology	quantity	Quantity of erythroid precursor cells	5.92E-03	 	 	 	 	LYL1,KEL	2	
+Cellular Compromise	stress response	Stress response of cells	5.92E-03	 	 	 	 	CTSB,SLC1A5	2	
+Cell-mediated Immune Response, Cellular Development, Cellular Function and Maintenance, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	differentiation	Differentiation of T lymphocytes	6.12E-03	 	 	 	 	SLC2A1,LYL1,BSG	3	
+Cell-mediated Immune Response, Cellular Development, Cellular Function and Maintenance, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	differentiation	Differentiation of immature T lymphocytes	6.50E-03	 	 	 	 	BSG	1	
+Cell-To-Cell Signaling and Interaction, Cellular Growth and Proliferation, Hematological System Development and Function	induction	Induction of Th17 cells	6.50E-03	 	 	 	 	SLC1A5	1	
+Inflammatory Disease, Inflammatory Response, Organismal Injury and Abnormalities, Respiratory Disease	inflammation	Inflammation of lung tissue	6.50E-03	 	 	 	 	BSG	1	
+Cancer, Cellular Movement, Connective Tissue Disorders, Organismal Injury and Abnormalities	invasion	Invasion of fibroblast-like synoviocytes	6.50E-03	 	 	 	 	BSG	1	
+Carbohydrate Metabolism, Small Molecule Biochemistry, Vitamin and Mineral Metabolism	metabolism	Metabolism of ascorbic acid	6.50E-03	 	 	 	 	SLC2A1	1	
+Cellular Development, Cellular Growth and Proliferation, Reproductive System Development and Function	cell proliferation	Cell proliferation of breast cell lines	6.65E-03	 	 	 	 	CTSB,SLC2A1	2	
+Carbohydrate Metabolism, Cellular Function and Maintenance, Molecular Transport, Small Molecule Biochemistry	transport	Transport of D-glucose	6.73E-03	 	 	 	 	SLC2A1,HK1	2	
+Infectious Diseases	infection	Infection of cells	6.83E-03	 	 	 	 	CTSB,SLC2A1,KEL,BSG	4	
+Cancer, Organismal Injury and Abnormalities, Tumor Morphology	invasion	Invasion of malignant tumor	6.88E-03	 	 	 	 	CTSB,BSG	2	
+Cellular Development, Hematological System Development and Function	differentiation	Differentiation of erythroid cell lines	7.22E-03	 	 	 	 	KLF1	1	
+Cancer, Endocrine System Disorders, Gastrointestinal Disease, Organismal Injury and Abnormalities	growth	Growth of pancreatic endocrine tumor	7.22E-03	 	 	 	 	CTSB	1	
+Cell Morphology, Skeletal and Muscular System Development and Function	morphology	Morphology of muscle cell lines	7.22E-03	 	 	 	 	CTSB	1	
+Neurological Disease, Organismal Injury and Abnormalities	reactive astrogliosis	Reactive astrogliosis	7.22E-03	 	 	 	 	CTSB	1	
+Cellular Compromise	stress response	Stress response of sarcoma cell lines	7.22E-03	 	 	 	 	SLC1A5	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	uptake	Uptake of glutamine	7.22E-03	 	 	 	 	SLC1A5	1	
+Organismal Survival	survival	Survival of organism	7.37E-03	 	 	 	 	FTL,CTSB,SLC2A1,KLF1	4	
+Cancer, Organismal Injury and Abnormalities	adenoma formation	Adenoma	7.51E-03	 	 	 	 	SLC7A5,CTSB,SLC2A1	3	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	erythropoiesis	Erythropoiesis of spleen	7.94E-03	 	 	 	 	LYL1	1	
+Cellular Movement	invasion	Invasion of lymphoma cell lines	7.94E-03	 	 	 	 	CTSB	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities, Psychological Disorders	Unverricht-Lundborg syndrome	Unverricht-Lundborg syndrome	7.94E-03	 	 	 	 	CTSB	1	
+Cardiovascular System Development and Function, Organismal Development	vasculogenesis	Vasculogenesis	8.33E-03	 	 	 	 	CTSB,KLF1,LYL1,BSG	4	
+Cardiovascular Disease, Hematological Disease, Organismal Injury and Abnormalities	anemia	Anemia	8.37E-03	 	 	 	 	SLC2A1,HK1,KLF1	3	
+Endocrine System Development and Function, Molecular Transport, Small Molecule Biochemistry	abnormal quantity	Abnormal quantity of thyroid hormone	8.66E-03	 	 	 	 	CTSB	1	
+Cellular Assembly and Organization, Hair and Skin Development and Function	aggregation	Aggregation of melanosomes	8.66E-03	 	 	 	 	RILP	1	
+Cellular Movement, Hematological System Development and Function, Immune Cell Trafficking, Inflammatory Response	cellular infiltration	Cellular infiltration by microglia	8.66E-03	 	 	 	 	BSG	1	
+Hematological Disease, Immunological Disease, Infectious Diseases	infection	Infection of monocyte-derived dendritic cells	8.66E-03	 	 	 	 	CTSB	1	
+Skeletal and Muscular Disorders	osteolytic bone disease	Osteolytic bone disease	8.66E-03	 	 	 	 	BSG	1	
+Cell Death and Survival	apoptosis	Apoptosis of cholangiocarcinoma cell lines	9.37E-03	 	 	 	 	CTSB	1	
+Post-Translational Modification, Protein Degradation, Protein Synthesis	cleavage	Cleavage of glycoprotein	9.37E-03	 	 	 	 	CTSB	1	
+Cell Morphology, Cellular Assembly and Organization	permeability	Permeability of mitochondria	9.37E-03	 	 	 	 	HK1	1	
+Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of aromatic amino acid	9.37E-03	 	 	 	 	SLC7A5	1	
+Cell Death and Survival	apoptosis	Apoptosis of hepatoma cell lines	9.52E-03	 	 	 	 	CTSB,BSG	2	
+Cellular Development, Cellular Growth and Proliferation	cell proliferation	Cell proliferation of carcinoma cell lines	9.88E-03	 	 	 	 	SLC2A1,HK1,BSG	3	
+Nervous System Development and Function, Neurological Disease, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities	abnormal morphology	Abnormal morphology of stratum pyramidale	1.01E-02	 	 	 	 	CTSB	1	
+Cardiovascular System Development and Function, Organ Development	activation	Activation of heart	1.01E-02	 	 	 	 	SLC2A1	1	
+Infectious Diseases	entrance	Entrance of HIV-1	1.01E-02	 	 	 	 	BSG	1	
+Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Morphology	quantity	Quantity of burst-forming erythroid cells	1.01E-02	 	 	 	 	LYL1	1	
+Cancer, Cellular Development, Cellular Growth and Proliferation, Organismal Injury and Abnormalities, Tumor Morphology	proliferation	Proliferation of tumor cells	1.02E-02	 	 	 	 	CTSB,LYL1,BSG	3	
+Cellular Function and Maintenance, Small Molecule Biochemistry	homeostasis	Homeostasis of divalent cations	1.07E-02	 	 	 	 	FTL,KEL	2	
+Cell-To-Cell Signaling and Interaction	adhesion	Adhesion of hepatoma cell lines	1.08E-02	 	 	 	 	BSG	1	
+Cell Morphology, Nervous System Development and Function, Neurological Disease, Tissue Morphology	enlargement	Enlargement of axons	1.08E-02	 	 	 	 	CTSB	1	
+Infectious Diseases	infection	Infection of gonadal cell lines	1.08E-02	 	 	 	 	BSG	1	
+Cancer, Hematological Disease, Immunological Disease, Organismal Injury and Abnormalities	Philadelphia-positive B-cell acute lymphoblastic leukemia	Philadelphia-positive B-cell acute lymphoblastic leukemia	1.08E-02	 	 	 	 	SLC2A1	1	
+Molecular Transport, Small Molecule Biochemistry	secretion	Secretion of lactic acid	1.08E-02	 	 	 	 	SLC2A1	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities	familial epilepsy	Familial epilepsy	1.12E-02	 	 	 	 	CTSB,SLC2A1	2	
+Drug Metabolism, Nucleic Acid Metabolism, Small Molecule Biochemistry	activation	Activation of cytarabine	1.15E-02	 	 	 	 	HK1	1	
+Endocrine System Disorders, Organismal Injury and Abnormalities	cold thyroid nodule	Benign cold thyroid nodule	1.15E-02	 	 	 	 	CTSB	1	
+Carbohydrate Metabolism, Small Molecule Biochemistry	catabolism	Catabolism of proteoglycan	1.15E-02	 	 	 	 	CTSB	1	
+Cell Death and Survival	cell death	Cell death of acinar gland cells	1.15E-02	 	 	 	 	CTSB	1	
+DNA Replication, Recombination, and Repair	cleavage	Cleavage of DNA fragment	1.15E-02	 	 	 	 	OSBP2	1	
+Cancer, Organismal Injury and Abnormalities, Respiratory Disease, Tissue Morphology, Tumor Morphology	size	Size of lung tumor	1.22E-02	 	 	 	 	CTSB	1	
+Cellular Development, Cellular Growth and Proliferation, Digestive System Development and Function, Hepatic System Development and Function, Organ Development	proliferation	Proliferation of liver cells	1.23E-02	 	 	 	 	SLC7A5,CTSB	2	
+Infectious Diseases	infection	Infection by RNA virus	1.23E-02	 	 	 	 	CTSB,SLC2A1,KEL,BSG	4	
+Cellular Development, Cellular Growth and Proliferation, Hair and Skin Development and Function	growth	Arrest in growth of epithelial cell lines	1.30E-02	 	 	 	 	OSBP2	1	
+Cancer, Organismal Injury and Abnormalities	growth	Arrest in growth of tumor	1.30E-02	 	 	 	 	SLC7A5	1	
+Connective Tissue Disorders, Inflammatory Disease, Inflammatory Response, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders	pigmented villonodular synovitis	Pigmented villonodular synovitis	1.30E-02	 	 	 	 	FTL	1	
+Cell Death and Survival	apoptosis	Apoptosis of erythroblasts	1.37E-02	 	 	 	 	LYL1	1	
+Neurological Disease, Organismal Injury and Abnormalities, Psychological Disorders	damage	Damage of hippocampus	1.37E-02	 	 	 	 	CTSB	1	
+Cell Death and Survival, Cell Morphology, Nervous System Development and Function, Neurological Disease, Organ Morphology, Organismal Development, Organismal Injury and Abnormalities, Tissue Morphology	loss	Loss of Purkinje cells	1.37E-02	 	 	 	 	CTSB	1	
+Cardiovascular System Development and Function, Organismal Development	maturation	Maturation of blood vessel	1.37E-02	 	 	 	 	LYL1	1	
+Cancer, Organismal Injury and Abnormalities, Respiratory Disease, Tissue Morphology	quantity	Quantity of pulmonary metastasis	1.37E-02	 	 	 	 	CTSB	1	
+Cellular Assembly and Organization	accumulation	Accumulation of lysosome	1.44E-02	 	 	 	 	CTSB	1	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Development	development	Development of erythroid cells	1.44E-02	 	 	 	 	KLF1	1	
+Cell-mediated Immune Response, Cellular Development, Cellular Function and Maintenance, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	differentiation	Differentiation of cytotoxic T cells	1.44E-02	 	 	 	 	SLC2A1	1	
+Cancer, Endocrine System Disorders, Organismal Injury and Abnormalities	thyroid follicular adenoma	Thyroid follicular adenoma	1.44E-02	 	 	 	 	CTSB	1	
+Hematological Disease, Infectious Diseases	infection	Infection by Zaire ebolavirus	1.51E-02	 	 	 	 	CTSB	1	
+Skeletal and Muscular Disorders	torticollis	Torticollis	1.51E-02	 	 	 	 	FTL	1	
+Hematological Disease, Immunological Disease, Infectious Diseases	infection	Infection of T lymphocytes	1.58E-02	 	 	 	 	SLC2A1	1	
+Cancer, Developmental Disorder, Embryonic Development, Organismal Injury and Abnormalities	invasion	Invasion of trophoblast	1.58E-02	 	 	 	 	BSG	1	
+Nervous System Development and Function	coordination	Coordination	1.62E-02	 	 	 	 	SLC2A1,KEL	2	
+Cell Death and Survival	cell death	Cell death of pro-B lymphocytes	1.65E-02	 	 	 	 	CTSB	1	
+Cell Death and Survival, Skeletal and Muscular System Development and Function	cell viability	Cell viability of muscle cell lines	1.65E-02	 	 	 	 	CTSB	1	
+Cellular Movement	invasion	Invasion of stomach cancer cell lines	1.65E-02	 	 	 	 	BSG	1	
+Cellular Function and Maintenance, Small Molecule Biochemistry	homeostasis	Homeostasis of metal ion	1.72E-02	 	 	 	 	FTL,KEL	2	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development	proliferation	Arrest in proliferation of embryonic cell lines	1.72E-02	 	 	 	 	OSBP2	1	
+Carbohydrate Metabolism, Small Molecule Biochemistry	consumption	Consumption of D-glucose	1.72E-02	 	 	 	 	SLC2A1	1	
+Cell-mediated Immune Response, Cellular Development, Cellular Function and Maintenance, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	differentiation	Differentiation of CD8+ T lymphocyte	1.72E-02	 	 	 	 	SLC2A1	1	
+Organismal Injury and Abnormalities, Renal and Urological Disease	dysfunction	Dysfunction of kidney	1.72E-02	 	 	 	 	BSG	1	
+Developmental Disorder, Endocrine System Disorders, Hereditary Disorder, Organismal Injury and Abnormalities, Reproductive System Disease	globozoospermia	Globozoospermia	1.72E-02	 	 	 	 	OSBP2	1	
+Cancer, Gastrointestinal Disease, Hepatic System Disease, Organismal Injury and Abnormalities	hepatocellular carcinoma	Unresectable hepatocellular carcinoma	1.72E-02	 	 	 	 	BSG	1	
+Cellular Function and Maintenance, Molecular Transport, Small Molecule Biochemistry	iron homeostasis	Iron homeostasis	1.80E-02	 	 	 	 	FTL	1	
+Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Morphology	quantity	Quantity of colony-forming erythroid cells	1.80E-02	 	 	 	 	LYL1	1	
+Cell-To-Cell Signaling and Interaction, Cellular Growth and Proliferation, Connective Tissue Development and Function	stimulation	Stimulation of fibroblasts	1.80E-02	 	 	 	 	BSG	1	
+Cellular Development, Cellular Growth and Proliferation	cell proliferation	Cell proliferation of hepatoma cell lines	1.81E-02	 	 	 	 	SLC2A1,BSG	2	
+Cell Death and Survival	apoptosis	Apoptosis	1.85E-02	 	 	 	 	CTSB,SPECC1,SLC2A1,HK1,OSBP2,LYL1,BSG	7	
+Cell Death and Survival	cell death	Cell death of hematopoietic progenitor cells	1.85E-02	 	 	 	 	CTSB,LYL1	2	
+Cell Morphology, Endocrine System Disorders, Organ Morphology, Organismal Injury and Abnormalities, Reproductive System Development and Function, Reproductive System Disease	abnormal morphology	Abnormal morphology of acrosome	1.87E-02	 	 	 	 	OSBP2	1	
+Cellular Function and Maintenance	function	Function of hematopoietic progenitor cells	1.87E-02	 	 	 	 	LYL1	1	
+Post-Translational Modification, Protein Degradation	oxidation	Oxidation of protein	1.87E-02	 	 	 	 	FTL	1	
+Cancer, Gastrointestinal Disease, Hepatic System Disease, Organismal Injury and Abnormalities	liver carcinoma	Liver carcinoma	1.92E-02	 	 	 	 	SLC7A5,FTL,FAM104A,TMCC2,SLC1A5,SPECC1,HK1,KEL,BSG	9	
+Reproductive System Development and Function	decidualization	Decidualization of uterus	1.94E-02	 	 	 	 	CTSB	1	
+Cardiovascular System Development and Function, Organ Morphology	dilation	Dilation of left ventricle	1.94E-02	 	 	 	 	SLC2A1	1	
+Gastrointestinal Disease	gastroesophageal reflux	Gastroesophageal reflux	1.94E-02	 	 	 	 	CTSB	1	
+Cellular Assembly and Organization	regulation	Regulation of mitochondria	1.94E-02	 	 	 	 	KLF1	1	
+Inflammatory Response	immune response	Immune response of cells	1.98E-02	 	 	 	 	CTSB,SLC1A5,OSBP2	3	
+Gastrointestinal Disease, Hepatic System Disease, Organismal Injury and Abnormalities	hepatic injury	Hepatic injury	2.01E-02	 	 	 	 	CTSB,BSG	2	
+Ophthalmic Disease, Organismal Injury and Abnormalities	high myopia	Early-onset high myopia	2.01E-02	 	 	 	 	BSG	1	
+Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Morphology	quantity	Quantity of erythroblasts	2.01E-02	 	 	 	 	LYL1	1	
+Cellular Function and Maintenance	ion homeostasis	Ion homeostasis of cells	2.11E-02	 	 	 	 	FTL,KEL,BSG	3	
+Connective Tissue Disorders, Hematological Disease, Hereditary Disorder, Organismal Injury and Abnormalities	beta thalassemia	Beta thalassemia	2.15E-02	 	 	 	 	KLF1	1	
+Cellular Function and Maintenance, Hematological System Development and Function	function	Function of CD8+ T lymphocyte	2.15E-02	 	 	 	 	SLC2A1	1	
+Cell-To-Cell Signaling and Interaction, Cellular Assembly and Organization, Skeletal and Muscular System Development and Function	fusion	Fusion of muscle cell lines	2.15E-02	 	 	 	 	CTSB	1	
+Gastrointestinal Disease, Inflammatory Response, Organismal Injury and Abnormalities	inflammation	Inflammation of salivary gland	2.15E-02	 	 	 	 	CTSB	1	
+Cellular Movement	invasion	Invasion of cervical cancer cell lines	2.15E-02	 	 	 	 	BSG	1	
+Cancer, Cell Death and Survival, Organismal Injury and Abnormalities, Tumor Morphology	apoptosis	Apoptosis of melanoma cells	2.22E-02	 	 	 	 	CTSB	1	
+Tissue Morphology	quantity	Quantity of cervical cancer cell lines	2.22E-02	 	 	 	 	BSG	1	
+Infectious Diseases	infection	Viral Infection	2.22E-02	 	 	 	 	FTL,CTSB,SLC2A1,KEL,BSG	5	
+Hematological System Development and Function, Tissue Morphology	quantity	Quantity of blood cells	2.25E-02	 	 	 	 	CTSB,SLC2A1,LYL1,KEL	4	
+Cellular Movement	invasion	Invasion of bone cancer cell lines	2.29E-02	 	 	 	 	CTSB	1	
+Cancer, Organismal Injury and Abnormalities, Respiratory Disease	non-small cell lung carcinoma	Stage I metastatic non-small cell lung carcinoma	2.29E-02	 	 	 	 	FTL	1	
+Carbohydrate Metabolism, Molecular Transport, Small Molecule Biochemistry	transport	Transport of 2-deoxyglucose	2.29E-02	 	 	 	 	SLC2A1	1	
+Cardiovascular System Development and Function, Organ Development	function	Function of left ventricle	2.36E-02	 	 	 	 	SLC2A1	1	
+Cancer, Organismal Injury and Abnormalities, Respiratory Disease	advanced lung cancer	Advanced lung cancer	2.42E-02	 	 	 	 	FTL,CTSB	2	
+Cellular Growth and Proliferation	colony formation	Colony formation of leukemia cell lines	2.43E-02	 	 	 	 	CTSB	1	
+Cancer, Organismal Injury and Abnormalities, Tissue Morphology, Tumor Morphology	size	Size of malignant tumor	2.43E-02	 	 	 	 	CTSB	1	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities	hereditary neuropathy	Hereditary neuropathy	2.48E-02	 	 	 	 	FTL,HK1	2	
+Infectious Diseases	infection	Infection of kidney cell lines	2.50E-02	 	 	 	 	CTSB,BSG	2	
+Cancer, Gastrointestinal Disease, Hepatic System Disease, Organismal Injury and Abnormalities	liver adenoma	Hepatocellular adenoma	2.51E-02	 	 	 	 	SLC2A1	1	
+Cell Death and Survival	cell death	Cell death of tumor cell lines	2.56E-02	 	 	 	 	CTSB,SPECC1,SLC2A1,HK1,BSG	5	
+Cell-mediated Immune Response, Cellular Movement, Hematological System Development and Function, Immune Cell Trafficking	cellular infiltration	Cellular infiltration by CD4+ T-lymphocytes	2.58E-02	 	 	 	 	BSG	1	
+Carbohydrate Metabolism	metabolism	Metabolism of polysaccharide	2.59E-02	 	 	 	 	CTSB,BSG	2	
+Cell Morphology, Cellular Assembly and Organization	morphology	Morphology of endosomes	2.65E-02	 	 	 	 	RILP	1	
+Molecular Transport, Protein Synthesis, Protein Trafficking	localization	Localization of protein	2.65E-02	 	 	 	 	FTL,BSG	2	
+Cell Death and Survival	apoptosis	Apoptosis of intestinal cell lines	2.72E-02	 	 	 	 	OSBP2	1	
+Neurological Disease	movement disorder	Movement Disorders	2.77E-02	 	 	 	 	FTL,CTSB,SLC2A1,KEL	4	
+Cell Death and Survival	cell death	Cell death of immune cells	2.82E-02	 	 	 	 	CTSB,SLC2A1,HK1	3	
+Cell Death and Survival, Embryonic Development	apoptosis	Apoptosis of embryonic stem cells	2.86E-02	 	 	 	 	SLC2A1	1	
+Behavior	circling behavior	Circling behavior	2.86E-02	 	 	 	 	FTL	1	
+Tissue Morphology	degradation	Degradation of extracellular matrix	2.86E-02	 	 	 	 	CTSB	1	
+Hematological Disease	hemorrhagic disease	Hemorrhagic disease	2.87E-02	 	 	 	 	CTSB,LYL1	2	
+Cancer, Cell Death and Survival, Organismal Injury and Abnormalities, Tumor Morphology	apoptosis	Apoptosis of tumor cells	2.89E-02	 	 	 	 	CTSB,BSG	2	
+Cell Morphology, Organ Morphology, Organismal Injury and Abnormalities, Skeletal and Muscular Disorders, Skeletal and Muscular System Development and Function, Tissue Morphology	abnormal morphology	Abnormal morphology of skeletal muscle cells	3.00E-02	 	 	 	 	KEL	1	
+Carbohydrate Metabolism	phosphorylation	Phosphorylation of carbohydrate	3.00E-02	 	 	 	 	HK1	1	
+Cell Morphology, Endocrine System Disorders, Organ Morphology, Organismal Injury and Abnormalities, Reproductive System Development and Function, Reproductive System Disease	abnormal morphology	Abnormal morphology of sperm head	3.07E-02	 	 	 	 	OSBP2	1	
+Developmental Disorder, Skeletal and Muscular Disorders	centronuclear myopathy	Centronuclear myopathy	3.07E-02	 	 	 	 	KEL	1	
+Cellular Development, Cellular Growth and Proliferation, Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Development	maturation	Maturation of red blood cells	3.07E-02	 	 	 	 	KLF1	1	
+Gastrointestinal Disease, Hepatic System Disease, Inflammatory Disease, Organismal Injury and Abnormalities	primary sclerosing cholangitis	Primary sclerosing cholangitis	3.07E-02	 	 	 	 	BSG	1	
+Cell Morphology, Organ Development, Organ Morphology, Skeletal and Muscular System Development and Function, Tissue Morphology	size	Size of skeletal muscle cells	3.07E-02	 	 	 	 	KEL	1	
+Carbohydrate Metabolism, Drug Metabolism, Small Molecule Biochemistry	synthesis	Synthesis of hyaluronic acid	3.07E-02	 	 	 	 	BSG	1	
+Cellular Movement, Hematological System Development and Function, Immune Cell Trafficking, Inflammatory Response	cellular infiltration	Cellular infiltration by phagocytes	3.08E-02	 	 	 	 	CTSB,BSG	2	
+Cancer, Organismal Injury and Abnormalities	nonhematologic malignant neoplasm	Nonhematologic malignant neoplasm	3.13E-02	 	 	 	 	SLC7A5,FTL,RILP,TMCC2,SLC2A1,OSBP2,BSG,ELOF1,FAM104A,CTSB,SLC1A5,SPECC1,KLF1,HK1,LYL1,KEL	16	
+Cellular Assembly and Organization, Tissue Development	formation	Formation of fibrils	3.14E-02	 	 	 	 	CTSB	1	
+Cellular Development, Cellular Growth and Proliferation	proliferation	Proliferation of lung cancer cell lines	3.15E-02	 	 	 	 	SLC2A1,HK1	2	
+Cardiovascular System Development and Function, Tissue Morphology	quantity	Quantity of endothelial cells	3.21E-02	 	 	 	 	CTSB	1	
+Carbohydrate Metabolism	metabolism	Metabolism of carbohydrate	3.31E-02	 	 	 	 	CTSB,SLC2A1,BSG	3	
+Cell Death and Survival	apoptosis	Apoptosis of carcinoma cell lines	3.35E-02	 	 	 	 	CTSB,SPECC1	2	
+Cell Death and Survival	apoptosis	Apoptosis of kidney cancer cell lines	3.35E-02	 	 	 	 	SLC2A1	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Humoral Immune Response, Lymphoid Tissue Structure and Development, Organ Development, Organismal Development, Tissue Development	differentiation	Arrest in differentiation of B lymphocytes	3.42E-02	 	 	 	 	LYL1	1	
+Endocrine System Disorders, Gastrointestinal Disease, Inflammatory Disease, Inflammatory Response, Organismal Injury and Abnormalities	insulitis	Insulitis	3.42E-02	 	 	 	 	CTSB	1	
+Cell-To-Cell Signaling and Interaction, Cellular Growth and Proliferation	stimulation	Stimulation of cells	3.49E-02	 	 	 	 	SLC1A5,BSG	2	
+Cell Death and Survival, Cellular Compromise, Neurological Disease, Organismal Injury and Abnormalities, Tissue Morphology	neurodegeneration	Neurodegeneration of Purkinje cells	3.49E-02	 	 	 	 	CTSB	1	
+Hematological System Development and Function	mean corpuscular hemoglobin concentration	Mean corpuscular hemoglobin concentration	3.56E-02	 	 	 	 	KEL	1	
+Cell Death and Survival	apoptosis	Apoptosis of lung cell lines	3.63E-02	 	 	 	 	SPECC1	1	
+Carbohydrate Metabolism, Energy Production, Small Molecule Biochemistry	oxidation	Oxidation of D-glucose	3.63E-02	 	 	 	 	SLC2A1	1	
+Cardiovascular System Development and Function, Cell Morphology, Cellular Development, Organismal Development, Tissue Development	tubulation	Tubulation of endothelial cell lines	3.63E-02	 	 	 	 	BSG	1	
+Cancer, Organismal Injury and Abnormalities, Reproductive System Disease	cervical carcinoma	Cervical carcinoma	3.71E-02	 	 	 	 	CTSB,BSG	2	
+Cellular Movement	invasion	Invasion of breast cancer cell lines	3.71E-02	 	 	 	 	CTSB,BSG	2	
+Cellular Movement	cellular infiltration	Cellular infiltration by myeloid cells	3.84E-02	 	 	 	 	CTSB,BSG	2	
+Neurological Disease	neurodegeneration	Neurodegeneration	3.90E-02	 	 	 	 	FTL,CTSB	2	
+Cellular Movement	migration	Migration of ovarian cancer cell lines	3.91E-02	 	 	 	 	BSG	1	
+Dermatological Diseases and Conditions, Neurological Disease, Organismal Injury and Abnormalities	allodynia	Allodynia	3.98E-02	 	 	 	 	CTSB	1	
+Cellular Movement	invasion	Invasion of epithelial cell lines	3.98E-02	 	 	 	 	BSG	1	
+Hematological System Development and Function, Hypersensitivity Response, Inflammatory Response, Tissue Morphology	quantity	Quantity of mast cells	3.98E-02	 	 	 	 	CTSB	1	
+Cancer, Organismal Injury and Abnormalities	tumor burden	Tumor burden	3.98E-02	 	 	 	 	CTSB	1	
+Neurological Disease, Organismal Injury and Abnormalities	progressive encephalopathy	Progressive encephalopathy	4.03E-02	 	 	 	 	FTL,CTSB	2	
+Organismal Injury and Abnormalities, Reproductive System Disease	infertility	Infertility	4.08E-02	 	 	 	 	OSBP2,BSG	2	
+Cellular Development, Cellular Growth and Proliferation	proliferation	Proliferation of prostate cancer cell lines	4.15E-02	 	 	 	 	SLC7A5,HK1	2	
+Carbohydrate Metabolism, Molecular Transport, Small Molecule Biochemistry	concentration	Concentration of D-glucose	4.16E-02	 	 	 	 	SLC2A1,HK1	2	
+Tissue Morphology	quantity	Quantity of cells	4.18E-02	 	 	 	 	CTSB,SLC2A1,LYL1,KEL,BSG	5	
+Organismal Survival	organismal death	Organismal death	4.19E-02	 	 	 	 	SLC7A5,FTL,CTSB,SLC2A1,KLF1,BSG	6	
+Cellular Development, Embryonic Development, Organismal Development, Tissue Development	differentiation	Differentiation of trophoblast	4.19E-02	 	 	 	 	BSG	1	
+Cellular Development, Cellular Growth and Proliferation, Embryonic Development, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Development	hematopoiesis	Hematopoiesis in embryo	4.19E-02	 	 	 	 	KLF1	1	
+Cell Death and Survival	apoptosis	Apoptosis of fibrosarcoma cell lines	4.26E-02	 	 	 	 	CTSB	1	
+Developmental Disorder, Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities	autosomal recessive nonsyndromic mental retardation	Autosomal recessive nonsyndromic mental retardation	4.26E-02	 	 	 	 	SLC2A1	1	
+Cellular Function and Maintenance, Connective Tissue Development and Function, Skeletal and Muscular System Development and Function, Tissue Development	function	Function of osteoclasts	4.33E-02	 	 	 	 	SLC1A5	1	
+Hematological System Development and Function	mean corpuscular volume	Mean corpuscular volume	4.33E-02	 	 	 	 	KEL	1	
+Amino Acid Metabolism, Post-Translational Modification, Small Molecule Biochemistry	phosphorylation	Phosphorylation of L-threonine	4.33E-02	 	 	 	 	HK1	1	
+Connective Tissue Development and Function, Hematological System Development and Function, Hematopoiesis, Organismal Development, Tissue Morphology	quantity	Quantity of reticulocytes	4.40E-02	 	 	 	 	KEL	1	
+Cell Death and Survival	apoptosis	Apoptosis of tumor cell lines	4.49E-02	 	 	 	 	CTSB,SPECC1,SLC2A1,BSG	4	
+Tissue Development	disassembly	Disassembly of extracellular matrix	4.61E-02	 	 	 	 	BSG	1	
+Cellular Movement	cell movement	Cell movement of bone cancer cell lines	4.67E-02	 	 	 	 	CTSB	1	
+Hematological System Development and Function, Hematopoiesis	development	Development of hematopoietic system	4.73E-02	 	 	 	 	KLF1,LYL1	2	
+Cancer, Cellular Development, Cellular Growth and Proliferation, Organismal Injury and Abnormalities, Tumor Morphology	proliferation	Proliferation of cancer cells	4.74E-02	 	 	 	 	CTSB,BSG	2	
+Cellular Function and Maintenance, Hematological System Development and Function	function	Function of CD4+ T-lymphocytes	4.74E-02	 	 	 	 	SLC2A1	1	
+Organismal Injury and Abnormalities, Reproductive System Disease	azoospermia or oligozoospermia	Azoospermia or oligozoospermia	4.78E-02	 	 	 	 	OSBP2,BSG	2	
+Hereditary Disorder, Neurological Disease, Organismal Injury and Abnormalities	benign rolandic epilepsy	Benign rolandic epilepsy	4.81E-02	 	 	 	 	SLC2A1	1	
+Cellular Compromise, Lipid Metabolism, Small Molecule Biochemistry	peroxidation	Peroxidation of lipid	4.88E-02	 	 	 	 	FTL	1	
+Cellular Compromise, Inflammatory Response	degranulation	Degranulation of neutrophils	4.92E-02	 	 	 	 	FTL,CTSB	2	
+Cellular Movement	invasion	Invasion of tumor cell lines	4.98E-02	 	 	 	 	CTSB,SLC2A1,BSG	3	
+
+Tox Functions for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Categories	Functions	Diseases or Functions Annotation	p-Value	Predicted Activation State	Activation z-score	Notes	Bias-corrected z-score	Molecules	# Molecules	
+Liver Fibrosis, Liver Proliferation	proliferation	Proliferation of hepatic stellate cells/myofibroblasts	1.45E-03	 	 	 	 	CTSB	1	
+Liver Hyperplasia/Hyperproliferation	cancer	Liver cancer	1.46E-03	 	 	 	 	SLC7A5,FTL,FAM104A,TMCC2,CTSB,SLC1A5,SPECC1,SLC2A1,HK1,KEL,BSG	11	
+Renal Proliferation	growth	Arrest in growth of kidney cell lines	4.34E-03	 	 	 	 	OSBP2	1	
+Liver Proliferation	proliferation	Proliferation of liver cells	1.23E-02	 	 	 	 	SLC7A5,CTSB	2	
+Renal Dysfunction	dysfunction	Dysfunction of kidney	1.72E-02	 	 	 	 	BSG	1	
+Hepatocellular carcinoma, Liver Hyperplasia/Hyperproliferation	hepatocellular carcinoma	Unresectable hepatocellular carcinoma	1.72E-02	 	 	 	 	BSG	1	
+Liver Hyperplasia/Hyperproliferation	liver carcinoma	Liver carcinoma	1.92E-02	 	 	 	 	SLC7A5,FTL,FAM104A,TMCC2,SLC1A5,SPECC1,HK1,KEL,BSG	9	
+Cardiac Dilation	dilation	Dilation of left ventricle	1.94E-02	 	 	 	 	SLC2A1	1	
+Liver Damage	hepatic injury	Hepatic injury	2.01E-02	 	 	 	 	CTSB,BSG	2	
+Liver Hyperplasia/Hyperproliferation	liver adenoma	Hepatocellular adenoma	2.51E-02	 	 	 	 	SLC2A1	1	
+Hepatocellular carcinoma, Liver Hyperplasia/Hyperproliferation	hepatocellular carcinoma	Hepatocellular carcinoma	5.90E-02	 	 	 	 	FTL,FAM104A,BSG	3	
+Renal Necrosis/Cell Death	cell viability	Cell viability of kidney cell lines	6.32E-02	 	 	 	 	SLC2A1	1	
+Liver Cirrhosis	primary biliary cirrhosis	Primary biliary cirrhosis	7.07E-02	 	 	 	 	BSG	1	
+Hepatocellular carcinoma, Liver Hyperplasia/Hyperproliferation	development	Development of hepatocellular carcinoma	7.61E-02	 	 	 	 	BSG	1	
+Liver Necrosis/Cell Death	apoptosis	Apoptosis of hepatocytes	1.12E-01	 	 	 	 	CTSB	1	
+Liver Fibrosis	fibrosis	Fibrosis of liver	1.17E-01	 	 	 	 	CTSB	1	
+Liver Proliferation	proliferation	Proliferation of hepatocytes	1.25E-01	 	 	 	 	SLC7A5	1	
+Cardiac Enlargement	hypertrophy	Hypertrophy of heart cells	1.28E-01	 	 	 	 	CTSB	1	
+Cardiac Dysfunction	dysfunction	Dysfunction of heart	1.70E-01	 	 	 	 	SLC2A1	1	
+Cardiac Necrosis/Cell Death	cell death	Cell death of cardiomyocytes	1.80E-01	 	 	 	 	HK1	1	
+Renal Necrosis/Cell Death	cell death	Cell death of kidney cell lines	2.58E-01	 	 	 	 	HK1	1	
+
+Regulator Effects for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+
+Networks for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+ID	Analysis	Molecules in Network	Score	Focus Molecules	Top Diseases and Functions	
+1	top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	AMIGO2,ANGPT4,ANGPTL1,AURKA,Akt,Arnt-Hif1a,BSG,CTSB,Cyp2j9,ELOF1,ERAP2,ERK,FTL,FYB2,HIF3A,HK1,INSRR,IkB-NfkB,Insulin,KEL,KLF1,MLIP,MPC1,MTORC1,NFkB (complex),SCD5,SLC1A5,SLC2A1,SLC3A1,SLC48A1,SLC7A5,TCR,TP73-AS1,Tsc1-Tsc2,Vegf	26	10	Amino Acid Metabolism, Molecular Transport, Small Molecule Biochemistry	
+2	top_hub_genes_F03_F4 - 2019-05-09 10:09 PM	ATAD2,AVEN,BCL2L1,CD53,CRYAA/CRYAA2,CYB5B,DDX25,DIP2A,DPH1,FAM104A,FOXRED1,GALNT10,GIMAP1-GIMAP5,HSPB3,HSPD1,Ige,LALBA,LYL1,MORC4,MPDU1,NXF1,Nrg1,OSBP2,RAB12,RAB34,RAB7B,RILP,RNF144B,SLC25A39,SPECC1,SRM,TMCC2,VPS36,YARS2,antigen	14	6	DNA Replication, Recombination, and Repair, Energy Production, Nucleic Acid Metabolism	
+
+My Lists for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+My Lists	 -log(p-value)	Ratio	Molecules 
+
+Tox Lists for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+Ingenuity Toxicity Lists	 -log(p-value)	Ratio	Molecules 
+Increases Liver Damage	2.68E00	2.11E-02	CTSB,BSG
+Protection from Hypoxia-induced Renal Ischemic Injury (Rat)	2.54E00	2.5E-01	SLC2A1
+Liver Proliferation	1.87E00	8.1E-03	SLC7A5,CTSB
+Increases Cardiac Dysfunction	1.38E00	1.69E-02	SLC2A1
+Renal Necrosis/Cell Death	1.21E00	3.55E-03	SLC2A1,HK1
+TR/RXR Activation	1.15E00	1E-02	SLC2A1
+NRF2-mediated Oxidative Stress Response	7.69E-01	3.91E-03	FTL
+Cardiac Necrosis/Cell Death	7.09E-01	3.36E-03	HK1
+Liver Necrosis/Cell Death	6.84E-01	3.14E-03	CTSB
+Xenobiotic Metabolism Signaling	6.29E-01	2.72E-03	FTL
+Cardiac Hypertrophy	6.29E-01	2.72E-03	CTSB
+
+My Pathways for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+My Pathways	 -log(p-value)	Ratio	Molecules 
+
+Analysis Ready Molecules for My Projects->AIH_WGCNA->top_hub_genes_F03_F4 - 2019-05-09 10:09 PM
+ID	Symbol
+BSG	BSG
+CTSB	CTSB
+ELOF1	ELOF1
+FAM104A	FAM104A
+FTL	FTL
+HK1	HK1
+KEL	KEL
+KLF1	KLF1
+LYL1	LYL1
+OSBP2	OSBP2
+RILP	RILP
+SLC1A5	SLC1A5
+SLC2A1	SLC2A1
+SLC7A5	SLC7A5
+SPECC1	SPECC1
+TMCC2	TMCC2
+

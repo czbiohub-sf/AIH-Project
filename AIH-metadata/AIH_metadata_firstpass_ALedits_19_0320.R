@@ -207,7 +207,7 @@ AIH_metadata_firstpass$F03_F4_final <- ifelse (AIH_metadata_firstpass$case_hl_du
 
 #Adding a column if the sample was positive for pegivirus [Pegivirus 95, 37, 17, 18; also present in small numbers in 99, 84 and 77]
 AIH_metadata_firstpass$pegivirus <- ifelse (grepl ("AASLD-095|AASLD-037|AASLD-017|AASLD-018", AIH_metadata_firstpass$aasld_id), print ("yes"), 
-                                            ifelse(grepl("AASLD-077|AASLD-099|AASLD-84",AIH_metadata_firstpass$aasld_id), print("maybe"), print ("no")))
+                                            ifelse(grepl("AASLD-077|AASLD-084",AIH_metadata_firstpass$aasld_id), print("maybe"), print ("no")))
                                          
 
 
