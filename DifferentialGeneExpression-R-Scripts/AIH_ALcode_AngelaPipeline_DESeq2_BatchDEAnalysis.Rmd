@@ -343,7 +343,7 @@ dds <- DESeqDataSetFromMatrix(countData = genecountspc_filt, colData = metadata_
                              # design= ~case_hl_du:fibrosis_groups)#+alt_groups+on_tx_groups)#
 
 #relevel the metadata so control is the baseline
-dds$steroid<- relevel (dds$steroid, ref = "healthy")
+dds$case_hl_du<- relevel (dds$case_hl_du, ref = "control")
 
 ```
 
@@ -375,15 +375,19 @@ Calculate a results table contrasting pairwise. Uncomment end of block if you wi
 results <- results(dds, contrast=contrast, alpha=0.05, tidy = TRUE)
 
 #create significant results table
-results_significant <- results %>% filter (results$padj < 0.05) 
+results_significant <- results %>% filter (results$padj < 0.05)
+results_significant
 
 length(results$row) - length(results_significant$row)
 
-setwd("../DifferentialGeneExpression-Output/DESeq2_DEGenes_041119_Steroids/")
-write.csv(results, paste(filename, "DEgenes_ALL.csv", sep = "_"))
+#setwd("../DifferentialGeneExpression-Output/DESeq2_DEGenes_041119_Steroids/")
+#write.csv(results, paste(filename, "DEgenes_ALL.csv", sep = "_"))
 #setwd("Signifigant_DE_genes/")
-write.csv(results_significant, paste(filename, "DEgenes_FDR0.05.csv", sep = "_"))
+#write.csv(results_significant, paste(filename, "DEgenes_FDR0.05.csv", sep = "_"))
 
+results_significant$row
+
+results %>% filter ((results$padj < 0.05) & (abs(results$log2FoldChange)>0.6)) 
 
 ```
 
@@ -396,10 +400,10 @@ vsd <- varianceStabilizingTransformation(dds, blind=TRUE)
 #rlogdata <- rlog(dds)
 
 #Creating an output file for use in WGCNA and other downstream applications
-setwd("../DifferentialGeneExpression-Output/DESeq2_DEGenes_041119_Steroids/")
+#setwd("../DifferentialGeneExpression-Output/DESeq2_DEGenes_041119_Steroids/")
 matrix_vsd <- assay(vsd)
 t_matrix_vsd <- t(matrix_vsd)
-write.csv (t_matrix_vsd, file = paste("VSTnormalized_genecounts_", filename, ".csv", sep = ""))
+#write.csv (t_matrix_vsd, file = paste("VSTnormalized_genecounts_", filename, ".csv", sep = ""))
 ```
 
 Write an MA plot to a PNG
@@ -421,34 +425,40 @@ DESeq2::plotMA (results_MA, ylim = c(-4, 4))
 with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=8, col="red"))
 
 
-pdf(paste(filename, "Volcanoplot.pdf", sep = "_"),width=1024,height=512) 
+pdf(paste("AIHcases.vs.controls_", "Volcanoplot.pdf", sep = "_"),width=8,height=8) 
 # Make a basic volcano plot
-with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=20, main=filename, xlim=c(-3,3)))
+with(results_MA, plot(log2FoldChange, -log10(pvalue), pch=19, main=filename, xlim=c(-3,3)))
 
 
 # Add colored points onto above volcano plot: red if padj<0.05, gray of log2FC>1, red if both
-with(subset(results_MA, padj<.05 ), points(log2FoldChange, -log10(pvalue), pch=20, col="gray"))
-with(subset(results_MA, abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
-with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
+with(subset(results_MA, padj<.05 ), points(log2FoldChange, -log10(pvalue), pch=19, col="gray"))
+with(subset(results_MA, abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=19,   col="blue"))
+with(subset(results_MA, padj<.05 & abs(log2FoldChange)>1), points(log2FoldChange, -log10(pvalue), pch=19, col="red"))
 dev.off()
+
+?points
 
 
 ```
 
 PCA plots! Change colored variable and titles of plots as necessary
 ```{r}
+?counts
 pca_dds <- plotPCA (vsd, intgroup=c ("case_hl_du", "sex", "race", "ethn", "aih_type", "on_tx", "igg_coll", "response", "relapse", "decomp", "lt", "liver_death", "age", "F03_F4", "alt", "ast", "bili", "alkp", "du", "spl_plate", "dt_isl", "steroid"), returnData=TRUE)
 ?plotPCA
 pca_dds_perc_var <- round(100 * attr(pca_dds , "percentVar"))
 
-ggplot(pca_dds, aes(PC1, PC2, color= steroid)) +
+ggplot(pca_dds, aes(PC1, PC2, color= sex)) +
   #geom_text(size =3, aes(label = name)) +
-  geom_point(shape = "circle")+
+  geom_point(shape = "circle", alpha = 0.99, size = 2.5)+
   xlab(paste0("PC1: ",pca_dds_perc_var[1],"% variance")) +
   ylab(paste0("PC2: ",pca_dds_perc_var[2],"% variance")) + 
-  labs(title="PCA Plot", position = "center")+
+  labs(title="PCA Plot: AIH Cases and Healthy Controls", position = "center", size = 12)+
+  scale_color_manual(values = c("purple4", "olivedrab3"), name = "") +
+  
   #scale_color_discrete(labels = c( "20-39", "40-59", "60-79"))+
-  coord_fixed()
+  coord_fixed() + theme_bw(base_size = 14)
+ggsave("PCA_VSD_Sex_070119.pdf", width = 6, height = 4)
 ```
 
 Pairwise distance graph
@@ -472,7 +482,7 @@ pheatmap(sampleDistMatrix,
 #dev.off()
 ```
 ```{r}
-```{r}
+
 library(RColorBrewer)
 #Calculating sample distances and then making a matrix of outputs of sample distances 
 
@@ -491,5 +501,189 @@ pheatmap(sampleDistMatrix,
          col=colors)
 #dev.off()
 ```
+
+```{r}
+install.packages("heatmap.plus",dependencies = TRUE)
+
+library("heatmap.plus")
+
+t_matrix_vsd_signifigant <- length(t_matrix_vsd[,colnames(t_matrix_vsd) %in% results_significant$row])
+hc_matrix_vsd <- hclust(dist(t_matrix_vsd), method = "ward.D2")
+log(counts(dds, normalized = TRUE))
+#rdds <- rlog(dds)
+?counts
+cols <- palette(brewer.pal(8, "Pastel2"))[as.numeric(metadata_filt$case_hl_du)]
+
+pdf(file = "heatmap2_casecontrol_vsd.pdf", width = 8, height = 11)
+heatmap.2(t(t_matrix_vsd),density.info="none",trace="none",hclustfun = function(x) hclust(x,method = 'ward.D2'),ColSideColors=cols)
+legend("topright",      
+    legend = unique(metadata_filt$case_hl_du),
+    col = unique(cols),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+dev.off()
+pdf(file = "heatmap2_casecontrol_rlog.pdf", width = 8, height = 11)
+heatmap.2(assay(rdds),density.info="none",trace="none",hclustfun = function(x) hclust(x,method = 'ward.D2'),ColSideColors=cols)
+legend("topright",      
+    legend = unique(metadata_filt$case_hl_du),
+    col = unique(cols),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+dev.off()
+
+cols <- cbind(palette(brewer.pal(8, "Pastel2"))[as.numeric(metadata_filt$case_hl_du)],palette(brewer.pal(8, "Pastel2"))[as.numeric(metadata_filt$steroid)], palette(brewer.pal(8, "Pastel2"))[as.numeric(as.factor(metadata_filt$fibrosis_groups))])
+#complete linkage
+pdf(file = "heatmapplus_casecontrol_vsd.pdf", width = 8, height = 11)
+heatmap.plus(t(t_matrix_vsd),labCol=cbind(metadata_filt$case_hl_du,metadata_filt$steroid,metadata_filt$fibrosis_groups),ColSideColors=cols)
+legend("topright",      
+    legend = unique(metadata_filt$case_hl_du),
+    col = unique(cols[,1]),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+legend("topleft",      
+    legend = unique(metadata_filt$steroid),
+    col = unique(cols[,2]),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+dev.off()
+
+pdf(file = "heatmapplus_casecontrol_rlog.pdf", width = 8, height = 11)
+heatmap.plus(assay(rdds),labCol=cbind(metadata_filt$case_hl_du,metadata_filt$steroid,metadata_filt$fibrosis_groups),ColSideColors=cols)
+dev.off()
+
+
+
 ```
+
+```{r}
+#install.packages("heatmap.plus",dependencies = TRUE)
+
+library("heatmap.plus")
+
+t_matrix_vsd_signifigant <- t_matrix_vsd[,colnames(t_matrix_vsd) %in% results_significant$row]
+hc_matrix_vsd <- hclust(dist(t_matrix_vsd_signifigant), method = "ward.D2")
+#log(counts(dds, normalized = TRUE))
+#rdds <- rlog(dds)
+
+cols <- palette(brewer.pal(8, "Pastel2"))[as.numeric(metadata_filt$case_hl_du)]
+
+pdf(file = "heatmap2_casecontrol_sig_vsd.pdf", width = 8, height = 11)
+heatmap.2(t(t_matrix_vsd_signifigant),density.info="none",trace="none",hclustfun = function(x) hclust(x,method = 'ward.D2'),ColSideColors=cols)
+legend("topright",      
+    legend = unique(metadata_filt$case_hl_du),
+    col = unique(cols),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+dev.off()
+
+
+# pdf(file = "heatmap2_casecontrol_rlog.pdf", width = 8, height = 11)
+# heatmap.2(assay(rdds),density.info="none",trace="none",hclustfun = function(x) hclust(x,method = 'ward.D2'),ColSideColors=cols)
+# legend("topright",      
+#     legend = unique(metadata_filt$case_hl_du),
+#     col = unique(cols),     
+#     lty= 1.5,   lwd = 2,           
+#     cex=.6)
+# dev.off()
+
+cols <- cbind(palette(brewer.pal(8, "Pastel2"))[as.numeric(metadata_filt$case_hl_du)],palette(brewer.pal(8, "Pastel2"))[as.numeric(metadata_filt$steroid)], palette(brewer.pal(8, "Pastel2"))[as.numeric(as.factor(metadata_filt$fibrosis_groups))])
+
+#complete linkage
+pdf(file = "heatmapplus_casecontrol_sig_vsd.pdf", width = 8, height = 11)
+heatmap.plus(t(t_matrix_vsd_signifigant),labCol=cbind(metadata_filt$case_hl_du,metadata_filt$steroid,metadata_filt$fibrosis_groups),ColSideColors=cols)
+legend("topright",      
+    legend = unique(metadata_filt$case_hl_du),
+    col = unique(cols[,1]),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+dev.off()
+
+# pdf(file = "heatmapplus_casecontrol_rlog.pdf", width = 8, height = 11)
+# heatmap.plus(assay(rdds),labCol=cbind(metadata_filt$case_hl_du,metadata_filt$steroid,metadata_filt$fibrosis_groups),ColSideColors=cols)
+# dev.off()
+
+
+
+
+counts_filtered <- apply(t(t_matrix_vsd_signifigant), 1, function(x) ((sum(x>1)) > (0.2*ncol(t(t_matrix_vsd_signifigant))))) 
+
+#First pass of removing low read count genes
+genecountspc_filt <- as.data.frame(genecountspc_filt)
+colnames(genecountspc_filt) <- "N"
+
+#keep only genes for which the filter is TRUE
+genecountspc_filt <- genecountspc_filt[genecountspc_filt$N == "TRUE", , drop = FALSE]
+
+dim(genecountspc_filt) # xx genes make it past the filter
+FilterIdx <- match(rownames(genecountspc_filt), rownames(genecountspc))
+genecountspc_filt <- genecountspc[FilterIdx,]
+dim(genecountspc_filt)
+
+
+pdf(file = "heatmapplus_casecontrol_countsfilt_vsd.pdf", width = 8, height = 11)
+heatmap.plus(counts_filtered,labCol=cbind(metadata_filt$case_hl_du,metadata_filt$steroid,metadata_filt$fibrosis_groups),ColSideColors=cols)
+legend("topright",      
+    legend = unique(metadata_filt$case_hl_du),
+    col = unique(cols[,1]),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+legend("topleft",      
+    legend = unique(metadata_filt$steroid),
+    col = unique(cols[,2]),     
+    lty= 1.5,   lwd = 2,           
+    cex=.6)
+dev.off()
+
+
+```
+```{r}
+library("genefilter")
+topVarGenes <- head(order(rowVars(assay(vsd)), decreasing = TRUE),100)
+mat  <- assay(vsd)[ topVarGenes, ]
+mat  <- mat - rowMeans(mat)
+rownames(mat) <- genemap$hgnc[match(rownames(mat),genemap$ensembl_gene_id)]
+
+anno <- as.data.frame(colData(vsd)[, c("case_hl_du","spl_plate","sex", "steroid", "fibrosis_groups")])
+pheatmap(mat, annotation_col = anno, clustering_method = "ward.D2",show_colnames = FALSE)
+```
+
+```{r}
+library("genefilter")
+topVarGenes <- head(order(rowVars(assay(vsd)), decreasing = TRUE),1000)
+mat  <- assay(vsd)[ topVarGenes, ]
+mat  <- mat - rowMeans(mat)
+rownames(mat) <- genemap$hgnc[match(rownames(mat),genemap$ensembl_gene_id)]
+
+anno <- as.data.frame(colData(vsd)[, c("case_hl_du","spl_plate","sex", "steroid", "fibrosis_groups")])
+pheatmap(mat, annotation_col = anno, clustering_method = "ward.D2",show_colnames = FALSE)
+```
+```{r}
+library("genefilter")
+library("grid")
+topVarGenes <- head(order(rowVars(assay(vsd)), decreasing = TRUE),1000)
+mat  <- assay(vsd)[ topVarGenes, ]
+mat  <- mat - rowMeans(mat)
+rownames(mat) <- genemap$hgnc[match(rownames(mat),genemap$ensembl_gene_id)]
+ann_colors = list(
+case_hl_du = c(control = "purple4", case ="olivedrab4"),
+#sex = c(female = "red4", male = "blue4"),
+steroid = c(healthy = "purple4", yes = "deeppink3", no = "yellow3", notx = "springgreen3"), 
+fibrosis_groups = c (AIHcirrhosis="dodgerblue4", AIHnocirrhosis="darkorange3",healthy="purple4")
+#dt_isl = c ("2018-01-30" = "blue","2018-02-28" = "yellow", "2018-03-01" = "red", "2018-02-08" = "green")
+)
+anno <- as.data.frame(colData(vsd)[, c("case_hl_du", "steroid", "fibrosis_groups")])
+
+pdf("test.pdf", width = 8, height = 11)
+setHook("grid.newpage", function() pushViewport(viewport(x=1,y=1,width=0.9, height=0.9, name="vp", just=c("right","top"))), action="prepend")
+
+pheatmap(mat, annotation_col = anno, clustering_method = "ward.D2",show_colnames = FALSE, show_rownames = FALSE, annotation_colors = ann_colors)
+
+setHook("grid.newpage", NULL, "replace")
+
+grid.text("Patients (n = 92)", y=-0.05, gp=gpar(fontsize=16))
+grid.text("Genes (n = 1000)", x=-0.05, rot=90, gp=gpar(fontsize=16))
+dev.off()
+
+```
+
 
