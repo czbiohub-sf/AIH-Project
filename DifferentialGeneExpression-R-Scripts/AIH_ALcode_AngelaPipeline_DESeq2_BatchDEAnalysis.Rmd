@@ -73,7 +73,7 @@ We will bin continuous data in order make it compatible with DESeq2. Arielle cho
 
 ```{r}
 #read in metadata, rename rows so that they match gene counts file
-metadata <- read.csv("../AIH-metadata/FINAL_AIH_metadata_firstpass_ALedits_040219.csv", header=TRUE, row.names = 1)
+metadata <- read.csv("../AIH-metadata/AIH_metadata_firstpass_ALedits_073019_deidentified.csv", header=TRUE, row.names = 1)
 
 #rename metadata columns to match gene counts
 row.names(metadata)<-paste0("AASLD", "_", str_extract(row.names(metadata), pattern = "(?<=AASLD[.|_|-])\\d\\d\\d"))
@@ -230,6 +230,8 @@ genecounts <- genecounts[,rownames(metadata_filt)]
 all(rownames(metadata_filt) == colnames(genecounts))
 #colnames(genecounts)
 
+
+
 ```
 We will now use biomart, a package which links gene ids from different databases, to convert ENSEMBL gene ID to HGNC symbol.
 ```{r eval=FALSE, include=FALSE}
@@ -276,8 +278,8 @@ pc<-pc[!(is.na(pc$ensembl)),]
 #make an index for protein coding genes
 idxpc<- match(pc$ensembl,rownames(genecounts))
 genecountspc<-genecounts[idxpc,]
-#pc$hgnc_symbol
-#rownames(genecountspc)
+rownames(genecountspc) <-make.unique(as.character(pc$hgnc_symbol))
+
 #rownames(genecountspc)<-make.unique(as.character(pc$ensembl))
 
 #pc$hgnc_symbol
@@ -323,6 +325,10 @@ dim(genecountspc_filt) # xx genes make it past the filter
 FilterIdx <- match(rownames(genecountspc_filt), rownames(genecountspc))
 genecountspc_filt <- genecountspc[FilterIdx,]
 dim(genecountspc_filt)
+
+
+
+#write.csv(genecountspc_filt,"AIH_genecountspcfilt_19July2019.csv")
 
 ```
 
