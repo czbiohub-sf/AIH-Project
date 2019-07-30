@@ -9,7 +9,7 @@ library("ggplot2")
 library("tidyverse")
 
 #Read in comprehensive metadata file (downloaded from RedCap indicated by date at end of the file)
-AIH_metadata <- read.csv ("~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/AASLDAutoimmunePilot_DATA_2019-04-03_1202.csv", stringsAsFactors = FALSE)
+AIH_metadata <- read.csv ("~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/AASLDAutoimmunePilot_DATA_2019-07-30_1607_deidentified.csv", stringsAsFactors = FALSE)
 
 #Filter for selected columns
 AIH_metadata_firstpass <- dplyr::select(AIH_metadata, aasld_id, ind_id, du, spl_plate, dt_isl,  case_hl_du, 
@@ -66,7 +66,7 @@ AIH_metadata_firstpass$alt_elite_v_non <- ifelse ((AIH_metadata_firstpass$case_h
 
 #Add in data regarding Fib4 and F03_F4
 ##Requires having run the algorithm data separately (code seperately; uploaded from prior file)
-AIH_metadata_QF4_join <- read.csv("~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/19_0402_AIH_cases_QF4_calls.csv", stringsAsFactors = FALSE)
+AIH_metadata_QF4_join <- read.csv("~/Documents/Informatics/AIH/github/AIH-Project/AIH-metadata/19_0730_AIH_cases_QF4_calls.csv", stringsAsFactors = FALSE)
 AIH_metadata_firstpass <- full_join(AIH_metadata_firstpass, AIH_metadata_QF4_join, "aasld_id")
 
 
@@ -233,7 +233,7 @@ AIH_metadata_firstpass_NOTelite %>% dplyr::group_by (steroid) %>% dplyr::summari
 
 #Writing to a data file
 
-write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits_040219.csv", row.names = FALSE)
+write.csv (AIH_metadata_firstpass, file = "AIH_metadata_firstpass_ALedits_073019_deidentified.csv", row.names = FALSE)
 
 
  
