@@ -10,4 +10,6 @@ DifferentialGeneExpression-R-Scripts includes DESeq2, EdgeR, WGCNA and various p
 
 DifferentialGeneExpression-Output includes figures, CSVs and Excel tables produced which display differential gene expression analysis, and can be used for IPA analysis.
 
+IPA-Summary-Analyses-Export contains files exported from the pathway analysis software IPA.
+
 Pegivirus-Analysis contains scripts and figures related to phylogeny of pegivirus in our samples
