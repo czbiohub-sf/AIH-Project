@@ -2,7 +2,7 @@
 Github repo for AIH data analysis
 
 # Organization
-AIH-metadata include R scripts and CSVs/excel tables summarizing information about the patient cohort and manipulating the RedCap metadata
+AIH-metadata include R scripts for reformatting metadata
 
 AIH-PriceSeqFilter includes scripts, presentations and figures for analyzing effects of various PriceSeqFilter parameters and cutadapt on differential gene expression analysis
 
