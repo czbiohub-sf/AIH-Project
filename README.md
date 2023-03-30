@@ -1,5 +1,8 @@
 # AIH-Project
-Github repo for AIH data analysis
+Github repo for AIH data analysis.
+
+For more information, please refer to this paper:
+[Tana MM-S, Klepper A, Lyden A, Pisco AO, Phelps M, McGee B, et al. (2022) Transcriptomic profiling of blood from autoimmune hepatitis patients reveals potential mechanisms with implications for management. PLoS ONE 17(3): e0264307](https://doi.org/10.1371/journal.pone.0264307).
 
 # Organization
 AIH-metadata include R scripts for reformatting metadata
